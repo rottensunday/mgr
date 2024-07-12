@@ -8,6 +8,7 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 \newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 
 \title{Intro}
@@ -43,11 +44,15 @@ QMSO Semantics: TODO
 From now on we'll only look at expressions of QMSO logic over one letter alphabet. Let's call such expressions 1QL expressions for simplification. Let's also establish that our alphabet is simply $\{a\}$. Sequence for a given 1QL expression is value of this expression on words $a, aa, aaa, \ldots$. Let's call a class of sequences that can be defined using 1QL expressions 1QL sequences.
 
 \section{1QL sequences rate of growth}
-It is easy to see that linear recursive sequences (LRS) have rate of growth bounded by $2^{O(n)}$. In 1QL we can easily define sequence $n!$, so it already proves that LRS are contained strictly in 1QL (as it's not possible to define $n!$ in LRS) and that 1QL can have higher rate of growth - $n!$ grows faster than $2^{O(n)}$. 1QL expression for $n!$ looks like following:
+It is easy to see that linear recursive sequences (LRS) have rate of growth bounded by $2^{O(n)}$. In 1QL we can define sequence $n!$, so it already proves that LRS are contained strictly in 1QL (as it's not possible to define $n!$ in LRS) and that 1QL can have higher rate of growth - $n!$ grows faster than $2^{O(n)}$. 1QL expression for $n!$ looks like following:
 
 $$\Pi_{x_1}\Sigma_{x_2} \ . \ (x_2 \leq x_1) \cdot 1$$
 
 For given $n$ it works as following: $x_1$ iterates over $1,\ldots,n$. For some $x_1 = k$ expression $\Sigma_{x_2} \ . \ (x_2 \leq x_1) \cdot 1$ will have value exactly $k$. So the whole expression will be $1 \cdot 2 \cdot \ldots \cdot n$.
+
+Using similar expression it's possible to define a sequence $n^n$, which differentiates 1QL from polynomially recursive class of sequences:
+
+$$\Pi_{x_1}\Sigma_{x_2} \ . \ 1$$
 
 It's also quite simple to create a sequence $2^{2^n}$ - doubly exponential. It would look as following:
 
@@ -55,47 +60,154 @@ $$\Pi_{X_1} \ . \ 2$$
 
 For given $n$, there are $2^n$ valuations of $X_1$. So the value is $2$ multiplied by itself $2^n$ times - $2^{2^n}$.
 
-We'll argue that 1QL sequences rate of growth is actually bounded by $2^{2^n}$:
+We'll argue that 1QL sequences rate of growth is actually bounded by $2^{2^{kn}}$:
 
 \begin{lemma}[1QL growth rate]
-1QL sequences maximal growth rate is bounded by $2^{2^n}$.
+1QL sequences maximal growth rate is bounded by $2^{2^{kn}}$, where $k$ can be an arbitrary big constant.
 \end{lemma}
 
 \begin{proof}
 We want to create 1QL expressions giving maximal possible rate of growth. Let's simplify this problem a bit. We'll analyze 1QL expressions of form:
 $$Q_{1Y_1}Q_{2Y_2} \ldots Q_{kY_k} \ . \ 2$$
-Where $Q_i \in \{ \Sigma, \Pi \}$ and each $Y_i$ is either first-order or second-order variable. Innermost expression is just a constant $2$ - it doesn't make sense to have any MSO expressions here, as those only filter out some variables evaluations. Constant might be other than $2$, but we'll see that it doesn't change growth class in the end. 
+Where $Q_i \in \{ \Sigma, \Pi \}$ and each $Y_i$ is either first-order or second-order variable. Innermost expression is just a constant $2$ - it doesn't make sense to have any MSO expressions here, as those only filter out some variable evaluations. Constant might be other than $2$, it doesn't affect rate of growth class.
 
-It's easy to see that if we add or multiple 1QL expressions, we won't increase growth class. The other thing is that our simple expression is in a form resembling prenex normal form. Let's look at some expression that is not in such a form:
+Let's explain why it is enough to consider only expressions in simplified form. If we add or multiply 1QL expressions, we won't increase growth class. The other thing is that our simple expression is in a form resembling prenex normal form. Let's look at some expression that is not in such a form:
 $$Q_{1Y_1}Q_{2Y_2} \ldots Q_{jY_j} \ . \ ((Q_{j'Y_{j'}} \ldots Q_{k'Y_{k'}} \ . \ 2) + (Q_{j''Y_{j''}} \ldots Q_{k''Y_{k''}} \ . \ 2))$$
-We can do following, quite crude construction which will give us simple expression with greater growth rate:
-$$Q_{1Y_1}Q_{2Y_2} \ldots Q_{jY_j}Q_{j'Y_{j'}} \ldots Q_{k'Y_{k'}} \ldots Q_{j''Y_{j''}} \ldots Q_{k''Y_{k''}} \ . \ 2$$
-What we did is we increased depth of quantifiers by sum of depth of quantifiers of two inner subexpressions. 
+Mark $E_1 = (Q_{j'Y_{j'}} \ldots Q_{k'Y_{k'}} \ . \ 2)$, $E_2 = (Q_{j''Y_{j''}} \ldots Q_{k''Y_{k''}} \ . \ 2)$. Without loss of generality assume that $E_1 \geq E_2$. Then $Q_xE_1 \geq E_1 + E_2$. Thus we can get rid of such addition by nesting quantification more, getting faster growing sequence as a result. The same argument would work for multiplication instead of addition, but we would need to use $\Pi_x$, $\Pi_X$ quantifiers instead of arbitrary quantifiers.
 
 Now we see that in order to analyze 1QL sequences rate of growth we can just analyze maximal rate of growth of expressions as specified on beginning of this proof. Let's do it.
 
-Suppose we have quantification depth $k$. There are four possible kinds of quantification: $\Sigma_x$, $\Sigma_X$, $\Pi_x$, $\Pi_X$. We can argue that it only makes sense to consider $\Pi_X$ quantifications. No matter which $Q_{iY_i}$ quantifier we consider, its result will be sum (for $\Sigma$) or multiplication (for $\Pi$) of $n$ (for first-order variable) or $2^n$ (for second-order variable) identical subexpressions, each having value at least 2. We'll always achieve largest values multiplying $2^n$ subexpressions. 
+Suppose we have quantification of depth $k$. There are four possible kinds of quantification: $\Sigma_x$, $\Sigma_X$, $\Pi_x$, $\Pi_X$. We can argue that it only makes sense to consider $\Pi_X$ quantifications. No matter which $Q_{iY_i}$ quantifier we consider, its result will be sum (for $\Sigma$) or multiplication (for $\Pi$) of $n$ (for first-order variable) or $2^n$ (for second-order variable) identical subexpressions, each having value at least 2. We'll always achieve largest values multiplying $2^n$ subexpressions. 
 
 From this we see that for arbitrary 1QL expression $\varPsi$ we can create an expression $\varPhi$ of form:
 $$\Pi_{X_1}\Pi_{X_2}\ldots \Pi_{X_k} \ . \ 2$$
 for some $k$, such that $\varPhi$ has greater rate of growth than $\varPsi$. 
 
-Expression $$\Pi_{X_1}\Pi_{X_2}\ldots \Pi_{X_k} \ . \ 2$$ gives us a sequence defined by $a(n) = 2^{(2^k)^n}$. It can be easily seen by unfolding quantifiers from the middle.
+Expression $$\Pi_{X_1}\Pi_{X_2}\ldots \Pi_{X_k} \ . \ 2$$ gives us a sequence defined by $a(n) = 2^{2^{kn}}$. It can be easily seen by unfolding quantifiers starting from the innermost one.
 
-We finally get that maximal rate of growth of 1QL expressions is doubly exponential: all 1QL expressions can be upper bounded by expression of form $\Pi_{X_1}\Pi_{X_2}\ldots \Pi_{X_k} \ . \ 2$, and this expression has doubly exponential speed of growth.
+We finally get that maximal rate of growth of 1QL expressions is doubly exponential: all 1QL expressions can be upper bounded by expression of form $\Pi_{X_1}\Pi_{X_2}\ldots \Pi_{X_k} \ . \ 2$, and this expression has doubly exponential rate of growth.
 \end{proof}
 
-\section{1QL sequences modulo eventual periodicity}
-In this section we'll analyze sequences created with 1QL expressions modulo $p$, for arbitrary $p$. In particular we want to answer following question: is every such sequence eventually periodic and how would we go about finding a period for given sequence?
+% \section{1QL sequences modular periodicity}
+% In this section we'll analyze sequences created with 1QL expressions modulo $p$, for arbitrary $p$. In particular we want to answer following question: is every such sequence eventually periodic and how would we go about finding a period for given sequence?
 
-A sequence is eventually periodic if there exists $N, t$ such that for all $n \geq N$ $a(n) = a(n+t)$. That means: at some point sequence will start to be periodic.
+% A sequence is eventually periodic if there exists $N, t$ such that for all $n \geq N$ $a(n) = a(n+t)$. That means: at some point sequence will start to be periodic.
 
-\begin{lemma}[1QL sequences modulo eventual periodicity]
-1QL sequences are eventually periodic modulo 2.
+% Before stating and proving a lemma about modular periodicity of 1QL sequences, let's introduce automata construction that we'll make use of. Suppose we have some NFA $A = \{Q, \Sigma, T, q_0, F\}$ accepting language $L$ and two natural numbers $p, k$. We want to create NFA $A'$ that accepts only those words from $L$ over which the number of runs $n$ in $A$ modulo $p$ is equal to $k$.
+
+% Let's first do it for a simple case of finding words for which there is an even number of runs ($|runs| \ mod \ 2 = 0$):
+
+% \begin{enumerate}
+%     \item Duplicate each state $s \in Q$ in automaton $A$. For one original state we'll have two states: $s_u$ and $s_n$, for \textit{uneven} and \textit{even}.
+%     \item Do a powerset construction as following. Initial state is $\{q_{0u}\}$. Suppose our current state is of form $S = \{s_{i_1u}, s_{i_2u}, \ldots, s_{i_ku}, s_{j_1e}, s_{j_2e}, \ldots, s_{j_le}\}$. Next state of automaton will be set $S'$, and some state $s'_e \in S'$ if there is an even, nonzero number of states $s \in \{s_{i_1u}, s_{i_2u}, \ldots, s_{i_ku}\}$ that have a transition $s \rightarrow s'$ in original automaton $A$, or there are no such states but there is state $s \in \{s_{j_1e}, s_{j_2e}, \ldots, s_{j_le}\}$ that has a transition $s \rightarrow s'$. State $s'_u \in S'$ if there is an uneven number of states $s \in \{s_{i_1u}, s_{i_2u}, \ldots, s_{i_ku}\}$ that have a transition $s \rightarrow s'$ in original automaton $A$.
+%     \item We accept states $S$ in $A'$ for which the number $s_u \in S$, $s \in F$ is even and nonzero, or if it's zero and there's a state $s_e \in S$, $s \in F$. 
+% \end{enumerate}
+
+% Rationale for this construction is following: we start on initial state, having uneven number of runs. Then we collect in our state information about which states of original automaton we would end up on (just like in powerset construction), and also whether the number of runs passing through given state is even or uneven. We determine state transitions by just calculating the number of runs: having some state set $S$ of new automaton and some state $q$ of original automaton, we check the number of transitions from states of $S$ to $q$ in original automaton. A state $s_e \in S$ s.t. $(s, 'a', q) \in \Sigma$ is treated as even number of runs: 'there had been even number of runs that ended in $s$'. A state $s_u \in S$ s.t. $(s, 'a', q) \in \Sigma$ is treated as uneven number of runs. So the amount of runs ending in $q$ modulo 2 is determined by the number of such states $s_u$ - if there are evenly many of them, we'll have an even number of runs to $q$. Otherwise this number will be uneven.
+
+% Set of accepting states for this automaton are those states $S$ which represent sets of accepting states from $Q$ to which we would have an even number of runs in original automaton.
+
+% Explained construction can be adjusted to find words over which $|runs| \ mod \ p = k$. In this case we would create for each state $s \in Q$ states: $s_0, s_1, \ldots, s_{p-1}$ - each representing that the number of runs up to given state was equal to $i$ modulo $p$. Powerset construction and resulting set of accepting states would be analogous, but instead of counting modulo 2 (even, uneven), we would be counting modulo $p$.
+
+% \begin{lemma}[1QL sequences modular periodicity]
+% 1QL sequences modulo 2 are eventually periodic.
+% \end{lemma}
+
+% \begin{proof}
+% Let's start with 1QL expressions without quantification on semiring level. In general such an expression has following form:
+% $$\Psi = \varphi_1 \cdot c_1 + \varphi_2 \cdot c_2 + \ldots + \varphi_k \cdot c_k$$
+% Where $\varphi_i$ is a 1 letter MSO expression and $c_i \in \mathbb{Q}$. It could also potentially have parts like $(\varphi_i \cdot c_i) \cdot (\varphi_j \cdot c_j)$, but it's just basically the same thing as $(\varphi_i \land \varphi_j) \cdot (c_i \cdot c_j)$, so we'll stick with just addition.
+
+% A thing we'll use quite a lot is following simplification: instead of analyzing behavior of $\Psi$ modulo 2, let's just simplify it to $\Psi' = \varphi \cdot 1$. If we're able to do this simplification, we've proven lemma for expressions without quantification on semiring level: positions with value $1$ in our sequences are specified by language of $\varphi$. It's a regular language over $1$ letter alphabet so it's eventually periodic (TODO: explain?).
+
+% Let's explain how we can go from $\Psi$ modulo $2$ to $\Psi'$. In the first step we can get rid of all constants $c_i$ that are divisible by $2$: they won't affect value modulo $2$. Resulting expression modulo $2$ is as following: $\varphi_1' \cdot 1 + \varphi_2' \cdot 1 + \ldots + \varphi_k' \cdot 1$. 
+
+% $\varphi$ represents an automaton that on given input $a^n$ accepts if there is uneven number of automatons among $ A = \{\varphi_1', \ldots, \varphi_k'\}$ that accept $a^n$. Suppose automatons from set $A$ are deterministic (otherwise determinise them). We can create automaton $\varphi$ as following:
+% \begin{enumerate}
+%     \item Create an automaton $A_1$ that is an union of automatons from $A$. It is an undetereministic automaton.
+%     \item Create an automaton $\varphi$ that accepts only those words accepted by $A_1$ for which the number of runs is uneven.
+% \end{enumerate}
+
+% Now suppose we have an expression with quantifiers on semiring level, namely of form $Q_{1Y_1}Q_{2Y_2} \ldots Q_{kY_k} \ . \ \varphi \cdot 1$
+% \end{proof}
+
+\section{1QL sequences over finite semirings}
+In order to compare 1QL sequences with other classes of sequences, it's useful to consider what is the behavior of these sequences modulo arbitrary natural numbers.
+
+\begin{lemma}[1QL sequences modulo]
+    Given a sequence $a(n)$ defined by 1QL expression $\varphi$ over natural semiring $(\mathbb{N}, +, \cdot, 0, 1)$, a sequence $a(n) \mod c$, $c \in \mathbb{N} - \{0\}$, can be defined by 1QL expression $\varphi'$, such that:
+    \begin{enumerate}
+        \item $\varphi'$ is a 1QL expression over semiring $(\{0,\ldots,c-1\}, +, \cdot, 0, 1)$, where addition and multiplication are done modulo $c$
+        \item every constant $k$ appearing in $\varphi$ is replaced by $k \mod c$ in $\varphi'$
+    \end{enumerate}
 \end{lemma}
 
 \begin{proof}
-Let's start with 1QL expressions without quantification on semiring level. In general 
+    Proof!!
 \end{proof}
+
+Knowing this we can characterize behavior of 1QL sequences modulo - those are sequences defined by 1QL expressions over finite semirings. It would be useful to know if it's possible to define inverse images of finite semirings. For this, a definition of recognizable step function is useful (FROM DROSTE PAPER).
+
+\begin{definition}[Recognizable step function]
+    Series $S: A^* \rightarrow K$ is a \textit{recognizable step function}, if $S = \sum_{i = 1}^{n} \ . \ \varphi_{L_i} \cdot k_i$ for some $n \in \mathbb{N}$, $k_i \in K$ and regular languages $L_i \subseteq A^*$ ($i=1,\ldots,n$). $\varphi_{L_i}$ is an MSO formula recognizing language $L_i$.
+\end{definition}
+
+It would be simpler if languages $\{L_i : i \in \{1,\ldots,n\}\}$ were disjoint, so that we don't need to do any addition. For this we can define \textit{simple recognizable step functions}:
+
+\begin{definition}[Simple recognizable step function]
+    A \textit{simple recognizable step function} is a step function $S = \sum_{i = 1}^{n} \ . \ \varphi_{L_i} \cdot k_i$ in which all languages $\{L_i : i \in \{1,\ldots,n\}\}$ are disjoint.
+\end{definition}
+
+A recognizable step function can be transformed into simple recognizable step function:
+
+\begin{lemma}
+    Recognizable step functions and simple recognizable step functions are the same functions.
+\end{lemma}
+
+\begin{proof}
+    Suppose we have a recognizable step function $S = \sum_{i = 1}^{n} \ . \ \varphi_{L_i} \cdot k_i$. We can create a simple recognizable step function defining the same function in following way: ... TODO
+\end{proof}
+
+We can now characterize 1QL sequences modulo behavior:
+
+\begin{lemma}
+    1QL sequences modulo are simple recognizable step functions
+\end{lemma}
+
+\begin{proof}
+    Droste says:
+    \begin{enumerate}
+        \item Series definable by weighted automata over finite semirings are recognizable step functions
+        \item Series definable by QMSO sentences over finite semirings are the same as series definable by weighted automata over finite semirings
+    \end{enumerate}
+    We know that 1QL sequences modulo are defined by 1QL expressions over finite semirings, so in particular those are recognizable step functions. So they are simple recognizable step functions.
+\end{proof}
+
+\begin{corollary}
+    Inverse images of values of 1QL sequences modulo are regular languages
+\end{corollary}
+
+\begin{corollary}
+    1QL sequences modulo are ultimately periodic
+\end{corollary}
+
+\begin{corollary}
+    Catalan numbers sequence is not 1QL-definable
+\end{corollary}
+
+\section{1QL sequences modulo constant 0}
+
+\section{1QL on first order logic}
+It might be interesting to look into following restriction of 1QL expressions: we can only use first order variables on semiring level and logical level (i.e. we move from MSO logic to FO logic). 
+
+First, let's focus on behavior of these sequences modulo.
+
+As stated in Droste paper, first order definable series coincide with series definable by weighted automata when working with aperiodic semirings. Unfortunately, semirings we're working with - semirings for modulo operations - aren't aperiodic. It can be easily with sequence defined by following expression:
+
+$$ \Sigma_x \ . \ 1 $$
+
+It defines the following sequence modulo 2: $\{1, 0, 1, 0, 1, \ldots\}$, which is not aperiodic. What's even more interesting is that inverse images of values of this sequence are not FO-definable languages. For value $0$ inverse image is a language of words of even length, which is only definable in second order logic. 
+
+We might want to ask if it's possible to define following sequence in 1QL modulo 2 using FOL: $\{0, 0, 1, 0, 0, 1, \ldots\}$, that is: we have ones on positions divisible by 3. 
 
 \end{document}
