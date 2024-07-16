@@ -1,6 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage[margin=1in]{geometry}% Change the margins here if you wish.
-\usepackage{amsmath,amsthm,amssymb}
+\usepackage{amsmath,amsthm,amssymb,stmaryrd}
 \usepackage[english]{babel}
 \setlength{\parindent}{0pt} % This is the set the indent length for new paragraphs, change if you want.
 \setlength{\parskip}{5pt} % This sets the distance between paragraphs, which will be used anytime you have a blank line in your LaTeX code.
@@ -36,22 +36,66 @@ Output of weighted logic expression over some word is a value from a semiring, s
 
 In this work we'll look at sequences that can be defined using weighted logic expressions over one letter alphabet. We know that class of linear recursive sequences is contained in this class and we can easily prove that this containment is strict. We'll compare this class of sequences to class of polynomial recursive sequences. We'll look at possible speed of growth of these sequences and try to analyze its various properties, like behaviour modulo or whether we can easily check if it's constantly equal to zero.
 
-\section{Quantitative Monadic Second Order Logic}
-In this section we'll summarize syntax and semantics for Quantitative Monadic Second Order Logic (QMSO). It was introduced in \textit{Quantitative Monadic Second-Order Logic} by Stephen Kreutzer and Cristian Riveros. It gives us the same expressive power as Weighted Logics, but it's easier to work with and explain. From now on we'll look at Weighted Logics only from perspective of QMSO.
+\section{Preliminaries}
+In this section we'll summarize syntax and semantics for Quantitative Monadic Second Order Logic (QMSO). It was introduced in \textit{Quantitative Monadic Second-Order Logic} by Stephen Kreutzer and Cristian Riveros. It has the same expressive power as Weighted Logics of Droste and Gastin, but it's easier to work with. From now on we'll look at Weighted Logics only from perspective of QMSO.
 
-QMSO is an extension of Monadic Second Order Logic (MSO) that can express quantitative properties of finite words. Let $\Gamma$ be a finite alphabet. The syntax of MSO overy $\Gamma$ is as following: (skopiowane z pracy QMSOL)
+\subsection{Monadic Second Order Logic}
+
+Let $\Gamma$ be a finite alphabet. The syntax of MSO over $\Gamma$ is given by:
 $$ \varphi := P_a(x) \ | \ x \leq y \ | \ x \in X \ | \ (\varphi \lor \varphi) \ | \ \neg \varphi \ | \ \exists x. \varphi \ | \ \exists X . \varphi $$
-where $a \in \Gamma$, $x, y$ are first-order variables, $X$ is a second order variable. Universal quantification can be obtained from existential quantification and negation. We can also use $\land$ and $\rightarrow$ as usual.
+where $a \in \Gamma$, $x, y$ are first-order variables, $X$ is a second order variable. Universal quantification can be obtained from existential quantification and negation. We can also use $\land$ and $\implies$ as usual.
 
-Let $w = w_1\ldots w_n \in \Gamma*$ be a word such that $|w| = n$. We represent $w$ as a structure $(\{1,\ldots,n\}, \leq, (P_a)_{a \in \Gamma})$ where $P_a = \{i | w_i = a\}$. We denote by $Dom(w) = \{1,\ldots,n\}$ the domain of $w$ as a structure. Given a finite set $V$ of first-order and second-order variables, a $(V, w)$-assignment..... TODO
+Let $w = w_1\ldots w_n \in \Gamma*$ be a word such that $|w| = n$. We represent $w$ as a structure $(\{1,\ldots,n\}, \leq, (P_a)_{a \in \Gamma})$ where $P_a = \{i \ | \ w_i = a\}$. We denote by $Dom(w) = \{1,\ldots,n\}$ the domain of $w$ as a structure. Given a finite set $V$ of first-order and second-order variables, a $(V,w)$-assignment $\sigma$ is a function that maps every first order variable in $V$ to $Dom(w)$ and every second order variable in $V$ to $2^{Dom(w)}$. Furthermore, we denote by $\sigma[x \rightarrow i]$ the extension of the $(V,w)$-assignment $\sigma$ such that $\sigma[x \rightarrow i](x) = i$ and $\sigma[x \rightarrow i](y) = \sigma(y)$ for all variables $y \ne x$.The assignment $\sigma[X \rightarrow I]$, where $X$ is a second-order variable and $I \subseteq Dom(w)$, is defined analogously. Consider an MSO-formula $\varphi$ and a $(V,w)$-assignment $\sigma$ where $V$ is the set of free variables of $\varphi$. We write $(w, \sigma) \models \varphi$ if $(w, \sigma)$ satisfies $\varphi$ using the standard MSO-semantics.
 
-Semirings: TODO
+\subsection{Semirings}
 
-QMSO Syntax: TODO
+A semiring signature $\xi := (\oplus, \odot, 0, 1)$ is a tuple containing two binary function symbols $\oplus, \odot$, where $\oplus$ is called the addition and $\odot$ the multiplication, and two constant symbols $0$ and $1$. A semiring over the signature $\xi$ is a $\xi$-structure $\mathbb{S} = (S, \oplus, \odot, 0, 1)$, where $(S, \odot, 0)$ is a commutative monoid, $(S, \odot, 1)$ is a monoid, multiplication distributes over addition, and $0 \odot s = s \odot 0 = 0$ for each $s \in S$. If the multiplication is commutative, then we say that $\mathbb{S}$ is commutative.
 
-QMSO Semantics: TODO
+Semirings we'll be interesed in in this paper include:
 
-From now on we'll only look at expressions of QMSO logic over one letter alphabet. Let's call such expressions 1QL expressions for simplification. Let's also establish that our alphabet is simply $\{a\}$. Sequence for a given 1QL expression is value of this expression on words $a, aa, aaa, \ldots$. Let's call a class of sequences that can be defined using 1QL expressions 1QL sequences.
+\begin{itemize}
+    \item semiring of natural numbers: $\mathbb{N} = (\mathbb{N}, +, \cdot, 0, 1)$
+    \item semiring of rational numbers: $\mathbb{Q} = (\mathbb{Q}, +, \cdot, 0, 1)$
+    \item finite semirings of numbers modulo arbitrary $k$: $(\{0,1,\ldots,k-1\}, +, \cdot, 0, 1)$ where operations are executed modulo $k$
+\end{itemize}
+
+\subsection{Quantitative Monadic Second-Order Logic}
+
+\textbf{(Syntax)} The formulas of Quantitative Monadic Second-Order Logic (QMSO) over semiring $\mathbb{S}$ and alphabet $\Gamma$ (QMSO[$\mathbb{S}, \Gamma$]) are defined by the following grammar:
+$$ \theta := \varphi \ | \ s \ | \ (\theta \oplus \theta) \ | \ (\theta \odot \theta) \ | \ \Sigma_x \ . \ \theta \ | \ \Pi_x \ . \ \theta \ | \ \Sigma_X \ . \ \theta \ | \ \Pi_X \ . \ \theta$$
+where $\varphi \in MSO[\leq, (P_a)_{a \in \Gamma}]$, $s \in \mathbb{S}$, $x$ is first-order variable and $X$ is second-order variable.
+
+\textbf{(Semantics)} Let $w 
+= w_1 \dots w_n \in \Gamma^*$ where $n = |w|$. For the Boolean level $\varphi$, the semantics is the usual semantics of MSO, i.e. for any assignment $\sigma$,
+\begin{equation*}
+    \llbracket\varphi\rrbracket(w, \sigma) =
+      \begin{cases}
+        1 & \text{if $(w, \sigma) \models \varphi$}\\
+        0 & \text{otherwise}
+      \end{cases}       
+\end{equation*}
+
+The semantics of the semiring level is defined as follows:
+
+$$\llbracket s\rrbracket(w, \sigma) := s$$
+$$\llbracket(\theta_1 \oplus \theta_2)\rrbracket(w, \sigma) := \llbracket\theta_1\rrbracket(w, \sigma) \oplus \llbracket\theta_2\rrbracket(w, \sigma)$$
+$$\llbracket(\theta_1 \odot \theta_2)\rrbracket(w, \sigma) := \llbracket\theta_1\rrbracket(w, \sigma) \odot \llbracket\theta_2\rrbracket(w, \sigma)$$
+$$\llbracket \Sigma_x \ . \ \theta \rrbracket(w, \sigma) := \oplus^n_{i=1}\llbracket \theta \rrbracket (w, \sigma[x \rightarrow i])$$
+$$\llbracket \Pi_x \ . \ \theta \rrbracket(w, \sigma) := \odot^n_{i=1}\llbracket \theta \rrbracket (w, \sigma[x \rightarrow i])$$
+$$\llbracket \Sigma_X \ . \ \theta \rrbracket(w, \sigma) := \oplus_{I \subseteq [1,n]}\llbracket \theta \rrbracket (w, \sigma[X \rightarrow I])$$
+$$\llbracket \Pi_X \ . \ \theta \rrbracket(w, \sigma) := \odot_{I \subseteq [1,n]}\llbracket \theta \rrbracket (w, \sigma[X \rightarrow I])$$
+
+\subsection{QMSO over one letter alphabet}
+
+In this work we focus on expressions of QMSO logic over one letter alphabet. Let's call these expressions \textbf{1QL expressions}. In this case we only use a small fragment of MSO logic, in particular we don't care about letter predicates $(P_a)_{a \in \Gamma}$, as there's only one such predicate and it's true on every element of structure. For simplification let's assume that our one letter alphabet will always be following $\Gamma = \{a\}$.
+
+1QL expressions with no free variables (1QL sentences) generate sequences of numbers. Suppose we have a 1QL sentence $\varphi$, then we can generate corresponding sequence $a(n) = \llbracket \varphi \rrbracket (a^n, \sigma)$, where $\sigma$ is an empty valuation function (there are no free variables). Class of sequenecs definable 1QL expressions is called \textbf{1QL sequences}.
+
+\subsection{Weighted automata}
+TODO??
+
+\subsection{Polynomial Recursive Sequences}
+TODO??
 
 \section{1QL sequences rate of growth}
 It is easy to see that linear recursive sequences (LRS) have rate of growth bounded by $2^{O(n)}$. In 1QL we can define sequence $n!$, so it already proves that LRS are contained strictly in 1QL (as it's not possible to define $n!$ in LRS) and that 1QL can have higher rate of growth - $n!$ grows faster than $2^{O(n)}$. 1QL expression for $n!$ looks like following:
