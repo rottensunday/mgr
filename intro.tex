@@ -5,6 +5,7 @@
 \setlength{\parindent}{0pt} % This is the set the indent length for new paragraphs, change if you want.
 \setlength{\parskip}{5pt} % This sets the distance between paragraphs, which will be used anytime you have a blank line in your LaTeX code.
 \usepackage[textwidth=1.9cm,textsize=small]{todonotes}
+\usepackage{hyperref}
 
 \newcommand{\ifilip}[1]{\todo[inline,color=green!10]{{\bf Filip:} #1}}
 \newcommand{\filip}[1]{\todo[color=green!10]{{\bf Filip:} #1}}
@@ -27,14 +28,32 @@
 \begin{document}
 \maketitle
 
-\ifilip{Filip: Intro, sekcja 3}
-
 \section{Introduction}
-In \textit{Weighted automata and weighted logic} Manfred Droste and Paul Gastin introduced weighted logics. Expressions of weighted logics make it possible to express quantitative properties of finite automata. In particular there is a subclass of weighted logics that can represent weighted automata. 
+First about weighted automata, Schutzenberger~\cite{Schutzenberger61b}
+In \textit{Weighted automata and weighted logic} Manfred Droste and Paul Gastin introduced weighted logics.~\cite{DrosteG07,KreutzerR13} Expressions of weighted logics make it possible to express quantitative properties of finite automata. In particular there is a subclass of weighted logics that can represent weighted automata. 
+
+The point of WMSO: to have a Büchi-Elgot-Trakhtenbrot theorem. Sort of worked, sort of didn't.
+
+There are other characterisations/generalisation via CRA/polynomial automata~\cite{Senizergues07,AlurDDRY13,BenediktDSW17}.
+
+Also subclasses: bounded ambiguity~\cite{WeberS91,KreutzerR13} copyless CRA~\cite{AlurDDRY13}
+
+Typical problems: equivalence/zeroness in ptime~\cite{Schutzenberger61b}, decidable even for CRA~\cite{BenediktDSW17}
 
 Output of weighted logic expression over some word is a value from a semiring, so it defines a formal power series. We're interested in a subclass of weighted logic expressions on words over one letter alphabet. This way a weighted logic expression will define a sequence of numbers - $n$-th number in a sequence will be the output of the expression on a word of length $n$. In particular it's possible to define all linear recursive sequences in weighted logic expressions: linear recursive sequences can be defined using weighted automata, and weighted automata can be defined using weighted logic expressions.
 
+LRS survey~\cite{OuaknineW15}
+Connections of weighted automata and LRS~\cite{BarloyFLM22,CadilhacMPPS20}. (Interesting) Results obtained from such analysis.
+
+\paragraph*{Our contributions}
+
 In this work we'll look at sequences that can be defined using weighted logic expressions over one letter alphabet. We know that class of linear recursive sequences is contained in this class and we can easily prove that this containment is strict. We'll compare this class of sequences to class of polynomial recursive sequences. We'll look at possible speed of growth of these sequences and try to analyze its various properties, like behaviour modulo or whether we can easily check if it's constantly equal to zero.
+
+\ifilip{It should be clear how it compares with previous work, e.g.\ what was known, \cite{CadilhacMPPS20} discusses similar problems}
+
+\paragraph*{Related work}
+
+E.g.\ ~\cite{ClementeDMP23} where rational recursive sequences are defined. They still cannot define $n^n$, but they can define Catalan so they are not periodic. Maybe holonomic sequences~\cite{KenisonKLLMOW021}
 
 \section{Preliminaries}
 In this section we'll summarize syntax and semantics for Quantitative Monadic Second Order Logic (QMSO). It was introduced in \textit{Quantitative Monadic Second-Order Logic} by Stephen Kreutzer and Cristian Riveros. It has the same expressive power as Weighted Logics of Droste and Gastin, but it's easier to work with. From now on we'll look at Weighted Logics only from perspective of QMSO.
@@ -98,7 +117,8 @@ TODO??
 TODO??
 
 \section{1QL sequences rate of growth}
-It is easy to see that linear recursive sequences (LRS) have rate of growth bounded by $2^{O(n)}$. In 1QL we can define sequence $n!$, so it already proves that LRS are contained strictly in 1QL (as it's not possible to define $n!$ in LRS) and that 1QL can have higher rate of growth - $n!$ grows faster than $2^{O(n)}$. 1QL expression for $n!$ looks like following:
+\ifilip{rate of growth undefined. State claims/lemmas etc formally. It should be clear that $n$ is the length of the input word/input value and other constants depend only on the input formula. Thus $O(n)$ makes sense}
+It is easy to see that linear recursive sequences (LRS) have rate of growth bounded by $2^{O(n)}$. In 1QL we can define sequence $n!$\filip{refer to an example formally defined in the previous section}, so it already proves that LRS are contained strictly in 1QL (as it's not possible to define $n!$ in LRS) and that 1QL can have higher rate of growth - $n!$ grows faster than $2^{O(n)}$\filip{more formally: by Stirling approximation $n! = O(costam)$}. 1QL expression for $n!$ looks like following:
 
 $$\Pi_{x_1}\Sigma_{x_2} \ . \ (x_2 \leq x_1) \cdot 1$$
 
@@ -117,21 +137,21 @@ For given $n$, there are $2^n$ valuations of $X_1$. So the value is $2$ multipli
 We'll argue that 1QL sequences rate of growth is actually bounded by $2^{2^{kn}}$:
 
 \begin{lemma}[1QL growth rate]
-1QL sequences maximal growth rate is bounded by $2^{2^{kn}}$, where $k$ can be an arbitrary big constant.
+1QL sequences maximal growth rate is bounded by $2^{2^{kn}}$, where $k$ can be an arbitrary big constant.\filip{more formally, $k$ depends probably on the input formula but not on $n$}
 \end{lemma}
 
 \begin{proof}
-We want to create 1QL expressions giving maximal possible rate of growth. Let's simplify this problem a bit. We'll analyze 1QL expressions of form:
+We want to create 1QL expressions giving maximal possible rate of growth.\filip{niezupełnie} Let's simplify this problem a bit. We'll analyze 1QL expressions of form:
 $$Q_{1Y_1}Q_{2Y_2} \ldots Q_{kY_k} \ . \ 2$$
-Where $Q_i \in \{ \Sigma, \Pi \}$ and each $Y_i$ is either first-order or second-order variable. Innermost expression is just a constant $2$ - it doesn't make sense to have any MSO expressions here, as those only filter out some variable evaluations. Constant might be other than $2$, it doesn't affect rate of growth class.
+Where $Q_i \in \{ \Sigma, \Pi \}$ and each $Y_i$ is either first-order or second-order variable. Innermost expression is just a constant $2$ - it doesn't make sense to have any MSO expressions here, as those only filter out some variable evaluations.\filip{formalise this: a claim with an inequality} Constant might be other than $2$, it doesn't affect rate of growth class.\filip{then change $2$ to something else}
 
 Let's explain why it is enough to consider only expressions in simplified form. If we add or multiply 1QL expressions, we won't increase growth class. The other thing is that our simple expression is in a form resembling prenex normal form. Let's look at some expression that is not in such a form:
 $$Q_{1Y_1}Q_{2Y_2} \ldots Q_{jY_j} \ . \ ((Q_{j'Y_{j'}} \ldots Q_{k'Y_{k'}} \ . \ 2) + (Q_{j''Y_{j''}} \ldots Q_{k''Y_{k''}} \ . \ 2))$$
-Mark $E_1 = (Q_{j'Y_{j'}} \ldots Q_{k'Y_{k'}} \ . \ 2)$, $E_2 = (Q_{j''Y_{j''}} \ldots Q_{k''Y_{k''}} \ . \ 2)$. Without loss of generality assume that $E_1 \geq E_2$. Then $Q_xE_1 \geq E_1 + E_2$. Thus we can get rid of such addition by nesting quantification more, getting faster growing sequence as a result. The same argument would work for multiplication instead of addition, but we would need to use $\Pi_x$, $\Pi_X$ quantifiers instead of arbitrary quantifiers.
+Mark $E_1 = (Q_{j'Y_{j'}} \ldots Q_{k'Y_{k'}} \ . \ 2)$, $E_2 = (Q_{j''Y_{j''}} \ldots Q_{k''Y_{k''}} \ . \ 2)$. Without loss of generality assume that $E_1 \geq E_2$.\filip{a jak sa nieporownywalne?} Then $Q_xE_1 \geq E_1 + E_2$. Thus we can get rid of such addition by nesting quantification more, getting faster growing sequence as a result. The same argument would work for multiplication instead of addition, but we would need to use $\Pi_x$, $\Pi_X$ quantifiers instead of arbitrary quantifiers.
 
 Now we see that in order to analyze 1QL sequences rate of growth we can just analyze maximal rate of growth of expressions as specified on beginning of this proof. Let's do it.
 
-Suppose we have quantification of depth $k$. There are four possible kinds of quantification: $\Sigma_x$, $\Sigma_X$, $\Pi_x$, $\Pi_X$. We can argue that it only makes sense to consider $\Pi_X$ quantifications. No matter which $Q_{iY_i}$ quantifier we consider, its result will be sum (for $\Sigma$) or multiplication (for $\Pi$) of $n$ (for first-order variable) or $2^n$ (for second-order variable) identical subexpressions, each having value at least 2. We'll always achieve largest values multiplying $2^n$ subexpressions. 
+Suppose we have quantification of depth $k$. There are four possible kinds of quantification: $\Sigma_x$, $\Sigma_X$, $\Pi_x$, $\Pi_X$. We can argue that it only makes sense to consider $\Pi_X$ quantifications. No matter which $Q_{iY_i}$ quantifier we consider, its result will be sum (for $\Sigma$) or multiplication (for $\Pi$) of $n$ (for first-order variable) or $2^n$ (for second-order variable) identical subexpressions, each having value at least 2. We'll always achieve largest values multiplying $2^n$ subexpressions.\filip{prove this}
 
 From this we see that for arbitrary 1QL expression $\varPsi$ we can create an expression $\varPhi$ of form:
 $$\Pi_{X_1}\Pi_{X_2}\ldots \Pi_{X_k} \ . \ 2$$
@@ -139,7 +159,7 @@ for some $k$, such that $\varPhi$ has greater rate of growth than $\varPsi$.
 
 Expression $$\Pi_{X_1}\Pi_{X_2}\ldots \Pi_{X_k} \ . \ 2$$ gives us a sequence defined by $a(n) = 2^{2^{kn}}$. It can be easily seen by unfolding quantifiers starting from the innermost one.
 
-We finally get that maximal rate of growth of 1QL expressions is doubly exponential: all 1QL expressions can be upper bounded by expression of form $\Pi_{X_1}\Pi_{X_2}\ldots \Pi_{X_k} \ . \ 2$, and this expression has doubly exponential rate of growth.
+We finally get that maximal rate of growth of 1QL expressions is doubly exponential: all 1QL expressions can be upper bounded by expression of form $\Pi_{X_1}\Pi_{X_2}\ldots \Pi_{X_k} \ . \ 2$, and this expression has doubly exponential rate of growth. \filip{mozna dodac do lematu/twierdzenia ze dla dowolnego $k$ mozna osiagnac taka asymptotyke}
 \end{proof}
 
 % \section{1QL sequences modular periodicity}
@@ -263,5 +283,8 @@ $$ \Sigma_x \ . \ 1 $$
 It defines the following sequence modulo 2: $\{1, 0, 1, 0, 1, \ldots\}$, which is not aperiodic. What's even more interesting is that inverse images of values of this sequence are not FO-definable languages. For value $0$ inverse image is a language of words of even length, which is only definable in second order logic. 
 
 We might want to ask if it's possible to define following sequence in 1QL modulo 2 using FOL: $\{0, 0, 1, 0, 0, 1, \ldots\}$, that is: we have ones on positions divisible by 3. 
+
+\bibliographystyle{plainurl}
+\bibliography{bib}
 
 \end{document}
