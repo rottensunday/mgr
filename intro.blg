@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2024)
+This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: intro.aux
 The style file: plainurl.bst
@@ -9,16 +9,16 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: bib.bib
 You've used 8 entries,
-            2943 wiz_defined-function locations,
-            722 strings with 7771 characters,
-and the built_in function-call counts, 5440 in all, are:
-= -- 607
+            2882 wiz_defined-function locations,
+            711 strings with 7735 characters,
+and the built_in function-call counts, 5331 in all, are:
+= -- 583
 > -- 202
 < -- 7
-+ -- 74
++ -- 72
 - -- 63
-* -- 387
-:= -- 755
+* -- 389
+:= -- 738
 add.period$ -- 36
 call.type$ -- 8
 change.case$ -- 51
@@ -27,21 +27,21 @@ cite$ -- 8
 duplicate$ -- 159
 empty$ -- 470
 format.name$ -- 63
-if$ -- 1377
+if$ -- 1353
 int.to.chr$ -- 0
 int.to.str$ -- 8
 missing$ -- 8
 newline$ -- 51
 num.names$ -- 22
-pop$ -- 92
+pop$ -- 84
 preamble$ -- 1
 purify$ -- 43
 quote$ -- 0
 skip$ -- 340
 stack$ -- 0
-substring$ -- 305
+substring$ -- 287
 swap$ -- 80
-text.length$ -- 25
+text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 32

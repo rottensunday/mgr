@@ -13,6 +13,7 @@
 \newcommand{\iolek}[1]{\todo[inline,color=red!10]{{\bf Olek:} #1}}
 \newcommand{\olek}[1]{\todo[color=red!10]{{\bf Olek:} #1}}
 
+\usepackage[capitalise]{cleveref}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
@@ -21,7 +22,7 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{example}{Example}[section]
 
-\title{1Q Sequences}
+\title{Sequences definable by 1-letter quantitative logics}
 \author{Aleksander Wisniewski}
 \date{\today}
 
@@ -30,19 +31,20 @@
 \maketitle
 
 \section{Introduction}
-It is an important result in computer science that the class of languages defined by finite automata coincides with the languages defined using MSO logic~\cite{Buchi1960}. Finite automata allow us to recognize languages, i.e., to accept or reject words over a given alphabet. Sch{\"{u}}tzenberger~\cite{Schutzenberger61b} extended the model of finite automata to make it possible to calculate quantitative properties of words. He introduced a model of weighted automata, which have richer semantics than finite automata. In weighted automata, transitions are supplied with weights (values from some semiring) and a run multiplies those weights. A value corresponding to a given input word is the sum of values over all runs. Weighted automata calculate what we call a formal power series: a function from words to semiring values, $S: \Sigma^* \rightarrow K$.
+It is an important result in computer science that the class of languages defined by finite automata coincides with the languages defined using MSO logic~\cite{Buchi1960}. Finite automata allow us to recognize languages, i.e., to accept or reject words over a given alphabet. Sch{\"{u}}tzenberger~\cite{Schutzenberger61b} extended the model of finite automata to make it possible to calculate quantitative properties of words. He introduced a model of weighted automata, which have richer semantics than finite automata. In weighted automata, transitions are supplied with weights (values from a semiring) and weights along a fixed run are multiplied using the semiring product. A value corresponding to a given input word is the semiring sum of values over all runs. Weighted automata calculate what we call a formal power series: a function from words to the semiring domain, $S: \Sigma^* \rightarrow K$.
 
-Manfred Droste and Paul Gastin introduced a logic that coincides with weighted automata~\cite{DrosteG07}, in the same spirit as MSO logic coincides with finite automata. Their logic is called weighted logic, and its semantics allow defining formal power series in the same way weighted automata do. Unfortunately, the full, “natural” form of weighted logic is richer than weighted automata, so the authors had to introduce a restricted class of weighted logic expressions in order to have the same power as weighted automata. The restrictions are both at the syntactic and semantic levels.
+Manfred Droste and Paul Gastin introduced a logic that coincides with weighted automata~\cite{DrosteG07}, in the same spirit as MSO logic coincides with finite automata. Their logic is called \emph{weighted logic}, and its semantics allows defining formal power series like weighted automata do. Unfortunately, the full ``natural'' form of weighted logic is richer than weighted automata, so the authors had to restrict the class of weighted logic expressions in order to capture the same expressiveness as weighted automata. The restrictions are both at the syntactic and semantic levels.
 
-Later works on weighted logics include, among others, the work of Stephan Kreutzer and Cristian Riveros~\cite{KreutzerR13}. In their work, they introduced QMSO logic - Quantitative Monadic Second Order logic, which fulfills similar goals to the weighted logics of Manfred Droste and Paul Gastin but with easier definitions and a clearer distinction between the logical level (MSO) and the semiring level (addition/multiplication). They also had to restrict their logic to achieve the same power of expression as weighted automata, but their restriction is only at the syntactic level.
+A follow up work on weighted logics is the work of Stephan Kreutzer and Cristian Riveros~\cite{KreutzerR13}. In their work, they introduced QMSO logic - Quantitative Monadic Second Order logic, which fulfills similar goals to the weighted logics of Manfred Droste and Paul Gastin but with easier definitions and a clearer distinction between the logical level (MSO) and the semiring level (addition/multiplication). They also had to restrict their logic to achieve the same power of expression as weighted automata, but their restriction is only at the syntactic level.
 
-Now, in this work, we would like to explore the world of unrestricted QMSO expressions. In particular, we want to look into the properties of formal power series defined by unrestricted QMSO over a one-letter alphabet. Assume our alphabet is $\Sigma = \{a\}$. In this case, the formal power series $S: \Sigma^* \rightarrow K$ can be also seen as a sequence $S: \mathbb{N} \rightarrow K$ if we map words from our domain $a^n$ to their length $n$. We focus on the unrestricted case, as restricted QMSO expressions coincide with weighted automata, and it is known that formal power series defined by weighted automata over a one-letter alphabet are exactly linear recursive sequences~\cite{BarloyFLM22}. It can be easily shown that sequences achieved using unrestricted QMSO form a richer class than linear recursive sequences, which was already demonstrated in~\cite{CadilhacMPPS20}, but this class hasn't been researched beyond that.
+In this work, we explore the world of unrestricted QMSO expressions. More precisely, we will look into the properties of formal power series defined by unrestricted QMSO over a one-letter alphabet. Assume our alphabet is $\Sigma = \{a\}$. In this case words can be identified with their length. Thus the formal power series $S: \Sigma^* \rightarrow K$ can be seen as a sequence $S: \mathbb{N} \rightarrow K$, by mapping words $a^n$ to their length $n$. Restricted QMSO expressions coincide with weighted automata, and it is folklore that formal power series defined by weighted automata over a one-letter alphabet are exactly linear recursive sequences (see e.g.~\cite{BarloyFLM22}). It can be easily shown that sequences achieved using unrestricted QMSO form a richer class than linear recursive sequences, which was already demonstrated in~\cite{CadilhacMPPS20}, but this class has not been investigated beyond that.
 
 \paragraph*{Our contributions}
 In this work, we introduce the notation of \textbf{1Q} sequences - sequences defined by unrestricted QMSO expressions over a one-letter alphabet. In Section~\ref{Sec1QRateOfGrowth}, we prove that the rate of growth of such sequences is at most doubly exponential, and this bound can be achieved. Then, in Section~\ref{Sec1QFiniteSemirings}, we prove results about 1Q sequences over finite semirings - namely, that it is possible to simplify corresponding QMSO expressions by removing semiring quantifiers. From this, we deduce that 1Q sequences are eventually periodic modulo, which in particular implies that the Catalan sequence is not a 1Q-definable sequence.
+\ifilip{To musi byc dluzsze. Trzeba jakos opisac co bylo wiadomo, co dokladnie zrobiles itp. Ale moze wrocimy do tego na koniec}
 
 \paragraph*{Related work}
-In~\cite{CadilhacMPPS20}, a class of polynomial recursive sequences is defined. It is an extension of linear recursive sequences, and this class enables defining sequences with doubly exponential growth. In this paper, it is shown that 1Q sequences can define a sequence that is undefinable as a polynomial recursive sequence: $n^n$. However, it is not clear if all polynomial recursive sequences are also 1Q sequences.
+In~\cite{CadilhacMPPS20}, a class of polynomial recursive sequences is defined. It is an extension of linear recursive sequences, and this class enables defining sequences with doubly exponential growth. In~\cite{CadilhacMPPS20}, it is shown that 1Q sequences can define a sequence that is undefinable as a polynomial recursive sequence: $n^n$. However, whether the converse inclusion holds is not clear, namely if every polynomial recursive sequence can be defined as a 1Q sequence?
 
 There are other classes of sequences researched that extend linear recursive sequences, such as rational recursive sequences~\cite{ClementeDMP23} or holonomic sequences~\cite{KenisonKLLMOW021}. However, these classes can define Catalan sequences, while 1Q sequences cannot.
 
@@ -75,15 +77,15 @@ In the original paper by Manfred Droste and Paul Gastin~\cite{DrosteG07}, it is 
 % E.g.\ ~\cite{ClementeDMP23} where rational recursive sequences are defined. They still cannot define $n^n$, but they can define Catalan so they are not periodic. Maybe holonomic sequences~\cite{KenisonKLLMOW021}
 
 \section{Preliminaries}
-In this section we'll summarize syntax and semantics for Quantitative Monadic Second Order Logic (QMSO). It was introduced in~\cite{KreutzerR13} by Stephen Kreutzer and Cristian Riveros. Then we'll introduce 1Q sequences with some examples.
+In this section we present the syntax and semantics for Quantitative Monadic Second Order Logic (QMSO). It was introduced in~\cite{KreutzerR13} by Stephen Kreutzer and Cristian Riveros. Then we will focus on 1Q sequences and provide some examples.
 
 \subsection{Monadic Second Order Logic}
 
-Let $\Gamma$ be a finite alphabet. The syntax of MSO over $\Gamma$ is given by:
-$$ \varphi := P_a(x) \ | \ x \leq y \ | \ x \in X \ | \ (\varphi \lor \varphi) \ | \ \neg \varphi \ | \ \exists x. \varphi \ | \ \exists X . \varphi $$
-where $a \in \Gamma$, $x, y$ are first-order variables, $X$ is a second order variable. Universal quantification can be obtained from existential quantification and negation. We can also use $\land$ and $\implies$ as usual.
+Let $\Gamma$ be a finite alphabet. The syntax of MSO over a finite alphabet $\Gamma$ is given by:
+$$ \varphi := P_a(x) \ | \ x \leq y \ | \ x \in X \ | \ (\varphi \lor \varphi) \ | \ \neg \varphi \ | \ \exists x. \varphi \ | \ \exists X . \varphi, $$
+where: $a \in \Gamma$; $x, y$ are first-order variables; and $X$ is a second order variable. Universal quantification can be obtained from existential quantification and negation. We can also use syntactic sugar $\land$ and $\implies$ as usual.
 
-Let $w = w_1\ldots w_n \in \Gamma*$ be a word such that $|w| = n$. We represent $w$ as a structure $(\{1,\ldots,n\}, \leq, (P_a)_{a \in \Gamma})$ where $P_a = \{i \ | \ w_i = a\}$. We denote by $Dom(w) = \{1,\ldots,n\}$ the domain of $w$ as a structure. Given a finite set $V$ of first-order and second-order variables, a $(V,w)$-assignment $\sigma$ is a function that maps every first order variable in $V$ to $Dom(w)$ and every second order variable in $V$ to $2^{Dom(w)}$. Furthermore, we denote by $\sigma[x \rightarrow i]$ the extension of the $(V,w)$-assignment $\sigma$ such that $\sigma[x \rightarrow i](x) = i$ and $\sigma[x \rightarrow i](y) = \sigma(y)$ for all variables $y \ne x$.The assignment $\sigma[X \rightarrow I]$, where $X$ is a second-order variable and $I \subseteq Dom(w)$, is defined analogously. Consider an MSO-formula $\varphi$ and a $(V,w)$-assignment $\sigma$ where $V$ is the set of free variables of $\varphi$. We write $(w, \sigma) \models \varphi$ if $(w, \sigma)$ satisfies $\varphi$ using the standard MSO-semantics.
+Let $w = w_1\ldots w_n \in \Gamma^*$ be a word of length $|w| = n$. We represent $w$ as a structure $(\{1,\ldots,n\}, \leq, (P_a)_{a \in \Gamma})$ where $P_a = \{i \ | \ w_i = a\}$. We denote by $Dom(w) = \{1,\ldots,n\}$ the domain of $w$ as a structure. Given a finite set $V$ of first-order and second-order variables, a $(V,w)$-assignment $\sigma$ is a function that maps every first order variable in $V$ to $Dom(w)$ and every second order variable in $V$ to $2^{Dom(w)}$. Furthermore, we denote by $\sigma[x \rightarrow i]$ the extension of the $(V,w)$-assignment $\sigma$ such that $\sigma[x \rightarrow i](x) = i$ and $\sigma[x \rightarrow i](y) = \sigma(y)$ for all variables $y \ne x$. The assignment $\sigma[X \rightarrow I]$, where $X$ is a second-order variable and $I \subseteq Dom(w)$, is defined analogously. Consider an MSO-formula $\varphi$ and a $(V,w)$-assignment $\sigma$ where $V$ is the set of free variables of $\varphi$. We write $(w, \sigma) \models \varphi$ if $(w, \sigma)$ satisfies $\varphi$ using the standard MSO-semantics.
 
 \subsection{Semirings}
 
@@ -96,13 +98,13 @@ Semirings we'll be interested in in this paper include:
     \item finite semirings of numbers modulo arbitrary $k$: $ \mathbb{Z}_k = (\{0,1,\ldots,k-1\}, +_{mod}, \cdot_{mod}, 0, 1)$ where operations are executed modulo $k$
 \end{itemize}
 
-We'll restrict ourselves to working with sequences of natural numbers, although 1Q sequences can be defined over arbitrary semirings.
+We restrict to sequences over natural numbers, although 1Q sequences can be defined over arbitrary semirings.
 
 \subsection{Quantitative Monadic Second-Order Logic}
 
-\textbf{(Syntax)} The formulas of Quantitative Monadic Second-Order Logic (QMSO) over semiring $\mathbb{S}$ and alphabet $\Gamma$ (QMSO[$\mathbb{S}, \Gamma$]) are defined by the following grammar:
-$$ \theta := \varphi \ | \ s \ | \ (\theta \oplus \theta) \ | \ (\theta \odot \theta) \ | \ \Sigma_x \ . \ \theta \ | \ \Pi_x \ . \ \theta \ | \ \Sigma_X \ . \ \theta \ | \ \Pi_X \ . \ \theta$$
-where $\varphi \in MSO[\leq, (P_a)_{a \in \Gamma}]$, $s \in \mathbb{S}$, $x$ is first-order variable and $X$ is second-order variable.
+\textbf{(Syntax)} The formulas of Quantitative Monadic Second-Order Logic (QMSO) over a semiring $\mathbb{S}$ and a finite alphabet $\Gamma$ (QMSO[$\mathbb{S}, \Gamma$]) are defined by the following grammar:
+$$ \theta := \varphi \ | \ s \ | \ (\theta \oplus \theta) \ | \ (\theta \odot \theta) \ | \ \Sigma_x \ . \ \theta \ | \ \Pi_x \ . \ \theta \ | \ \Sigma_X \ . \ \theta \ | \ \Pi_X \ . \ \theta,$$
+where: $\varphi \in MSO[\leq, (P_a)_{a \in \Gamma}]$; $s \in \mathbb{S}$; $x$ is first-order variable; and $X$ is a second-order variable.
 
 \textbf{(Semantics)} Let $w 
 = w_1 \dots w_n \in \Gamma^*$ where $n = |w|$. For the Boolean level $\varphi$, the semantics is the usual semantics of MSO, i.e. for any assignment $\sigma$,
@@ -124,43 +126,49 @@ $$\llbracket \Pi_x \ . \ \theta \rrbracket(w, \sigma) := \odot^n_{i=1}\llbracket
 $$\llbracket \Sigma_X \ . \ \theta \rrbracket(w, \sigma) := \oplus_{I \subseteq [1,n]}\llbracket \theta \rrbracket (w, \sigma[X \rightarrow I])$$
 $$\llbracket \Pi_X \ . \ \theta \rrbracket(w, \sigma) := \odot_{I \subseteq [1,n]}\llbracket \theta \rrbracket (w, \sigma[X \rightarrow I])$$
 
+\ifilip{tutaj troche slow o intuicji kwantyfikatorow}
+
 \subsection{QMSO over one letter alphabet}
 
 A sequence over a set $\mathbb{D}$ is a function $a : \mathbb{N} \rightarrow \mathbb{D}$.
 
-In this work, we focus on expressions of QMSO logic over a one-letter alphabet. Let's call these expressions \textbf{1Q expressions}. In this case, we only use a small fragment of MSO logic; in particular, we don't care about letter predicates $(P_a)_{a \in \Gamma}$, as there is only one such predicate, and it is true for every element of the structure. For simplification, let's assume that our one-letter alphabet will always be $\Gamma = \{a\}$.
+In this work, we focus on expressions of QMSO logic over a one-letter alphabet. We call these expressions \emph{1Q expressions}. In this case, we only use a fragment of MSO logic; in particular, we do not need letter predicates $(P_a)_{a \in \Gamma}$, as there is only one such predicate and it is true for every element of the structure. For simplicity we assume that our one-letter alphabet is always $\Gamma = \{a\}$.
 
 1Q expressions with no free variables (1Q sentences) generate sequences of numbers. Suppose we have a 1Q sentence $\varphi$, then we can generate corresponding sequence $a(n) = \llbracket \varphi \rrbracket (a^n, \sigma)$, where $\sigma$ is an empty valuation function (there are no free variables). The class of sequences definable 1Q expressions is called \textbf{1Q sequences}.
 
-Let's look at some examples of 1Q sequences that we'll refer to in following sections:
+Below we present some examples of 1Q sequences.
 
 \begin{example}[Factorial]
 \label{ExSeqFactorial}
-    Sequence $a(n) = n!$ can be defined with 1Q expression: 
-    $$\Pi_{x_1}\Sigma_{x_2} \ . \ (x_2 \leq x_1) \cdot 1$$
+    The sequence $a(n) = n!$ can be defined with the following 1Q expression: 
+    $$\Pi_{x_1}\Sigma_{x_2} \ . \ (x_2 \leq x_1) \cdot 1.$$
 
-    For given $n$ it works as following: $x_1$ iterates over $1,\ldots,n$. For some $x_1 = k$ expression $\Sigma_{x_2} \ . \ (x_2 \leq x_1) \cdot 1$ will have value exactly $k$. So the whole expression will be $1 \cdot 2 \cdot \ldots \cdot n$.
+    For given $n$ it works as following: $x_1$ iterates over $1,\ldots,n$. For fixed $x_1 = k$ the expression $\Sigma_{x_2} \ . \ (x_2 \leq x_1) \cdot 1$ evaluates to $k$. So the whole expression evaluates to $1 \cdot 2 \cdot \ldots \cdot n = n!$.
 \end{example}
 
 \begin{example}[Super exponential]
 \label{ExSeqNToN}
-    Sequence $a(n) = n^n$ can be defined with 1Q expression:
-    $$\Pi_{x_1}\Sigma_{x_2} \ . \ 1$$
+    Similarly as in \Cref{ExSeqFactorial} the sequence $a(n) = n^n$ can be defined with the following 1Q expression:
+    $$\Pi_{x_1}\Sigma_{x_2} \ . \ 1.$$
 \end{example}
 
 \begin{example}[Doubly exponential]
 \label{ExSeqDoubleExponential}
-    Sequence $a(n) = 2^{2^n}$ can be defined with 1Q expression:
-    $$\Pi_{X_1} \ . \ 2$$
+    The sequence $a(n) = 2^{2^n}$ can be defined with 1Q expression:
+    $$\Pi_{X_1} \ . \ 2.$$
 
-    For given $n$, there are $2^n$ valuations of $X_1$. So the value is $2$ multiplied by itself $2^n$ times - $2^{2^n}$.
+    For a fixed $n$, there are $2^n$ possible choices of $X_1$. So $2$ is multiplied $2^n$ times, which gives results in $2^{2^n}$.
 \end{example}
+
+\ifilip{Trzeba gdzies zdefiniowac LRS (pewnie tez z przykladami)}
 
 \section{1Q sequences rate of growth}
 \label{Sec1QRateOfGrowth}
-In this section, we're interested in the bound of the rate of growth of 1Q sequences. Let $a(n)$ be a 1Q sequence - we'd like to find an upper bound for the asymptotical behavior of $a(n)$ depending only on $n$ and constants appearing in 1Q expression defining $a(n)$. It will also be interesting to compare this result to linear recursive sequences (LRS).
+In this section, we are interested in the bound of the rate of growth of 1Q sequences. Let $a(n)$ be a 1Q sequence - we would like to find an upper bound for the asymptotical behavior of $a(n)$ depending only on $n$ and constants appearing in the 1Q expression defining it.
 
-It is known that linear recursive sequences have a rate of growth bounded by $2^{O(n)}$. In 1Q we can define the sequence $n!$ (\ref{ExSeqFactorial}), which has a greater rate of growth than $2^{O(n)}$ - by Stirling's approximation, $n! \sim \sqrt{2 \pi n} (\frac{n}{e})^n$, which grows faster than $2^n$. This shows that the class of 1Q sequences contains a sequence undefinable in LRS.
+We start by discussing linear recursive sequences (LRS).
+%
+It is known that linear recursive sequences have an exponentially bounded rate of growth. More formally, if $a(n)$ is an LRS then $|a(n)| \le 2^{O(n)}$. In \cref{ExSeqFactorial} we saw that in 1Q one can define the sequence $n!$ for which, by Stirling's approximation, we know that $n! = \Omega((\frac{n}{e})^n)$, exceeding the $2^{O(n)}$ bound for LRS. This shows that the class of 1Q sequences contains a sequence not definable in LRS.
 
 This result can be easily extended to show that the class of 1Q sequences is richer than LRS, as Stephan Kreutzer and Cristian Riveros~\cite{KreutzerR13} proved that there's a subclass of QMSO expressions defining the whole class of power series definable by weighted automata. It is known that formal power series over a one-letter alphabet definable by weighted automata are precisely LRS~\cite{BarloyFLM22}. From this, we conclude that there's a subclass of 1Q sequences coinciding with LRS, but the whole class of 1Q sequences is richer (as it's possible to define $n!$).
 
