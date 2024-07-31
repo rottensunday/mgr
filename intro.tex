@@ -170,15 +170,16 @@ We start by discussing linear recursive sequences (LRS).
 %
 It is known that linear recursive sequences have an exponentially bounded rate of growth. More formally, if $a(n)$ is an LRS then $|a(n)| \le 2^{O(n)}$. In \cref{ExSeqFactorial} we saw that in 1Q one can define the sequence $n!$ for which, by Stirling's approximation, we know that $n! = \Omega((\frac{n}{e})^n)$, exceeding the $2^{O(n)}$ bound for LRS. This shows that the class of 1Q sequences contains a sequence not definable in LRS.
 
-This result can be easily extended to show that the class of 1Q sequences is richer than LRS, as Stephan Kreutzer and Cristian Riveros~\cite{KreutzerR13} proved that there's a subclass of QMSO expressions defining the whole class of power series definable by weighted automata. It is known that formal power series over a one-letter alphabet definable by weighted automata are precisely LRS~\cite{BarloyFLM22}. From this, we conclude that there's a subclass of 1Q sequences coinciding with LRS, but the whole class of 1Q sequences is richer (as it's possible to define $n!$).
+This result can be easily extended to show that the class of 1Q sequences is richer than LRS, as Stephan Kreutzer and Cristian Riveros~\cite{KreutzerR13} proved that there is a subclass of QMSO expressions defining the whole class of power series definable by weighted automata. It is known that formal power series over a one-letter alphabet definable by weighted automata are precisely LRS~\cite{BarloyFLM22}. From this, we conclude that there's a subclass of 1Q sequences coinciding with LRS, but the whole class of 1Q sequences is richer (as it's possible to define $n!$).\ifilip{ten paragraf jest redundantny z tym co bylo wczesniej. Trzeba wczesniej formalnie napisac twierdzenie i fragment QMSO z pracy Kreutzer+Riveros i wtedy ten paragraf zamieni sie w jedno zdanie.}
 
-Now, from examples \ref{ExSeqNToN} and \ref{ExSeqDoubleExponential}, it's clear that it's possible to define 1Q sequences with a rate of growth greater than $n!$. The question we want to answer is what is the upper bound for the rate of growth of all 1Q sequences.
-
-We’ll argue that the rate of growth of 1Q sequences is bounded by $2^{2^{O(n)}}$. First, we’ll prove a lemma, which will be useful to simplify QMSO expressions without semiring quantifiers.
+By \cref{ExSeqNToN} and \cref{ExSeqDoubleExponential}, it is clear that it is possible to define 1Q sequences with a rate of growth even larger than $n!$. We want to provide an upper bound for the rate of growth for all 1Q sequences.
+We will prove that the rate of growth of 1Q sequences is bounded by $2^{2^{O(n)}}$. First, we’ll prove a lemma, which will be useful to simplify QMSO expressions without semiring quantifiers.
 
 \begin{definition}[Recognizable step function]
     \label{DefRecStepFun}
-    Series $S: A^* \rightarrow K$ is a \textit{recognizable step function}, if $S = \sum_{i = 1}^{n} \ . \ \varphi_{L_i} \cdot k_i$ for some $n \in \mathbb{N}$, $k_i \in K$ and regular languages $L_i \subseteq A^*$ ($i=1,\ldots,n$). $\varphi_{L_i}$ is an MSO formula recognizing language $L_i$ and $K$ is an arbitrary semiring.
+    Fix a semiring $K$.
+    A series $S: A^* \rightarrow K$ is a \textit{recognizable step function}, if $S = \sum_{i = 1}^{n} \ . \ \varphi_{L_i} \cdot k_i$\filip{suma w sensie polpierscienia?} for some $n \in \mathbb{N}$, $k_i \in K$ and regular languages $L_i \subseteq A^*$ ($i=1,\ldots,n$). $\varphi_{L_i}$ is an MSO formula recognizing language $L_i$.
+%     and $K$ is an arbitrary semiring.
 \end{definition}
 
 \begin{lemma}
@@ -187,27 +188,27 @@ We’ll argue that the rate of growth of 1Q sequences is bounded by $2^{2^{O(n)}
 \end{lemma}
 
 \begin{proof}
-    We can prove it by induction on structure of expressions.
+    We prove it by induction on the structure of expressions.
     First, consider base cases:
     \begin{enumerate}
-        \item QMSO expression $\theta = \varphi$, where $\varphi$ is a MSO expression. Corresponding recognizable step function is $\theta = \varphi \cdot 1$
-        \item QMSO expression $\theta = k$, where $k$ is a constant. Corresponding recognizable step function is $\theta = \varphi \cdot k$, where $\varphi$ recognizes whole language (for example, $\varphi = \exists_x \ . \ x = x$)
+        \item QMSO expression $\theta = \varphi$, where $\varphi$ is a MSO expression. The corresponding recognizable step function is $\theta = \varphi \cdot 1$;
+        \item QMSO expression $\theta = k$, where $k \in K$. The corresponding recognizable step function is $\theta = \varphi \cdot k$, where $\varphi$ recognizes the whole language (for example, $\varphi = \exists_x \ . \ x = x$).
     \end{enumerate}
 
-    Let's move on to induction step. We have to consider two cases - addition and multiplication.
+    We proceed with the induction step. We consider two cases: addition and multiplication.
     \begin{enumerate}
         \item Let $\theta_1, \theta_2$ be recognizable step functions. Then $\theta_1 + \theta_2$ is a recognizable step function. It is immediate from definition.
-        \item Let $\theta_1 = \sum_{i = 1}^{n_1} \ . \ \varphi_{L_{1,i}} \cdot k_{1,i}, \theta_2 = \sum_{i = 1}^{n_2} \ . \ \varphi_{L_{2,i}} \cdot k_{2,i}$ be recognizable step functions. Then $\theta = \theta_1 \cdot \theta_2$ is a recognizable step function. $\theta$ is a sum of following expressions: $\varphi_{1,i} \cdot k_{1, i} \cdot \varphi_{2,j} \cdot k_{2,j}$. It can be rewritten in following way: $(\varphi_{1,i} \land \varphi_{2,i}) \cdot (k_{1,i} \cdot k_{2,j})$, from which it's immediate that $\theta$ is a recognizable step function.
+        \item Let $\theta_1 = \sum_{i = 1}^{n_1} \ . \ \varphi_{L_{1,i}} \cdot k_{1,i}, \theta_2 = \sum_{i = 1}^{n_2} \ . \ \varphi_{L_{2,i}} \cdot k_{2,i}$ be recognizable step functions. Then $\theta = \theta_1 \cdot \theta_2$ is a recognizable step function. Namely, $\theta$ is a sum of following expressions: $\varphi_{1,i} \cdot k_{1, i} \cdot \varphi_{2,j} \cdot k_{2,j}$. It can be rewritten in following way: $(\varphi_{1,i} \land \varphi_{2,i}) \cdot (k_{1,i} \cdot k_{2,j})$, from which it is immediate that $\theta$ is a recognizable step function.
     \end{enumerate}
-    
+This concludes the proof.
 \end{proof}
 
 \begin{lemma}[1Q growth rate class]
-    Growth rate class of 1Q sequences is doubly exponential - $2^{2^{O(n)}}$. Also, for every $k, c \in \mathbb{N}$ it's possible to generate 1Q sequence $c^{2^{kn}}$.
+    The growth rate class of 1Q sequences is doubly exponential, i.e.\ $2^{2^{O(n)}}$.\filip{chcialbym defnicje growth rate w preliminaries} Moreover, for every $k, c \in \mathbb{N}$ it is possible to define a 1Q sequence such that $a_n = c^{2^{kn}}$.\filip{tu już ustalamy polpierscien na liczby naturalne?}
 \end{lemma}
 
 \begin{proof}
-    We will show that every sequence generated by 1Q expression can be bounded by a sequence with doubly exponential growth rate, which is also generated by 1Q expression. In order to do this we'll specify how to build 1Q expressions generating sequences with maximal possible growth rate. We'll analyze 1Q expressions of form:
+    We will show that every sequence generated by 1Q expression can be bounded by a sequence in a nice form, for which it will be easier to show the doubly exponential growth rate. We will build 1Q expressions generating sequences with maximal possible growth rate. We will analyze 1Q expressions of the form:
     $$Q_{1Y_1}Q_{2Y_2} \ldots Q_{kY_k} \ . \ c$$
     Where $Q_i \in \{ \Sigma, \Pi \}$ and each $Y_i$ is either first-order or second-order variable. There are $k$ semiring quantifiers, and then an expression without semiring quantification. Innermost expression is just a constant $c$ - it doesn't make sense to have any MSO expressions here, as those only filter out some variable evaluations. More precisely, let $\varphi$ be a quantifier-free 1Q expression. Then there exists $c$ such that:
 
@@ -215,20 +216,22 @@ We’ll argue that the rate of growth of 1Q sequences is bounded by $2^{2^{O(n)}
     \label{Ineq1}
         Q_{1Y_1}Q_{2Y_2} \ldots Q_{kY_k} \ . \ \varphi \leq Q_{1Y_1}Q_{2Y_2} \ldots Q_{kY_k} \ . \ c   
     \end{equation}
+\filip{pewnie powinno byc co do wartosci bezwzglednej?}
+    
+    To explain this recall that
+    by \cref{QFreeRecognizable} we can assume that the formula $\varphi$ is a recognizable step function $\varphi = \sum_{i = 1}^{n} \ . \ \varphi_{L_i} \cdot k_i$. Each of $\varphi_{L_i}$ is either $0$ or $1$. To satisfy \cref{Ineq1} we set $c = \sum_{i=1}^n \ . \ |k_i|$. Clearly $\sum_{i = 1}^{n} \ . \ \varphi_{L_i} \cdot k_i \leq  \sum_{i=1}^n \ . \ |k_i|$, from which follows \cref{Ineq1}. We additionally assume that $c$ is not smaller than $2$, i.e.\ $c = max(2, \sum_{i=1}^n \ . \ |k_i|)$.
 
-    $c$ can be obtained by looking at $\varphi$ as a recognizable step function $\varphi = \sum_{i = 1}^{n} \ . \ \varphi_{L_i} \cdot k_i$ - which is justified thanks to lemma \ref{QFreeRecognizable}. Now, each of $\varphi_{L_i}$ is either $0$ or $1$. To satisfy inequality \ref{Ineq1} we can set $c = \sum_{i=1}^n \ . \ |k_i|$. Clearly $\sum_{i = 1}^{n} \ . \ \varphi_{L_i} \cdot k_i \leq  \sum_{i=1}^n \ . \ |k_i|$, from which follows inequality \ref{Ineq1}. From now on let's assume that $c$ is not smaller than $2$, so $c = max(2, \sum_{i=1}^n \ . \ |k_i|)$.
-
-    Suppose we have quantification of depth $k$. There are four possible kinds of quantification: $\Sigma_x$, $\Sigma_X$, $\Pi_x$, $\Pi_X$. We can argue that it only makes sense to consider $\Pi_X$ quantifications. No matter which $Q_{iY_i}$ quantifier we consider, its result will be sum (for $\Sigma$) or multiplication (for $\Pi$) of $n$ (for first-order variable) or $2^n$ (for second-order variable) identical subexpressions, each having value at least 2. Namely:
+    Suppose we have quantification of depth $k$. There are four possible kinds of quantification: $\Sigma_x$, $\Sigma_X$, $\Pi_x$, $\Pi_X$. We argue that we can simplify the analysis to formulas using only $\Pi_X$ quantifications. It is because every quantifier $Q_{iY_i}$ aggregates values using sum (for $\Sigma$) or multiplication (for $\Pi$) of $n$ (for first-order variable) or $2^n$ (for second-order variable) identical subexpressions, each having value at least $2$. More formally:
     $$\Sigma_x \ . \ c = n \cdot c$$
     $$\Sigma_X \ . \ c = 2^n \cdot c$$
     $$\Pi_x \ . \ c = c^n$$
     $$\Pi_X \ . \ c = c^{2^n}$$
 
-    Clearly $c^{2^n} \geq c^n \land c^{2^n} \geq 2^n \cdot c \land c^{2^n} \geq n \cdot c$.
+    Clearly $c^{2^n} \geq c^n \land c^{2^n} \geq 2^n \cdot c \land c^{2^n} \geq n \cdot c$.\filip{to nie jest do konca poprawne, bo bedziesz chcial to aplikowac nie do $c$ tylko do podwyrazen. Trzeba pewnie napisac cos madrego przez indukcje. Aha i uzywaj slow zamiast $\land$ zwlaszcza w pracy o formulach logicznych}
 
-    From now on we'll look at simplified expressions of form $\Pi_{X_1}\Pi_{X_2}\ldots \Pi_{X_k} \ . \ c$.
-
-    Our simplified expression is in prenex normal form with regards to semiring quantification. We should justify why every 1Q sequence can be bounded by sequence defined by an expression of such form. Let $\theta_1 = \Pi_{X1'} \ldots \Pi_{Xk'} \ . \ c_1$, $\theta_2 = \Pi_{X1''} \ldots \Pi_{Xk''} \ . \ c_2$ where $c_1, c_2 \geq 2$. Let $pref = \Pi_{X1}\Pi_{X2} \ldots \Pi_{Xk}$ be some quantifiers prefix, possibly empty. Then it can be seen that:
+    Now we argue that it suffices to look at simplified expressions of form $\Pi_{X_1}\Pi_{X_2}\ldots \Pi_{X_k} \ . \ c$.
+%
+    Our simplified expression is in prenex normal form with regards to semiring quantification. We need to justify why every 1Q sequence can be bounded by sequence defined by an expression of such form. Let $\theta_1 = \Pi_{X1'} \ldots \Pi_{Xk'} \ . \ c_1$, $\theta_2 = \Pi_{X1''} \ldots \Pi_{Xk''} \ . \ c_2$ where $c_1, c_2 \geq 2$. Let $pref = \Pi_{X1}\Pi_{X2} \ldots \Pi_{Xk}$ be some quantifiers prefix, possibly empty. Then it can be seen that:\filip{nie rozumiem o co chodzi z pref}
     $$pref \ . \ \theta_1 + \theta_2 \leq pref \ . \ \Pi_{X1'} \ldots \Pi_{Xk'} \Pi_{X1''} \ldots \Pi_{Xk''} \ . \ c_1 \cdot c_2$$
     $$pref \ . \ \theta_1 \cdot \theta_2 \leq pref \ . \ \Pi_{X1'} \ldots \Pi_{Xk'} \Pi_{X1''} \ldots \Pi_{Xk''} \ . \ c_1 \cdot c_2$$
     It follows from the fact that
@@ -242,6 +245,8 @@ We’ll argue that the rate of growth of 1Q sequences is bounded by $2^{2^{O(n)}
     $$\Pi_{X_1}\Pi_{X_2}\ldots \Pi_{X_k} \ . \ c$$
     for some $c$, depending only on $\varPsi$, such that sequence generated by $\varPsi$ is bounded by sequence generated by $\varPhi$. Sequence generated by $\varPhi$ is exactly $a(n) = c^{2^{kn}}$, which has doubly exponential rate of growth. This also shows that for arbitrary $c, k$ it's possible to achieve sequence $c^{2^{kn}}$.
 \end{proof}
+
+\ifilip{ogolne uwagi: za duzo ``can''; nie powinno sie uzywac nieformalnego jezyka; nierownosci to czesc zdania (powinny sie konczyc kropka lub przecinkiem); podobnie jak cos wymieniamy jako itemy; kazde zdanie przeczytac i skrocic}
 
 % \section{1Q sequences modular periodicity}
 % In this section we'll analyze sequences created with 1Q expressions modulo $p$, for arbitrary $p$. In particular we want to answer following question: is every such sequence eventually periodic and how would we go about finding a period for given sequence?
