@@ -4,81 +4,54 @@
 Corentin Barloy, Nathana{\"{e}}l Fijalkow, Nathan Lhote, and Filip Mazowiecki.
 \newblock A robust class of linear recurrence sequences.
 \newblock {\em Inf. Comput.}, 289(Part):104964, 2022.
-\newblock URL: \url{https://doi.org/10.1016/j.ic.2022.104964}, \href
-  {https://doi.org/10.1016/J.IC.2022.104964}
-  {\path{doi:10.1016/J.IC.2022.104964}}.
+\newblock URL: \url{https://doi.org/10.1016/j.ic.2022.104964}, \href {https://doi.org/10.1016/J.IC.2022.104964} {\path{doi:10.1016/J.IC.2022.104964}}.
 
 \bibitem{Buchi1960}
 J.~Richard Büchi.
 \newblock Weak second-order arithmetic and finite automata.
 \newblock {\em Mathematical Logic Quarterly}, 6(1-6):66--92, 1960.
-\newblock URL:
-  \url{https://onlinelibrary.wiley.com/doi/abs/10.1002/malq.19600060105}, \href
-  {http://arxiv.org/abs/https://onlinelibrary.wiley.com/doi/pdf/10.1002/malq.19600060105}
-  {\path{arXiv:https://onlinelibrary.wiley.com/doi/pdf/10.1002/malq.19600060105}},
-  \href {https://doi.org/https://doi.org/10.1002/malq.19600060105}
-  {\path{doi:https://doi.org/10.1002/malq.19600060105}}.
+\newblock URL: \url{https://onlinelibrary.wiley.com/doi/abs/10.1002/malq.19600060105}, \href {https://arxiv.org/abs/https://onlinelibrary.wiley.com/doi/pdf/10.1002/malq.19600060105} {\path{arXiv:https://onlinelibrary.wiley.com/doi/pdf/10.1002/malq.19600060105}}, \href {https://doi.org/10.1002/malq.19600060105} {\path{doi:10.1002/malq.19600060105}}.
 
 \bibitem{CadilhacMPPS20}
-Micha{\"{e}}l Cadilhac, Filip Mazowiecki, Charles Paperman, Michal Pilipczuk,
-  and G{\'{e}}raud S{\'{e}}nizergues.
+Micha{\"{e}}l Cadilhac, Filip Mazowiecki, Charles Paperman, Michal Pilipczuk, and G{\'{e}}raud S{\'{e}}nizergues.
 \newblock On polynomial recursive sequences.
-\newblock In Artur Czumaj, Anuj Dawar, and Emanuela Merelli, editors, {\em 47th
-  International Colloquium on Automata, Languages, and Programming, {ICALP}
-  2020, July 8-11, 2020, Saarbr{\"{u}}cken, Germany (Virtual Conference)},
-  volume 168 of {\em LIPIcs}, pages 117:1--117:17. Schloss Dagstuhl -
-  Leibniz-Zentrum f{\"{u}}r Informatik, 2020.
-\newblock URL: \url{https://doi.org/10.4230/LIPIcs.ICALP.2020.117}, \href
-  {https://doi.org/10.4230/LIPICS.ICALP.2020.117}
-  {\path{doi:10.4230/LIPICS.ICALP.2020.117}}.
+\newblock In Artur Czumaj, Anuj Dawar, and Emanuela Merelli, editors, {\em 47th International Colloquium on Automata, Languages, and Programming, {ICALP} 2020, July 8-11, 2020, Saarbr{\"{u}}cken, Germany (Virtual Conference)}, volume 168 of {\em LIPIcs}, pages 117:1--117:17. Schloss Dagstuhl - Leibniz-Zentrum f{\"{u}}r Informatik, 2020.
+\newblock URL: \url{https://doi.org/10.4230/LIPIcs.ICALP.2020.117}, \href {https://doi.org/10.4230/LIPICS.ICALP.2020.117} {\path{doi:10.4230/LIPICS.ICALP.2020.117}}.
 
 \bibitem{ClementeDMP23}
 Lorenzo Clemente, Maria Donten{-}Bury, Filip Mazowiecki, and Michal Pilipczuk.
 \newblock On rational recursive sequences.
-\newblock In Petra Berenbrink, Patricia Bouyer, Anuj Dawar, and
-  Mamadou~Moustapha Kant{\'{e}}, editors, {\em 40th International Symposium on
-  Theoretical Aspects of Computer Science, {STACS} 2023, March 7-9, 2023,
-  Hamburg, Germany}, volume 254 of {\em LIPIcs}, pages 24:1--24:21. Schloss
-  Dagstuhl - Leibniz-Zentrum f{\"{u}}r Informatik, 2023.
-\newblock URL: \url{https://doi.org/10.4230/LIPIcs.STACS.2023.24}, \href
-  {https://doi.org/10.4230/LIPICS.STACS.2023.24}
-  {\path{doi:10.4230/LIPICS.STACS.2023.24}}.
+\newblock In Petra Berenbrink, Patricia Bouyer, Anuj Dawar, and Mamadou~Moustapha Kant{\'{e}}, editors, {\em 40th International Symposium on Theoretical Aspects of Computer Science, {STACS} 2023, March 7-9, 2023, Hamburg, Germany}, volume 254 of {\em LIPIcs}, pages 24:1--24:21. Schloss Dagstuhl - Leibniz-Zentrum f{\"{u}}r Informatik, 2023.
+\newblock URL: \url{https://doi.org/10.4230/LIPIcs.STACS.2023.24}, \href {https://doi.org/10.4230/LIPICS.STACS.2023.24} {\path{doi:10.4230/LIPICS.STACS.2023.24}}.
 
 \bibitem{DrosteG07}
 Manfred Droste and Paul Gastin.
 \newblock Weighted automata and weighted logics.
 \newblock {\em Theor. Comput. Sci.}, 380(1-2):69--86, 2007.
-\newblock URL: \url{https://doi.org/10.1016/j.tcs.2007.02.055}, \href
-  {https://doi.org/10.1016/J.TCS.2007.02.055}
-  {\path{doi:10.1016/J.TCS.2007.02.055}}.
+\newblock URL: \url{https://doi.org/10.1016/j.tcs.2007.02.055}, \href {https://doi.org/10.1016/J.TCS.2007.02.055} {\path{doi:10.1016/J.TCS.2007.02.055}}.
 
 \bibitem{KenisonKLLMOW021}
-George Kenison, Oleksiy Klurman, Engel Lefaucheux, Florian Luca, Pieter Moree,
-  Jo{\"{e}}l Ouaknine, Markus~A. Whiteland, and James Worrell.
+George Kenison, Oleksiy Klurman, Engel Lefaucheux, Florian Luca, Pieter Moree, Jo{\"{e}}l Ouaknine, Markus~A. Whiteland, and James Worrell.
 \newblock On positivity and minimality for second-order holonomic sequences.
-\newblock In Filippo Bonchi and Simon~J. Puglisi, editors, {\em 46th
-  International Symposium on Mathematical Foundations of Computer Science,
-  {MFCS} 2021, August 23-27, 2021, Tallinn, Estonia}, volume 202 of {\em
-  LIPIcs}, pages 67:1--67:15. Schloss Dagstuhl - Leibniz-Zentrum f{\"{u}}r
-  Informatik, 2021.
-\newblock URL: \url{https://doi.org/10.4230/LIPIcs.MFCS.2021.67}, \href
-  {https://doi.org/10.4230/LIPICS.MFCS.2021.67}
-  {\path{doi:10.4230/LIPICS.MFCS.2021.67}}.
+\newblock In Filippo Bonchi and Simon~J. Puglisi, editors, {\em 46th International Symposium on Mathematical Foundations of Computer Science, {MFCS} 2021, August 23-27, 2021, Tallinn, Estonia}, volume 202 of {\em LIPIcs}, pages 67:1--67:15. Schloss Dagstuhl - Leibniz-Zentrum f{\"{u}}r Informatik, 2021.
+\newblock URL: \url{https://doi.org/10.4230/LIPIcs.MFCS.2021.67}, \href {https://doi.org/10.4230/LIPICS.MFCS.2021.67} {\path{doi:10.4230/LIPICS.MFCS.2021.67}}.
 
 \bibitem{KreutzerR13}
 Stephan Kreutzer and Cristian Riveros.
 \newblock Quantitative monadic second-order logic.
-\newblock In {\em 28th Annual {ACM/IEEE} Symposium on Logic in Computer
-  Science, {LICS} 2013, New Orleans, LA, USA, June 25-28, 2013}, pages
-  113--122. {IEEE} Computer Society, 2013.
-\newblock \href {https://doi.org/10.1109/LICS.2013.16}
-  {\path{doi:10.1109/LICS.2013.16}}.
+\newblock In {\em 28th Annual {ACM/IEEE} Symposium on Logic in Computer Science, {LICS} 2013, New Orleans, LA, USA, June 25-28, 2013}, pages 113--122. {IEEE} Computer Society, 2013.
+\newblock \href {https://doi.org/10.1109/LICS.2013.16} {\path{doi:10.1109/LICS.2013.16}}.
+
+\bibitem{PighizziniS02}
+Giovanni Pighizzini and Jeffrey~O. Shallit.
+\newblock Unary language operations, state complexity and jacobsthal's function.
+\newblock {\em Int. J. Found. Comput. Sci.}, 13(1):145--159, 2002.
+\newblock \href {https://doi.org/10.1142/S012905410200100X} {\path{doi:10.1142/S012905410200100X}}.
 
 \bibitem{Schutzenberger61b}
 Marcel~Paul Sch{\"{u}}tzenberger.
 \newblock On the definition of a family of automata.
 \newblock {\em Inf. Control.}, 4(2-3):245--270, 1961.
-\newblock \href {https://doi.org/10.1016/S0019-9958(61)80020-X}
-  {\path{doi:10.1016/S0019-9958(61)80020-X}}.
+\newblock \href {https://doi.org/10.1016/S0019-9958(61)80020-X} {\path{doi:10.1016/S0019-9958(61)80020-X}}.
 
 \end{thebibliography}

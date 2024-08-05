@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2024)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: intro.aux
 The style file: plainurl.bst
@@ -8,44 +8,44 @@ Reallocated glb_str_end (elt_size=4) to 20 items from 10.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: bib.bib
-You've used 8 entries,
-            2882 wiz_defined-function locations,
-            711 strings with 7735 characters,
-and the built_in function-call counts, 5331 in all, are:
-= -- 583
-> -- 202
+You've used 9 entries,
+            2943 wiz_defined-function locations,
+            732 strings with 8015 characters,
+and the built_in function-call counts, 5929 in all, are:
+= -- 663
+> -- 217
 < -- 7
-+ -- 72
-- -- 63
-* -- 389
-:= -- 738
-add.period$ -- 36
-call.type$ -- 8
-change.case$ -- 51
++ -- 79
+- -- 67
+* -- 420
+:= -- 823
+add.period$ -- 40
+call.type$ -- 9
+change.case$ -- 56
 chr.to.int$ -- 0
-cite$ -- 8
-duplicate$ -- 159
-empty$ -- 470
-format.name$ -- 63
-if$ -- 1353
+cite$ -- 9
+duplicate$ -- 170
+empty$ -- 514
+format.name$ -- 67
+if$ -- 1501
 int.to.chr$ -- 0
-int.to.str$ -- 8
-missing$ -- 8
-newline$ -- 51
-num.names$ -- 22
-pop$ -- 84
+int.to.str$ -- 9
+missing$ -- 9
+newline$ -- 57
+num.names$ -- 24
+pop$ -- 99
 preamble$ -- 1
-purify$ -- 43
+purify$ -- 47
 quote$ -- 0
-skip$ -- 340
+skip$ -- 374
 stack$ -- 0
-substring$ -- 287
-swap$ -- 80
-text.length$ -- 7
+substring$ -- 337
+swap$ -- 83
+text.length$ -- 27
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 32
+type$ -- 36
 warning$ -- 0
-while$ -- 37
-width$ -- 9
-write$ -- 120
+while$ -- 41
+width$ -- 10
+write$ -- 133
