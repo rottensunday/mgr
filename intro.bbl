@@ -1,4 +1,10 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{KubotaCatalan}
+Ronald Alter and K.~K. Kubota.
+\newblock Prime and prime power divisibility of catalan numbers.
+\newblock {\em J. Comb. Theory {A}}, 15(3):243--256, 1973.
+\newblock \href {https://doi.org/10.1016/0097-3165(73)90072-1} {\path{doi:10.1016/0097-3165(73)90072-1}}.
 
 \bibitem{BarloyFLM22}
 Corentin Barloy, Nathana{\"{e}}l Fijalkow, Nathan Lhote, and Filip Mazowiecki.
