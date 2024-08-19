@@ -148,7 +148,7 @@ In~\cite[Section IV]{KreutzerR13}, Stephan Kreutzer and Cristian Riveros introdu
     A function $f: \Gamma^* \rightarrow S$ is definable by a weighted automaton over $S$ and $\Gamma$ iff $f$ is definable by a formula in QIL, and this translation is effective.
 \end{theorem}
 
-We won't go into details defining weighted automata. What's important is that it is folklore that formal power series defined by weighted automata over a one-letter alphabet are exactly linear recursive sequences (see e.g.~\cite{BarloyFLM22}). From this follows that all LRS are 1Q-definable.
+We won't go into details defining weighted automata. What is important is that it is folklore that formal power series defined by weighted automata over a one-letter alphabet are exactly linear recursive sequences (see e.g.~\cite{BarloyFLM22}). From this follows that all LRS are 1Q-definable.
 
 Below we present some examples of 1Q sequences.
 
@@ -242,15 +242,15 @@ This concludes the proof.
 
 \section{Eventual periodicity of 1Q sequences modulo}
 \label{Sec1QFiniteSemirings}
-Behavior of 1Q sequences modulo can help characterizing them and comparing with other classes of sequences. In this section we will show that 1Q sequences taken modulo $m \in \mathbb{N} \setminus \{0\}$, are eventually periodic.
+The behavior of 1Q sequences modulo can help characterizing these sequences and comparing them with other classes of sequences. In this section we will demonstrate that 1Q sequences, when taken modulo $m \in \mathbb{N} \setminus \{0\}$, are eventually periodic.
 
 \begin{definition}
     Let $a(n)$ be a sequence. $a(n)$ is \textit{eventually periodic} if there exists $N, p \in \mathbb{N}$, $p > 0$, such that $\forall_{n > N} \ a(n) = a(n+p)$.
 \end{definition}
 
-This property shows limitations of 1Q sequences modulo: they start behaving regularly from some point on. It is an effective method of checking if a sequence is 1Q-definable. For example, sequence of Catalan numbers is not eventually periodic modulo large enough prime numbers, so it will be shown that it is not 1Q-definable. 
+This property reveals a limitation of 1Q sequences modulo: they start behaving regularly after a certain point. This characteristic provides an effective method for determining whether a sequence is 1Q-definable. For instance, the sequence of Catalan numbers is not eventually periodic when considered modulo sufficiently large prime numbers, which will demonstrate that it is not 1Q-definable.
 
-We will characterize 1Q sequences modulo as 1Q sequences on modulo semiring:
+We will characterize 1Q sequences modulo as 1Q sequences over the modulo semiring:
 
 \begin{lemma}
     \label{1QModulo}
@@ -262,7 +262,7 @@ We will characterize 1Q sequences modulo as 1Q sequences on modulo semiring:
 \end{lemma}
 
 \begin{proof}
-    Semantics of 1Q expressions consist of addition, multiplication, repeated addition and repeated multiplication (repeated in case of semiring quantifiers). This lemma is a direct consequence of properties of operations modulo:
+    The semantics of 1Q expressions consist of addition, multiplication, repeated addition and repeated multiplication (repeated in case of semiring quantifiers). This lemma follows directly from the properties of operations modulo:
     $$(a + b) \mod m = (a \mod m + b \mod m) \mod m,$$
     $$(a \cdot b) \mod m = (a \mod m \cdot b \mod m) \mod m.$$
 \end{proof}
@@ -274,50 +274,50 @@ The goal of this section is to prove the following theorem:
     1Q sequences are eventually periodic modulo $m \in \mathbb{N} \setminus \{0\}$.
 \end{theorem}
 
-In order to prove this theorem, we want to simplify 1Q expressions defining these sequences to some form that is simple enough that the rest will follow. Our goal will be to reduce 1Q expressions on modulo semiring to \emph{simple recognizable step functions}.
+To prove this theorem, we aim to simplify the 1Q expressions defining these sequences into a form that is sufficiently straightforward for the remainder of the proof to follow naturally. Specifically, our goal is to reduce 1Q expressions over the modulo semiring to \emph{simple recognizable step functions}.
 
 \begin{definition}[Simple recognizable step function]
     \label{DefSimpleRecStepFun}
     A \textit{simple recognizable step function} is a recognizable step function $S = \sum_{i = 1}^{n} \ \varphi_{L_i} \cdot k_i$ in which languages $\{L_i : i \in \{1,\ldots,n\}\}$ form a partition of the whole language $\Sigma^* = \dot{\bigcup}_i \ L_i$.
 \end{definition}
 
-Simple recognizable step functions are basically more explicit form of recognizable step functions, but in essence those are the same functions:
+Simple recognizable step functions are essentially a more explicit form of recognizable step functions; however, in essence, they represent the same functions:
 
 \begin{lemma}
     \label{RecEqSimpleRec}
-    Recognizable step functions and simple recognizable step functions are the same functions.
+    Recognizable step functions and simple recognizable step functions are equivalent.
 \end{lemma}
 
 \begin{proof}
-    Suppose we have a recognizable step function $S = \sum_{i = 1}^{n} \ \varphi_{L_i} \cdot k_i$. We can create a simple recognizable step function defining the same function. Let $P$ be a powerset of $N = \{1,\ldots,n\}$. Then a simple recognizable step function can be defined in following way:
+    Suppose we have a recognizable step function $S = \sum_{i = 1}^{n} \ \varphi_{L_i} \cdot k_i$. We can construct a simple recognizable step function that defines the same function. Let $P$ be a powerset of $N = \{1,\ldots,n\}$. Then a simple recognizable step function can be defined as follows:
     $$S = \sum_{I \in P} \ (\bigwedge_{i \in I} \varphi_{L_i} \bigwedge_{j \in (N-I)} \neg \varphi_{L_j}) \cdot (\sum_{i \in I} \ k_i).$$
-    Expression $(\bigwedge_{i \in I} \varphi_{L_i} \bigwedge_{j \in (N-I)} \neg \varphi_{L_j})$ is true for exactly one $I \in P$ for given input $w$ - it follows from law of excluded middle. Now, to calculate value appearing in this intersection, we add constants corresponding to true expressions. This gives us a simple recognizable step function which calculates the same values as original recognizable step function.
+    Expression $(\bigwedge_{i \in I} \varphi_{L_i} \bigwedge_{j \in (N-I)} \neg \varphi_{L_j})$ is true for exactly one $I \in P$ for given input $w$ - it follows from the law of excluded middle. To calculate the value corresponding to this intersection, we sum the constants associated with the true expressions. This results in a simple recognizable step function that computes the same values as the original recognizable step function.
 
-    A simple recognizable step function is a recognizable step function by definition, so it does not require a proof.
+    By definition, a simple recognizable step function is also a recognizable step function, so no further proof is required.
 \end{proof}
 
-Now, we already know that semiring quantifier-free 1Q expressions are exactly the same as recognizable step function~(\cref{QFreeRecognizable}). The complexity appears when we introduce semiring quantifiers in 1Q expressions to create expressions like $\Pi_{X_1} \Sigma_{X_2} \ \varphi(X_1, X_2) \cdot 3 + \Sigma_{x_3} \ 2$, where $\varphi(X_1, X_2)$ is a MSO expression with two free variables. The main concern of this section will be proving that when working modulo, these quantifiers can actually be eliminated while still having simple recognizable step function as a result. For this we will use finite automata constructions and equivalence between MSO expressions and finite automata to count the number of valuations for which a MSO expression $\varphi$ with free variables is true.
+We already know that semiring quantifier-free 1Q expressions are equivalent to recognizable step functions~(\cref{QFreeRecognizable}). The complexity arises when we introduce semiring quantifiers into 1Q expressions, creating expressions like $\Pi_{X_1} \Sigma_{X_2} \ \varphi(X_1, X_2) \cdot 3 + \Sigma_{x_3} \ 2$, where $\varphi(X_1, X_2)$ is an MSO expression with two free variables. The primary focus of this section will be to demonstrate that when working modulo, these quantifiers can indeed be eliminated, resulting in a simple recognizable step function. To achieve this, we will employ finite automata constructions and leverage the equivalence between MSO expressions and finite automata to count the number of valuations for which an MSO expression $\varphi$ with free variables holds true.
 
-We will now prove a lemma about finite automata construction that will be used later to count number of valuations of free variable in MSO expression. It can be used to count number of runs of nondeterministic automaton. Let $A$ be a nondeterministic finite automaton. Define function $nRuns_A : \Sigma^* \rightarrow \mathbb{N}$ to be a function calculating number of accepting runs of automaton $A$ over words $w \in \Sigma^*$. We will also use function $nRuns_A : \Sigma^* \times Q \rightarrow \mathbb{N}$, where $Q$ is a set of states of automaton $A$. $nRuns_A(w, q)$ calculates the number of accepting runs of automaton $A$ over word $w$ which finish in state $q$.
+We will now prove a lemma concerning the construction of finite automata, which will be used later to count the number of valuations of free variables in MSO expressions. Let $A$ be a nondeterministic finite automaton. Define the function $nRuns_A : \Sigma^* \rightarrow \mathbb{N}$ as the function that calculates the number of accepting runs of automaton $A$ over words $w \in \Sigma^*$. Additionally, we will use the function $nRuns_A : \Sigma^* \times Q \rightarrow \mathbb{N}$, where $Q$ is the set of states of automaton $A$. The function $nRuns_A(w, q)$ calculates the number of runs of automaton $A$ over word $w$ that finish in state $q$.
 
 \begin{lemma}
     \label{CountRunsAutomaton}
-    Given a nondeterministic finite automaton $A$ recognizing the language $L_A$ and given natural numbers $m$, $k$, $k < m$, it is possible to create a finite automaton $C$ (as for \textbf{c}ounting automaton) recognizing the language $L_{C} := \{ w : w \in L_A \land nRuns_A(w) \mod m = k \}$.
+    Given a nondeterministic finite automaton $A$ that recognizes the language $L_A$, and given natural numbers $m$ and $k$ with $k < m$, it is possible to construct a finite automaton $C$ (as for \textbf{c}ounting automaton) that recognizes the language $L_{C} := \{ w : w \in L_A \land nRuns_A(w) \mod m = k \}$.
 \end{lemma}
 
 \begin{proof}
-    We will create such an automaton $C$ using an extended powerset construction.
+    We will construct such an automaton $C$ using an extended powerset construction.
 
-    Suppose the original automaton $A$ has $n$ states, $Q_A = \{q_1, \ldots, q_n\}$. States of the new automaton $C$, $Q_C$ are functions $f: Q_A \rightarrow \{0, \ldots, m-1 \}$. There are $m^n$ such functions, so is the number of states in $Q_C$. For state $q \in Q_C$ we will denote its corresponding function as $f_q$. State $q \in Q_C$ represented by function $f_q$ will be interpreted as following:
+    Suppose the original automaton $A$ has $n$ states, $Q_A = \{q_1, \ldots, q_n\}$. States of the new automaton $C$, denoted $Q_C$, are functions $f: Q_A \rightarrow \{0, \ldots, m-1 \}$. Since there are $m^n$ such functions, the number of states in $Q_C$ is $m^n$. For each state $q \in Q_C$, its corresponding function will be denoted as $f_q$. The state $q \in Q_C$, represented by the function $f_q$, is interpreted as follows:
     $$f_q(q_i) = nRuns_A(w, q_i) \mod m$$
 
-    Now let us introduce the initial state, final states and transitions of the automaton $C$.
+    Now, let us define the initial state, final states, and transitions of the automaton $C$.
 
-    The initial state of $C$ is a function mapping the initial state of $A$ to $1$ and every other state to $0$.
+    The initial state of $C$ is the function that maps the initial state of $A$ to $1$ and all other states to $0$.
 
-    Suppose the set of final states of automaton $A$ is $F_A$. Let $q_C \in Q_C$. Define $sumFin(q_C) = \sum_{q \in F_A} \ f_{q_C}(q)$. $sumFin$ returns sum of values of function corresponding to given state $q_C$ over all final states of $A$. Now, final states of $C$, $F_C \subseteq Q_C$, are states $q_C$ for which $sumFin(q_C) = k \mod m$. Intuitively, final states of $C$ are states in which we accept a word $k \mod m$ times.
+    Let the set of final states of automaton $A$ be $F_A$. For $q_C \in Q_C$, define $sumFin(q_C) = \sum_{q \in F_A} \ f_{q_C}(q)$. The function $sumFin$ returns the sum of the values of the function corresponding to the given state $q_C$ over all final states of $A$. The final states of $C$, $F_C \subseteq Q_C$, are those states $q_C$ for which $sumFin(q_C) = k \mod m$. Intuitively, the final states of $C$ are the states where a word is accepted exactly $k \mod m$ times.
 
-    Lastly, we need to define transitions of $C$. Suppose the set of transitions of automaton $A$ is $\delta_A$ and set of transitions of automaton $C$ is $\delta_C$. Let $q_C^1, q_C^2$ be two states of $C$, $f_1, f_2$ their corresponding functions.  $q_C^1 \xrightarrow{a} q_C^2 \in \delta_C$ if 
+    Lastly, we need to define the transitions of $C$. Let the set of transitions of the automaton $A$ be $\delta_A$ and the set of transitions of automaton $C$ be $\delta_C$. Consider two states of $C$, $q_C^1, q_C^2$, with corresponding functions $f_1$ and $f_2$, respectively. The transition $q_C^1 \xrightarrow{a} q_C^2$ is in $\delta_C$ if:
     $$f_2(q_i) = (\sum_{q \in Q_A} \ val(q)) \mod m,$$
     where
     \begin{equation*}
@@ -328,19 +328,20 @@ We will now prove a lemma about finite automata construction that will be used l
             \end{cases}       
     \end{equation*}
 
-    Intuitively, we count the number of runs ending in given state $q_i$ by summing over all states that have a transition to this state over given letter from previous state.
+    Intuitively, we determine the number of runs ending in a given state $q_i$ by summing over all states that have a transition to $q_i$ on the given letter from the previous state.
 
-    Now let us prove correctness of this construction. We will prove that after reading input word $w$, we reach state $q_C$ in automaton $C$, for which a function $f_{q_C}$ correctly calculates number of runs over word $w$ ending in given states in automaton $A$ (modulo $m$). From this and construction of final states of $C$ it will be clear that the construction is correct.
+    Now, let us prove the correctness of this construction. We will demonstrate that after reading the input word $w$, the automaton $C$ reaches a state $q_C$ such that the function $f_{q_C}$ correctly calculates the number of runs over the word $w$ that end in each given state of automaton $A$ (modulo $m$). From this and the construction of the final states of $C$, the correctness of the construction will be evident.
 
-    We will prove it by induction on length of word $w$.
-    In base case consider an empty word $\epsilon$. $C$ accepts this word only if following conditions occur:
+    We will prove this by induction on the length of the word $w$. In the base case, consider the empty word $\epsilon$. Automaton $C$ accepts this word only if the following conditions are met:
     \begin{itemize}
-        \item some final state of $A$ is also an initial state of $A$
-        \item $k = 1$
+        \item Some final state of $A$ is also an initial state of $A$.
+        \item $k = 1$.
     \end{itemize}
-    This follows from definition of initial and final states of $C$.
+    This follows directly from the definitions of the initial and final states of $C$.
     
-    For induction step, assume that construction is correct for a word of length $n-1$, $w_1 \ldots w_{n-1}$. That is, after reading first $n-1$ letters, we end up in a state $q_C \in Q_C$ represented by a function $f_{q_C}$ that correctly assigns numbers of runs (modulo $m$). We want to show that after reading next letter (so having a word of length $n$), $C$ reaches a state that also correctly assigns numbers of runs. For some state $q \in Q_A$, to find a number of runs finishing in $q$ after reading a word $w = w_1\ldots w_{n-1}w_n$, we need to consider all the states $q_{prev} \in Q_A$ such that $(q_{prev} \xrightarrow{w_n} q) \in \delta_A$ - all the states from which $q$ can be reached over last letter in word. Thanks to induction assumption, we know the numbers of runs ending in those states $q_{prev}$ after reading $w_1 \ldots w_{n-1}$. From this it's clear that the number of runs finishing in state $q$ after reading $w$ can be expressed by following formula:
+    For the induction step, assume that the construction is correct for a word of length $n-1$, $w_1 \ldots w_{n-1}$. That is, after reading the first $n-1$ letters, we end up in a state $q_C \in Q_C$ represented by a function $f_{q_C}$ that correctly assigns the number of runs (modulo $m$). We want to show that after reading the next letter (thus forming a word of length $n$), automaton $C$ reaches a state that also correctly assigns numbers of runs. 
+    
+    For a given state $q \in Q_A$, to determine the number of runs finishing in $q$ after reading the word $w = w_1\ldots w_{n-1}w_n$, we must consider all the states $q_{prev} \in Q_A$ such that $(q_{prev} \xrightarrow{w_n} q) \in \delta_A$ - that is, all the states from which $q$ can be reached via the last letter in the word. By the induction hypothesis, we know the number of runs ending in those states $q_{prev}$ after reading $w_1 \ldots w_{n-1}$. Therefore, the number of runs finishing in state $q$ after reading $w$ can be expressed by the following formula:
     $$(\sum_{q \in Q_A} \ val(q)) \mod m,$$
     where
     \begin{equation*}
@@ -353,19 +354,22 @@ We will now prove a lemma about finite automata construction that will be used l
     which is exactly how we defined transition function of $C$.
 \end{proof}
 
-To better understand the idea of counting valuations of free variable in MSO expression, it will be necessary to specify encoding of words accepted by MSO expressions with free variables. We will use a method explained in \cite{KreutzerR13}. The 'base' alphabet is still 1 letter alphabet $\Sigma = \{a\}$. Now, let $\varphi$ be a MSO expression with non empty set of free variables (first and second order) $V$. A word accepted by $\varphi$ is a word over the alphabet $\Sigma_V = \Sigma \times \{0, 1\}^{|V|}$. Let $w$ be some word over $\Sigma$ and $\sigma$ a $(V, w)$ assignment. A word $(w, \sigma) \in \Sigma_V^*$ \textit{encodes} a $(V, w)$-assignment if $w$ is the projection of $(w, \sigma)$ over $\Sigma$ and for every variable $v \in V$ we have $\sigma(v) = \{i \in \{1,\ldots,|w|\} \ | \ (w, \sigma)[v]_i = 1 \}$ where $(w, \sigma)[v]_i$ denotes the $i$-letter of the projection $(w, \sigma)$ over variable $v$. For first order variables $v_f \in V$ this set $\sigma(v_f)$ has exactly one element. For second order variables it can contain arbitrary number of positions in word.
+To better understand the concept of counting valuations of free variables in an MSO expression, it is essential to specify the encoding of words accepted by MSO expressions with free variables. We will follow the method described in \cite{KreutzerR13}. The ``base'' alphabet remains a single letter alphabet, $\Sigma = \{a\}$. Now, let $\varphi$ be aan MSO expression with a non-empty set of free variables (both first and second order) $V$. A word accepted by $\varphi$ is a word over the alphabet $\Sigma_V = \Sigma \times \{0, 1\}^{|V|}$. 
+
+Let $w$ be a word over $\Sigma$, and let $\sigma$ be a $(V, w)$-assignment. A word $(w, \sigma) \in \Sigma_V^*$ \emph{encodes} a $(V, w)$-assignment if $w$ is the projection of $(w, \sigma)$ onto $\Sigma$, and for every variable $v \in V$, we have $\sigma(v) = \{i \in \{1,\ldots,|w|\} \ | \ (w, \sigma)[v]_i = 1 \}$, where $(w, \sigma)[v]_i$ denotes the $i$-th letter of the projection of $(w, \sigma)$ onto variable $v$. For first order variables $v_f \in V$, this set $\sigma(v_f)$ contains exactly one element, while for second order variables, it may contain any number of positions in the word.
 
 \begin{example}
     Suppose we have an expression with one free first order variable:
     $$\varphi(y) = \forall x \ y \leq x.$$
-    In this case $y$ can only be the first position. Language recognized by this expression can be expressed with following regular expression: $\epsilon + \icol{a\\1}\icol{a\\0}^*$.
+    In this case, $y$ can only correspond to the first position in the word. The language recognized by this expression can be represented with the following regular expression: 
+    $$\epsilon + \icol{a\\1}\icol{a\\0}^*.$$
 \end{example}
 
-In the following steps it will be convenient to work with finite automata instead of MSO expressions. It is known (\cite{Buchi1960}) that for every MSO expression it is possible to build a finite automaton accepting the same language and vice versa.
+In the following steps, it will be convenient to work with finite automata rather than MSO expressions. It is well-known (\cite{Buchi1960}) that for every MSO expression, there exists a finite automaton that accepts the same language, and conversely, for every finite automaton, there exists an equivalent MSO expression.
 
 \begin{example}[Fibonacci]
     \label{ExFib}
-    Consider following expression with a free variable $X$ - a set. This expression only accepts sets in which there are no two consecutive positions contained in this set:
+    Consider the following expression with a free variable $X$ (a set). This expression accepts only those sets where no two consecutive positions are included in the set:
     $$\varphi(X) = \neg(\exists_{x_1}\exists_{x_2} \ x_1 \in X \land x_2 \in X \land x_2 > x_1 \land \neg(\exists_{x_3} \ x_3 > x_1 \land x_3 < x_2 ))$$
     Following word is not a part of language recognized by this expression:
     $$\begin{pmatrix}
@@ -436,7 +440,7 @@ Fortunately, manipulations of automata corresponding to expressions with free va
 \label{ExFibCont}
     Let us continue working on~\cref{ExFib}. There, we had following expression with a free variable $X$:
     $$\varphi(X) = \neg(\exists_{x_1}\exists_{x_2} \ x_1 \in X \land x_2 \in X \land x_2 > x_1 \land \neg(\exists_{x_3} \ x_3 > x_1 \land x_3 < x_2 ))$$
-    We also constructed deterministic automaton recognizing language over extended alphabet $\Sigma_V = \{a\} \times \{0,1\}$. From~\cref{LemElimVar} we know that it's possible to build an automaton, possibly nondeterministic, that ignores one of the free variables and its number of runs corresponds to number of valuations of ignored variable. In this case, we achieve automaton presented in~\cref{fig:my_label2}.
+    We also constructed deterministic automaton recognizing language over extended alphabet $\Sigma_V = \{a\} \times \{0,1\}$. From~\cref{LemElimVar} we know that it is possible to build an automaton, possibly nondeterministic, that ignores one of the free variables and its number of runs corresponds to number of valuations of ignored variable. In this case, we achieve automaton presented in~\cref{fig:my_label2}.
 
     \begin{figure}[ht]
         \centering
@@ -550,27 +554,32 @@ From this, the main result of this section,~\cref{1QSequencesPeriodic}, directly
 While researching 1Q sequences, there were other interesting subjects to go into, but were not completed.
 
 \subsection*{Characterization of 1Q sequences}
+\label{CharacterizationOf1QSequences}
 1Q expressions allow to define wide class of sequences. In particular, whole class of linear recursive sequences is contained in 1Q sequences. The interesting research question is exactly what class of sequences is defined by 1Q expressions - if there is other, maybe simpler representation of such sequences?
 
 In Introduction it was mentioned that 1Q expressions allow defining a sequence that is not polynomial recursive. From this follows interesting question: is every polynomial recursive sequence also 1Q-definable? It does not seem easy to answer, as it is not trivial to express recursion with 1Q expressions.
 
 \subsection*{Complexity of zero checking}
-Suppose we work over modulo semiring. What is the time complexity with regard to length of sentence $\varphi$ of checking whether sequence defined by such a sentence is constantly equal $0$? 
+Suppose we work over modulo semiring. What is the time complexity $O(|\varphi|)$ of checking whether sequence defined by such a sentence is constantly equal zero? 
 
-Lower bound for this problem (i.e. how far can the first non-zero element be) is at least TOWER. This follows from the fact that...
+Consider naive procedure of zero checking which simply iterates over first $n$ elements of sequence defined by $\varphi$ and checks whether they are $0$. How many elements do we need to check in order to be sure that the sequence is constantly equal to zero? This problem can also be stated in following way: how far in the sequence can first non-zero element appear (with regard to 1Q expression length)?
+
+It turns out that this problem has super-exponential complexity, even without semiring quantifiers. It follows from expressive power of MSO. In MSO, it is possible to define a sentence of length $n$ that does not accept words of length smaller than $tower(n)$ (citation needed). Function $tower$ is defined recursively: $tower(0) = 2$, $tower(n) = 2^{tower(n-1)}$.
 
 \subsection*{1Q on first order logic}
-It might be interesting to look into following restriction of 1Q expressions: we can only use first order variables on semiring level and logical level (i.e. we move from MSO logic to FO logic). 
+The task of characterizing 1Q sequences seems non-trivial, but it might be interesting to look into following restriction of 1Q expressions: we can only use first order variables on semiring level and logical level (i.e. we move from monadic second order logic to first order logic).
 
-First, let's focus on behavior of these sequences modulo.
+Unfortunately, this class of sequences also seems hard to characterize and it is not obvious how to tell if given sequence is or is not definable as 1Q sentence on first order logic.
 
-As stated in Droste paper, first order definable series coincide with series definable by weighted automata when working with aperiodic semirings. Unfortunately, semirings we're working with - semirings for modulo operations - aren't aperiodic. It can be easily with sequence defined by following expression:
+Instead, it might be worthwhile to again consider sequences modulo like we did in~\cref{Sec1QFiniteSemirings}.
+
+As stated in~\cite{DrosteG07}, first order definable series coincide with series definable by weighted automata when working with aperiodic semirings. Unfortunately, semirings we are working with - modulo semirings - aren not aperiodic. It can be easily with sequence defined by following expression:
 
 $$ \Sigma_x \ . \ 1 $$
 
-It defines the following sequence modulo 2: $\{1, 0, 1, 0, 1, \ldots\}$, which is not aperiodic. What's even more interesting is that inverse images of values of this sequence are not FO-definable languages. For value $0$ inverse image is a language of words of even length, which is only definable in second order logic. 
+It defines the following sequence modulo 2: $\{1, 0, 1, 0, 1, \ldots\}$, which is not aperiodic. Interesting thing about this sequence is that languages of words for which it achieves given values are not first order definable. For example, it achieves value $1$ for words of odd lengths ($1, 3, 5, \ldots$). Such a language is not first order definable. So, even though we restricted expressions to only use first order logic, there is additional complexity provided by semiring operations.
 
-We might want to ask if it's possible to define following sequence in 1Q modulo 2 using FOL: $\{0, 0, 1, 0, 0, 1, \ldots\}$, that is: we have ones on positions divisible by 3. 
+We might want to ask if it is possible to define following sequence in 1Q modulo $2$ using first order logic: $\{0, 0, 1, 0, 0, 1, \ldots\}$, that is: we have ones on positions divisible by 3. It rather seems to not be the case, and it might be provable that the only sequences definable modulo $2$ are those with periods being a power of $2$.
 
 \bibliographystyle{plainurl}
 \bibliography{bib}
