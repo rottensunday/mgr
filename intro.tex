@@ -54,15 +54,22 @@ A follow up work on weighted logics is the work of Stephan Kreutzer and Cristian
 In this work, we explore the world of unrestricted QMSO expressions. More precisely, we will look into the properties of formal power series defined by unrestricted QMSO over a one-letter alphabet. Assume our alphabet is $\Sigma = \{a\}$. In this case words can be identified with their length. Thus the formal power series $S: \Sigma^* \rightarrow K$ can be seen as a sequence $S: \mathbb{N} \rightarrow K$, by mapping words $a^n$ to their length $n$. Restricted QMSO expressions coincide with weighted automata, and it is folklore that formal power series defined by weighted automata over a one-letter alphabet are exactly linear recursive sequences (see e.g.~\cite{BarloyFLM22}). It can be easily shown that sequences achieved using unrestricted QMSO form a richer class than linear recursive sequences, which was already demonstrated in~\cite{CadilhacMPPS20}, but this class has not been investigated beyond that.
 
 \paragraph*{Our contributions}
-In this work, we introduce the notation of \textbf{1Q} sequences - sequences defined by unrestricted QMSO expressions over a one-letter alphabet. In Section~\ref{Sec1QRateOfGrowth}, we prove that the rate of growth of such sequences is at most doubly exponential, and this bound can be achieved. Then, in Section~\ref{Sec1QFiniteSemirings}, we prove results about 1Q sequences over finite semirings - namely, that it is possible to simplify corresponding QMSO expressions by removing semiring quantifiers. From this, we deduce that 1Q sequences are eventually periodic modulo, which in particular implies that the Catalan sequence is not a 1Q-definable sequence.
-\ifilip{To musi byc dluzsze. Trzeba jakos opisac co bylo wiadomo, co dokladnie zrobiles itp. Ale moze wrocimy do tego na koniec}
+In this work, we introduce the notation of \textbf{1Q} sequences - sequences defined by unrestricted QMSO expressions over a one-letter alphabet. We provide examples of such sequences, including $2^{2^n}$ and $n^n$. The sequence $n^n$ was previously defined in~\cite{CadilhacMPPS20}.
+
+In~\cref{Sec1QRateOfGrowth}, we investigate the asymptotic behavior of 1Q sequences. The objective is to precisely characterize the class of functions that bound every 1Q sequence from above. Since the sequence $2^{2^n}$ is a 1Q-sequence, this class is at least doubly exponential. We prove that it is exactly doubly exponential and that every sequence of the form $c^{2^{kn}}$, where $c, k \in \mathbb{N}$, is 1Q-definable.
+
+In~\cref{Sec1QFiniteSemirings}, we explore the behavior of 1Q sequences taken modulo $m$, where $m \in \mathbb{N}$. It is common for complex classes of sequences to exhibit regular, easily characterizable behavior when considered modulo a number. This phenomenon is often observed with recursive sequences, but 1Q sequences are more ``iterative'' in nature than recursive.
+
+The goal of~\cref{Sec1QFiniteSemirings} is to prove that 1Q sequences modulo are eventually periodic. Eventually periodic sequences exhibit periodic behavior from a certain point onward, continuing indefinitely. Many sequences modulo, such as linear recursive and polynomial recursive sequences, have this property. We prove that 1Q sequences modulo can be reduced to \emph{simple recognizable step functions}, which are essentially mappings from regular languages to semiring values. A crucial aspect of this reduction is the elimination of semiring quantifiers. To achieve this, we employ techniques from finite automata theory, MSO, and the properties of modulo semirings. Specifically, we construct an automaton that can count the number of runs of another nondeterministic automaton modulo a given value.
+
+Manfred Droste and Paul Gastin in~\cite{DrosteG07} have already investigated QMSO-definable series over locally finite semirings, which include modulo semirings. Their results demonstrate that series definable in QMSO over locally finite semirings coincide with those definable by weighted automata over the same semirings. From this, it is possible to deduce that 1Q sequences are eventually periodic modulo $m \in \mathbb{N}$. However, we present different proof methods in this work, notably without introducing the notion of weighted automata.
+
+n~\cref{SecOther}, we present additional research topics that were not fully explored but are worth investigating further to better understand the characteristics of 1Q sequences.
 
 \paragraph*{Related work}
 In~\cite{CadilhacMPPS20}, a class of polynomial recursive sequences is defined. It is an extension of linear recursive sequences, and this class enables defining sequences with doubly exponential growth. In~\cite{CadilhacMPPS20}, it is shown that 1Q sequences can define a sequence that is undefinable as a polynomial recursive sequence: $n^n$. However, whether the converse inclusion holds is not clear, namely if every polynomial recursive sequence can be defined as a 1Q sequence?
 
 There are other classes of sequences researched that extend linear recursive sequences, such as rational recursive sequences~\cite{ClementeDMP23} or holonomic sequences~\cite{KenisonKLLMOW021}. However, these classes can define Catalan sequences, while 1Q sequences cannot.
-
-In the original paper by Manfred Droste and Paul Gastin~\cite{DrosteG07}, it is shown that weighted logics (unrestricted) over finite semirings coincide with weighted automata. From this, it is possible to deduce that 1Q sequences are eventually periodic modulo, but we present different proof methods. In particular, we do not introduce the notation of weighted automata.
 
 \section{Preliminaries}
 In this section we present the syntax and semantics for Quantitative Monadic Second Order Logic (QMSO). It was introduced in~\cite{KreutzerR13} by Stephen Kreutzer and Cristian Riveros. Our presentation is based directly on this work. Then we will focus on 1Q sequences and provide some examples.
@@ -176,14 +183,11 @@ Below we present some examples of 1Q sequences.
 
 \section{1Q sequences rate of growth}
 \label{Sec1QRateOfGrowth}
-Let $a(n)$ be a 1Q sequence over natural numbers. We would like to find an upper bound for the asymptotical behavior of $a(n)$ depending only on $n$ and constants appearing in the 1Q expression defining it. We will identify the class of sequences bounding 1Q sequences as the \emph{rate of growth} of these sequences. So a 1Q sequence $a(n)$ will have a rate of growth in class of sequences $B$ if $\exists_{b \in B} \exists_{N \in \mathbb{N}} \exists_{k \in \mathbb{N}} \forall_{n \geq N} \ a(n) \leq k \cdot b(n)$.
+Let $a(n)$ be a 1Q sequence over the natural numbers. We aim to find an upper bound for the asymptotic behavior of $a(n)$, depending only on $n$ and constants appearing in the 1Q expression that defines it. We define the \emph{rate of growth} of these sequences as the class of sequences that bound 1Q sequences. Specifically, a 1Q sequence $a(n)$ will have a rate of growth in a class of sequences $B$ if $\exists_{b \in B} \exists_{N \in \mathbb{N}} \exists_{k \in \mathbb{N}} \forall_{n \geq N} \ a(n) \leq k \cdot b(n)$.
 
-We start by discussing linear recursive sequences (LRS).
-%
-It is known that linear recursive sequences have an exponentially bounded rate of growth. More formally, if $a(n)$ is an LRS then $|a(n)| \le 2^{O(n)}$. In \cref{ExSeqFactorial} we saw that in 1Q one can define the sequence $n!$ for which, by Stirling's approximation, we know that $n! = \Omega((\frac{n}{e})^n)$, exceeding the $2^{O(n)}$ bound for LRS. This shows that the class of 1Q sequences contains a sequence not definable in LRS. As mentioned in previous section (\ref{QILWL}), linear recursive sequences are contained in class of 1Q-definable sequences. From this follows that class of 1Q-definable sequences is strictly richer than LRS.
+We start by discussing linear recursive sequences (LRS). It is well-known that linear recursive sequences have an exponentially bounded rate of growth. More formally, if $a(n)$ is an LRS then $|a(n)| \le 2^{O(n)}$. In \cref{ExSeqFactorial}, we observed that 1Q expressions can define the sequence $n!$ for which, by Stirling's approximation, we know that $n! = \Omega((\frac{n}{e})^n)$, exceeding the $2^{O(n)}$ bound for LRS. This shows that the class of 1Q sequences contains sequences not definable within LRS. As mentioned in the previous section (\ref{QILWL}), linear recursive sequences are a subset of 1Q-definable sequences. Therefore, it follows that the class of 1Q-definable sequences is strictly richer than LRS.
 
-By \cref{ExSeqNToN} and \cref{ExSeqDoubleExponential}, it is clear that it is possible to define 1Q sequences with a rate of growth even larger than $n!$. We want to provide an upper bound for the rate of growth for all 1Q sequences.
-We will prove that the rate of growth of 1Q sequences is bounded by $2^{2^{O(n)}}$. First, we will prove a lemma, which will be useful to simplify QMSO expressions without semiring quantifiers.
+By \cref{ExSeqNToN} and \cref{ExSeqDoubleExponential}, it is clear that it is possible to define 1Q sequences with a rate of growth even larger than $n!$. Our goal is to establish an upper bound for the rate of growth of all 1Q sequences. Specifically, we will prove that the rate of growth of 1Q sequences is bounded by $2^{2^{O(n)}}$. First, we will prove a lemma, which will be useful to simplify QMSO expressions without semiring quantifiers.
 
 \begin{definition}[Recognizable step function]
     \label{DefRecStepFun}
@@ -217,27 +221,26 @@ This concludes the proof.
 \end{lemma}
 
 \begin{proof}
-    Every sequence generated by 1Q expression can be bounded by a sequence defined by a sequence defined by 1Q expression of following form: $\Pi_{X_1}\Pi_{X_2}\ldots \Pi_{X_k} \ c$, where $X_i$ are second-order quantifiers and $k \geq 0$ (for $k = 0$ there are no quantifiers, only constant $c$). We will prove it by induction on structure of 1Q expressions.
+    Every sequence generated by a 1Q expression can be bounded by a sequence defined by a 1Q expression of the following form: $\Pi_{X_1}\Pi_{X_2}\ldots \Pi_{X_k} \ c$, where $X_i$ are second-order quantifiers and $k \geq 0$ (for $k = 0$, there are no quantifiers, only constant $c$). We will prove this by induction on the structure of 1Q expressions.
 
-    For base case, consider quantifier-free expression $\varphi$. Thanks to lemma~\ref{QFreeRecognizable} we know that such an expression can be simplified to recognizable step function $\varphi = \sum_{i = 1}^{n} \ \varphi_{L_i} \cdot k_i$. Each of $\varphi_{L_i}$ is either $0$ or $1$. Set $c = \sum_{i=1}^n \ k_i$. Clearly $\sum_{i = 1}^{n} \ \varphi_{L_i} \cdot k_i \leq  \sum_{i=1}^n \ k_i = c$. Additionally, let us assume that $c$ is not smaller than $2$, i.e.\ $c = max(2, \sum_{i=1}^n \ k_i)$. This will help with further steps.
+    For the base case, consider a quantifier-free expression $\varphi$. By~\cref{QFreeRecognizable}, we know that such an expression can be simplified to a recognizable step function $\varphi = \sum_{i = 1}^{n} \ \varphi_{L_i} \cdot k_i$, where each of $\varphi_{L_i}$ evaluates to either $0$ or $1$. Set $c = \sum_{i=1}^n \ k_i$. Clearly, $\sum_{i = 1}^{n} \ \varphi_{L_i} \cdot k_i \leq  \sum_{i=1}^n \ k_i = c$. Additionally, let us assume that $c$ is not smaller than $2$, i.e., $c = max(2, \sum_{i=1}^n \ k_i)$. This assumption will be helpful in the subsequent steps.
 
-    Let $\varphi_1 = \Pi_{X_1'}\ldots \Pi_{X_k'} \ c_1$, $\varphi_2 = \Pi_{X_1''}\ldots \Pi_{X_k''} \ c_2$ be two 1Q expressions. In general, an expression of form $\Pi_{X_1}\ldots \Pi_{X_k} \ c$ defines sequence $a(n) = c^{2^{nk}}$. Denote by $a_1(n)$, $a_2(n)$ sequences defined by expressions $\varphi_1$ and $\varphi_2$, respectively. Then $a_1(n) = (c_1)^{2^{k'n}}$, $a_2(n) = (c_2)^{2^{k''n}}$. Sequences defined by both $\varphi_1 + \varphi_2$ and $\varphi_1 \cdot \varphi_2$ can be bounded by a sequence $a_3(n)$ defined by a 1Q expression $\varphi_3 = \Pi_{X1'} \ldots \Pi_{Xk'} \Pi_{X1''} \ldots \Pi_{Xk''} \ c_1 \cdot c_2$:
-
+    Let $\varphi_1 = \Pi_{X_1'}\ldots \Pi_{X_k'} \ c_1$ and $\varphi_2 = \Pi_{X_1''}\ldots \Pi_{X_k''} \ c_2$ be two 1Q expressions. In general, an expression of the form $\Pi_{X_1}\ldots \Pi_{X_k} \ c$ defines a sequence $a(n) = c^{2^{nk}}$. Denote by $a_1(n)$ and $a_2(n)$ the sequences defined by the expressions $\varphi_1$ and $\varphi_2$, respectively. Then $a_1(n) = (c_1)^{2^{k'n}}$, $a_2(n) = (c_2)^{2^{k''n}}$. The sequences defined by both $\varphi_1 + \varphi_2$ and $\varphi_1 \cdot \varphi_2$ can be bounded by a sequence $a_3(n)$ defined by a 1Q expression $\varphi_3 = \Pi_{X1'} \ldots \Pi_{Xk'} \Pi_{X1''} \ldots \Pi_{Xk''} \ c_1 \cdot c_2$:
     $$a_1(n) + a_2(n) = (c_1)^{2^{k'n}} + (c_2)^{2^{k''n}} \leq (c_1 \cdot c_2)^{2^{(k' + k'')n}} = a_3(n),$$
     and
     $$a_1(n) \cdot a_3(n) = (c_1)^{2^{k'n}} \cdot (c_2)^{2^{k''n}} \leq (c_1 \cdot c_2)^{2^{(k' + k'')n}} = a_3(n),$$
-    which is true assuming $c \geq 2$ (which we did in induction base).
+    this holds true assuming $c \geq 2$, as established in the induction base.
 
-    Let $\varphi = \Pi_{X_1}\ldots \Pi_{X_k} \ c$ be a 1Q expression. Its corresponding sequence is defined as following: $a(n) = c^{2^{nk}}$. There are four possible kinds of quantification: $\Sigma_x$, $\Sigma_X$, $\Pi_x$, $\Pi_X$. Define sequences corresponding to 1Q expressions using these quantifiers:
+    Let $\varphi = \Pi_{X_1}\ldots \Pi_{X_k} \ c$ be a 1Q expression. The corresponding sequence is defined as follows: $a(n) = c^{2^{nk}}$. There are four possible types of quantification: $\Sigma_x$, $\Sigma_X$, $\Pi_x$, $\Pi_X$. Define the sequences corresponding to 1Q expressions using these quantifiers as follows:
     $$a_1(n) = n \cdot c^{2^{nk}} \text{ for } \Sigma_x \ \varphi,$$
     $$a_2(n) = 2^n \cdot c^{2^{nk}} \text{ for } \Sigma_X \ \varphi,$$
     $$a_3(n) = c^{2^{nk} \cdot n} \text{ for } \Pi_x \ \varphi,$$
     $$a_4(n) = c^{2^{n(k+1)}} \text{ for } \Pi_X \ \varphi.$$
-    It is clear that $c^{2^{n(k+1)}} \geq c^{2^{nk} \cdot n}$ and $c^{2^{n(k+1)}} \geq 2^n \cdot c^{2^{nk}}$ and $c^{2^{n(k+1)}} \geq n \cdot c^{2^{nk}}$. From this follows any quantifier can be replaced by $\Pi_X$ quantifier to achieve sequence growing at least as fast. This concludes a proof by induction as we handled every form of QMSO expression.
+    It is clear that $c^{2^{n(k+1)}} \geq c^{2^{nk} \cdot n}$, $c^{2^{n(k+1)}} \geq 2^n \cdot c^{2^{nk}}$ and $c^{2^{n(k+1)}} \geq n \cdot c^{2^{nk}}$. From this, it follows that any quantifier can be replaced by a $\Pi_X$ quantifier to achieve a sequence growing at least as fast. This concludes the proof by induction, as we have handled every form of QMSO expression.
 
-    From this follows that for arbitrary 1Q expression $\varPsi$ it is possible to create an expression $\varPhi$ of form:
+    From this, it follows that for an arbitrary 1Q expression $\varPsi$, it is possible to create an expression $\varPhi$ of the form:
     $$\Pi_{X_1}\Pi_{X_2}\ldots \Pi_{X_k} \ c,$$
-    for some $c$, depending only on $\varPsi$, such that sequence generated by $\varPsi$ is bounded by sequence generated by $\varPhi$. Sequence generated by $\varPhi$ is exactly $a(n) = c^{2^{kn}}$, which has doubly exponential rate of growth. This also shows that for arbitrary $c, k$ it is possible to achieve sequence $c^{2^{kn}}$.
+    for some constant $c$ depending only on $\varPsi$, such that the sequence generated by $\varPsi$ is bounded by the sequence generated by $\varPhi$. The sequence generated by $\varPhi$ is precisely $a(n) = c^{2^{kn}}$, which has a doubly exponential rate of growth. This also shows that for arbitrary $c$ and $k$, it is possible to achieve the sequence $c^{2^{kn}}$.
 \end{proof}
 
 \section{Eventual periodicity of 1Q sequences modulo}
@@ -557,6 +560,7 @@ From this, the main result of this section,~\cref{1QSequencesPeriodic}, follows 
 \end{proof}
 
 \section{Other Topic of Interest}
+\label{SecOther}
 During the research on 1Q sequences, several other interesting topics emerged, though they were not fully explored.
 
 \subsection*{Characterization of 1Q sequences}
