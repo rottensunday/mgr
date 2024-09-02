@@ -75,7 +75,7 @@ There are other classes of sequences researched that extend linear recursive seq
 In this section we present the syntax and semantics for Quantitative Monadic Second Order Logic (QMSO). It was introduced in~\cite{KreutzerR13} by Stephen Kreutzer and Cristian Riveros. Our presentation is based directly on this work. Then we will focus on 1Q sequences and provide some examples.
 
 \subsection{Linear Recursive Sequences}
-A sequence over a set $\mathbb{D}$ is a function $a : \mathbb{N} - \{0\} \rightarrow \mathbb{D}$.
+A sequence over a set $\mathbb{D}$ is a function $a : \mathbb{N} \rightarrow \mathbb{D}$.
 
 Linear recursive sequences (\emph{LRS}) are sequences satifsfying following recurrence relation:
 $$a(n) = c_1 a(n-1) + c_2 a(n-2) + \ldots + c_k a(n-k),$$
@@ -106,7 +106,7 @@ Semirings we will be interested in in this paper include:
     \item finite semirings of numbers modulo arbitrary $k$: $ \mathbb{Z}_k = (\{0,1,\ldots,k-1\}, +_{mod}, \cdot_{mod}, 0, 1)$ where operations are executed modulo $k$
 \end{itemize}
 
-We restrict ourselves to sequences over natural numbers, although 1Q sequences can be defined over arbitrary semirings.
+We restrict mostly to sequences over natural numbers, although 1Q sequences can be defined over arbitrary semirings.
 
 \subsection{Quantitative Monadic Second-Order Logic}
 
@@ -155,7 +155,7 @@ In~\cite[Section IV]{KreutzerR13}, Stephan Kreutzer and Cristian Riveros introdu
     A function $f: \Gamma^* \rightarrow S$ is definable by a weighted automaton over $S$ and $\Gamma$ iff $f$ is definable by a formula in QIL, and this translation is effective.
 \end{theorem}
 
-We won't go into details defining weighted automata. What is important is that it is folklore that formal power series defined by weighted automata over a one-letter alphabet are exactly linear recursive sequences (see e.g.~\cite{BarloyFLM22}). From this follows that all LRS are 1Q-definable.
+We will not go into details of defining weighted automata. What is important is that it is folklore that formal power series defined by weighted automata over a one-letter alphabet are exactly linear recursive sequences (see e.g.~\cite{BarloyFLM22}). From this follows that all LRS are 1Q-definable.
 
 Below we present some examples of 1Q sequences.
 
@@ -185,7 +185,7 @@ Below we present some examples of 1Q sequences.
 \label{Sec1QRateOfGrowth}
 Let $a(n)$ be a 1Q sequence over the natural numbers. We aim to find an upper bound for the asymptotic behavior of $a(n)$, depending only on $n$ and constants appearing in the 1Q expression that defines it. We define the \emph{rate of growth} of these sequences as the class of sequences that bound 1Q sequences. Specifically, a 1Q sequence $a(n)$ will have a rate of growth in a class of sequences $B$ if $\exists_{b \in B} \exists_{N \in \mathbb{N}} \exists_{k \in \mathbb{N}} \forall_{n \geq N} \ a(n) \leq k \cdot b(n)$.
 
-We start by discussing linear recursive sequences (LRS). It is well-known that linear recursive sequences have an exponentially bounded rate of growth. More formally, if $a(n)$ is an LRS then $|a(n)| \le 2^{O(n)}$. In \cref{ExSeqFactorial}, we observed that 1Q expressions can define the sequence $n!$ for which, by Stirling's approximation, we know that $n! = \Omega((\frac{n}{e})^n)$, exceeding the $2^{O(n)}$ bound for LRS. This shows that the class of 1Q sequences contains sequences not definable within LRS. As mentioned in the previous section (\ref{QILWL}), linear recursive sequences are a subset of 1Q-definable sequences. Therefore, it follows that the class of 1Q-definable sequences is strictly richer than LRS.
+We start by discussing linear recursive sequences (LRS). It is well-known that linear recursive sequences have an exponentially bounded rate of growth. More formally, if $a(n)$ is an LRS then $|a(n)| \le 2^{O(n)}$\filip{moze jakis szkic argumentu}. In \cref{ExSeqFactorial}, we observed that 1Q expressions can define the sequence $n!$ for which, by Stirling's approximation, we know that $n! = \Omega((\frac{n}{e})^n)$, exceeding the $2^{O(n)}$ bound for LRS. This shows that the class of 1Q sequences contains sequences not definable within LRS. As mentioned in the previous section (\ref{QILWL}), linear recursive sequences are a subset of 1Q-definable sequences. Therefore, it follows that the class of 1Q-definable sequences is strictly richer than LRS.
 
 By \cref{ExSeqNToN} and \cref{ExSeqDoubleExponential}, it is clear that it is possible to define 1Q sequences with a rate of growth even larger than $n!$. Our goal is to establish an upper bound for the rate of growth of all 1Q sequences. Specifically, we will prove that the rate of growth of 1Q sequences is bounded by $2^{2^{O(n)}}$. We will use the notion of a \emph{recognizable step function}, which is a power series defined for an arbitrary semiring (although we are primarily interested in natural numbers):
 
