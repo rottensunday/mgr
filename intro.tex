@@ -187,13 +187,15 @@ Let $a(n)$ be a 1Q sequence over the natural numbers. We aim to find an upper bo
 
 We start by discussing linear recursive sequences (LRS). It is well-known that linear recursive sequences have an exponentially bounded rate of growth. More formally, if $a(n)$ is an LRS then $|a(n)| \le 2^{O(n)}$. In \cref{ExSeqFactorial}, we observed that 1Q expressions can define the sequence $n!$ for which, by Stirling's approximation, we know that $n! = \Omega((\frac{n}{e})^n)$, exceeding the $2^{O(n)}$ bound for LRS. This shows that the class of 1Q sequences contains sequences not definable within LRS. As mentioned in the previous section (\ref{QILWL}), linear recursive sequences are a subset of 1Q-definable sequences. Therefore, it follows that the class of 1Q-definable sequences is strictly richer than LRS.
 
-By \cref{ExSeqNToN} and \cref{ExSeqDoubleExponential}, it is clear that it is possible to define 1Q sequences with a rate of growth even larger than $n!$. Our goal is to establish an upper bound for the rate of growth of all 1Q sequences. Specifically, we will prove that the rate of growth of 1Q sequences is bounded by $2^{2^{O(n)}}$. First, we will prove a lemma, which will be useful to simplify QMSO expressions without semiring quantifiers.
+By \cref{ExSeqNToN} and \cref{ExSeqDoubleExponential}, it is clear that it is possible to define 1Q sequences with a rate of growth even larger than $n!$. Our goal is to establish an upper bound for the rate of growth of all 1Q sequences. Specifically, we will prove that the rate of growth of 1Q sequences is bounded by $2^{2^{O(n)}}$. We will use the notion of a \emph{recognizable step function}, which is a power series defined for an arbitrary semiring (although we are primarily interested in natural numbers):
 
 \begin{definition}[Recognizable step function]
     \label{DefRecStepFun}
     Fix a semiring $K$.
-    A series $S: A^* \rightarrow K$ is a \textit{recognizable step function}, if $S = \sum_{i = 1}^{n} \ \varphi_{L_i} \cdot k_i$\filip{suma w sensie polpierscienia? (alek) tak} for some $n \in \mathbb{N}$, $k_i \in K$ and regular languages $L_i \subseteq A^*$ ($i=1,\ldots,n$). $\varphi_{L_i}$ is an MSO formula recognizing language $L_i$.
+    A series $S: A^* \rightarrow K$ is a \emph{recognizable step function}, if $S = \sum_{i = 1}^{n} \ \varphi_{L_i} \cdot k_i$ (semiring sum) for some $n \in \mathbb{N}$, $k_i \in K$ and regular languages $L_i \subseteq A^*$ ($i=1,\ldots,n$). $\varphi_{L_i}$ is an MSO formula recognizing language $L_i$.
 \end{definition}
+
+First, we will prove a lemma, which will be useful to simplify QMSO expressions without semiring quantifiers.
 
 \begin{lemma}
     \label{QFreeRecognizable}
@@ -277,7 +279,7 @@ The goal of this section is to prove the following theorem:
     1Q sequences are eventually periodic modulo $m \in \mathbb{N} \setminus \{0\}$.
 \end{theorem}
 
-To prove this theorem, we aim to simplify the 1Q expressions defining these sequences into a form that is sufficiently straightforward for the remainder of the proof to follow naturally. Specifically, our goal is to reduce 1Q expressions over the modulo semiring to \emph{simple recognizable step functions}.
+To prove this theorem, we aim to simplify the 1Q expressions defining these sequences into a form that is sufficiently straightforward for the remainder of the proof to follow naturally. Specifically, our goal is to reduce 1Q expressions over the modulo semiring to \emph{simple recognizable step functions}. Such functions are eventually periodic modulo, as will be shown later.
 
 \begin{definition}[Simple recognizable step function]
     \label{DefSimpleRecStepFun}
@@ -298,6 +300,8 @@ Simple recognizable step functions are essentially a more explicit form of recog
 
     By definition, a simple recognizable step function is also a recognizable step function, so no further proof is required.
 \end{proof}
+
+\subsection{Counting runs of automaton}
 
 We already know that semiring quantifier-free 1Q expressions are equivalent to recognizable step functions~(\cref{QFreeRecognizable}). The complexity arises when we introduce semiring quantifiers into 1Q expressions, creating expressions like $\Pi_{X_1} \Sigma_{X_2} \ \varphi(X_1, X_2) \cdot 3 + \Sigma_{x_3} \ 2$, where $\varphi(X_1, X_2)$ is an MSO expression with two free variables. The primary focus of this section will be to demonstrate that when working modulo, these quantifiers can indeed be eliminated, resulting in a simple recognizable step function. To achieve this, we will employ finite automata constructions and leverage the equivalence between MSO expressions and finite automata to count the number of valuations for which an MSO expression $\varphi$ with free variables holds true.
 
@@ -357,7 +361,9 @@ We will now prove a lemma concerning the construction of finite automata, which 
     which is exactly how we defined transition function of $C$.
 \end{proof}
 
-To better understand the concept of counting valuations of free variables in an MSO expression, it is essential to specify the encoding of words accepted by MSO expressions with free variables. We will follow the method described in \cite{KreutzerR13}. The ``base'' alphabet remains a single letter alphabet, $\Sigma = \{a\}$. Now, let $\varphi$ be aan MSO expression with a non-empty set of free variables (both first- and second-order) $V$. A word accepted by $\varphi$ is a word over the alphabet $\Sigma_V = \Sigma \times \{0, 1\}^{|V|}$. 
+\subsection{Counting valuations of free variables in MSO expressions}
+
+To better understand the concept of counting valuations of free variables in an MSO expression, it is essential to specify the encoding of words accepted by MSO expressions with free variables. We will follow the method described in~\cite{KreutzerR13}. The ``base'' alphabet remains a single letter alphabet, $\Sigma = \{a\}$. Now, let $\varphi$ be aan MSO expression with a non-empty set of free variables (both first- and second-order) $V$. A word accepted by $\varphi$ is a word over the alphabet $\Sigma_V = \Sigma \times \{0, 1\}^{|V|}$. 
 
 Let $w$ be a word over $\Sigma$, and let $\sigma$ be a $(V, w)$-assignment. A word $(w, \sigma) \in \Sigma_V^*$ \emph{encodes} a $(V, w)$-assignment if $w$ is the projection of $(w, \sigma)$ onto $\Sigma$, and for every variable $v \in V$, we have $\sigma(v) = \{i \in \{1,\ldots,|w|\} \ | \ (w, \sigma)[v]_i = 1 \}$, where $(w, \sigma)[v]_i$ denotes the $i$-th letter of the projection of $(w, \sigma)$ onto variable $v$. For first-order variables $v_f \in V$, this set $\sigma(v_f)$ contains exactly one element, while for second-order variables, it may contain any number of positions in the word.
 
@@ -373,7 +379,8 @@ In the following steps, it will be convenient to work with finite automata rathe
 \begin{example}[Fibonacci]
     \label{ExFib}
     Consider the following expression with a free variable $X$ (a set). This expression accepts only those sets where no two consecutive positions are included in the set:
-    $$\varphi(X) = \neg(\exists_{x_1}\exists_{x_2} \ x_1 \in X \land x_2 \in X \land x_2 > x_1 \land \neg(\exists_{x_3} \ x_3 > x_1 \land x_3 < x_2 ))$$
+    $$\varphi(X) = \neg(\exists_{x_1}\exists_{x_2} \ x_1 \in X \land x_2 \in X \land succ(x_1, x_2)),$$
+    where $succ(x,y) = x > y~\land \neg (\exists_z \ z > y \land z < x)$.
     The following word is not part of the language recognized by this expression:
     $$\begin{pmatrix}
         a & a & a & a\\
@@ -407,44 +414,97 @@ In the following steps, it will be convenient to work with finite automata rathe
     \end{figure}
 \end{example} \
 
-The method we intend to use to prove that 1Q sequences modulo are eventually periodic involves simplifying the 1Q expressions that define such sequences. The primary source of complexity in 1Q expressions is the use of semiring quantifiers. To calculate the values of a sequence defined by an expression such as $\Sigma_X \ \varphi(X)$, it is necessary to determine how many valuations of $X$ make the expression $\varphi(X)$ true for words of varying lengths $1,2,\ldots$.
+The method we intend to use to prove that 1Q sequences modulo are eventually periodic involves simplifying the 1Q expressions that define such sequences. The primary source of complexity in 1Q expressions is the use of semiring quantifiers. For instance, to calculate the values of a sequence defined by an expression like $\Sigma_X \ \varphi(X)$, it is necessary to determine how many valuations of $X$ satisfy the expression $\varphi(X)$ for words of varying lengths $1,2,\ldots$.
 
-Fortunately, manipulations of the automata corresponding to expressions with free variables, such as $\varphi(X)$, enable us to create nondeterministic automata that ``count'' the number of valuations for which $\varphi(X)$ is true.
+Fortunately, by manipulating the automata corresponding to expressions with free variables, such as $\varphi(X)$, we can construct nondeterministic automata that effectively ``count'' the number of valuations for which $\varphi(X)$ holds true.
+
+Let $\varphi_V$ be an MSO expression with a non-empty set of free variables $V = \{v_1, \ldots, v_n\}$. Let $A_V$ be the corresponding deterministic finite automaton, i.e., the automaton that recognizes the same language as $\varphi$. Both $\varphi_V$ and $A_V$ recognize the language $L_V \subseteq \Sigma_V^*$. A word $(w, \sigma) \in L_V$ can equivalently be represented as $(w, \sigma(v_1), \ldots \sigma(v_n))$.
+
+Our objective is to eliminate a variable $v \in V$ to obtain a language $L_{V \setminus \{v\}}$ - a projection that ignores the dimension corresponding to the variable $v$ - and to count the number of valuations of $v$. Without loss of generality, assume that we want to remove the variable $v_n$.
+
+Let $w_p = (w, \sigma(v_1), \ldots, \sigma(v_{n-1}))$ be a word in $L_{V \setminus \{v_n\}}$. We seek to determine $|w_p^{-1}| = |\{ (w, \sigma(v_1), \ldots, \sigma(v_{n-1}), x) \in L_V \ : \ x \in \{0,1\}^* \}|$ - the cardinality of the inverse image of $w_p$ under this projection. This cardinality corresponds to the number of valuations of $v_n$.
+
+Rather than counting this number explicitly, we will construct a nondeterministic automaton whose number of runs corresponds to this count. By applying the method presented in~\cref{CountRunsAutomaton}, we can create automata that accept only languages of words for which the number of valuations modulo $m \in \mathbb{N} \setminus \{0\}$ is congruent to specified numbers. We will use this approach to eliminate semiring quantifiers from 1Q expressions later on.
 
 \begin{lemma}
 \label{LemElimVar}
-    Let $\varphi$ be an MSO expression with a non-empty set of free variables $V = \{v_1, \ldots, v_n\}$. Let $A$ be the corresponding deterministic finite automaton, i.e., the automaton that recognizes the same language as $\varphi$. Both $\varphi$ and $A$ recognize the language $L \subseteq \Sigma_V^*$. A word $(w, \sigma) \in L$ can equivalently be represented as $(w, \sigma(v_1), \ldots \sigma(v_n))$. Let $v_i \in V$. Define the following language over a reduced alphabet (by ``ignoring'' the variable $v_i$): 
-    $$L' = \{(w, \sigma(v_1), \ldots, \sigma(v_{i-1}), \sigma(v_{i+1}), \ldots, \sigma(v_n)) \ : \ (w, \sigma(v_1), \ldots \sigma(v_n)) \in L\}$$
-    Now, the following holds:
-    \begin{enumerate}
-        \item $L'$ can be recognized by an automaton $A'$ that is identical to $A$ but defined over the reduced alphabet $\Sigma_{V \setminus \{v_i\}} = \Sigma \times \{0, 1\}^{|V-1|}$. The transitions of $A'$ differ from those of $A$ by simply ignoring variable $v_i$,
-        \item The automaton $A'$ can become nondeterministic, and for an arbitrary word
-        $$w_{\setminus\{v_i\}} = (w, \sigma(v_1), \ldots, \sigma(v_{i-1}), \sigma(v_{i+1}), \ldots, \sigma(v_n)) \in L',$$ and 
-        $$w^{-1}_{\setminus\{v_i\}} = \{(w, \sigma(v_1), \ldots, \sigma(v_{i-1}), x, \sigma(v_{i+1}), \ldots, \sigma(v_n)) \in L \ : \ x \in \{0, 1\}^* \},$$
-        it holds that $nRuns_{A'}(w_{\setminus\{v_i\}}) = |w^{-1}_{\setminus\{v_i\}}|$. This means that the number of accepting runs of the automaton $A'$ for a given valuation of the variables (ignoring the removed variable $v_i$) corresponds to the number of accepting valuations of this variable, given the valuations of the remaining variables in the original language $L$.
-    \end{enumerate}
+    Let $\varphi_V$ be an MSO expression with a non-empty set of free variables $V = \{v_1, \ldots, v_n\}$, and let $A_V$ be its corresponding deterministic finite automaton recognizing the language $L_V \subseteq \Sigma_V^*$. Consider the projection of $L_V$ onto $L_{V \setminus \{v_n\}}$. 
+    
+    It is possible to construct an automaton $A_{V \setminus \{v_n\}}$ that recognizes the language $L_{V \setminus \{v_n\}}$. Moreover, for any word $(w, \sigma) \in L_V$, the following holds:
+    $$|\{ (w, \sigma(v_1), \ldots, \sigma(v_{n-1}), x) \in L_V \ : \ x \in \{0,1\}^* \}| = nRuns_{A_{V \setminus \{v_n\}}}((w, \sigma(v_1), \ldots, \sigma(v_{n-1})))$$
 \end{lemma}
 
-\begin{proof} \
+\begin{proof}
+    The construction of $A_{V \setminus \{v_n\}}$ will be based on $A_V$. All states of $A_V$ will also be states of $A_{V \setminus \{v_n\}}$.
+    
+    Consider a word $(w, \sigma(v_1), \ldots, \sigma(v_{n-1}), x) \in L_V$. The automaton $A_{V \setminus \{v_n\}}$ should ensure that for every possible valuation of $x$ that keeps us in a language $L_V$ (while keeping all other variables unchanged), there is a corresponding unique accepting run.
 
-    \begin{enumerate}
-        \item $A'$ is simply an automaton that recognizes the projection of $\Sigma_V^*$ onto $\Sigma_{V \setminus \{v_i\}}$, effectively ignoring the dimension corresponding to variable $v_i$.
-        \item We can demonstrate that $A'$ can become nondeterministic as follows. Let $\delta_A$ be the set of transitions of automaton $A$. Consider three states $q_1, q_2, q_3 \in Q_A$ such that:
-        $$q_1 \xrightarrow{(a, v_1, \ldots, v_{i-1}, 0, \ldots v_n)} q_2 \in \delta_A,$$ 
-        $$q_1 \xrightarrow{(a, v_1, \ldots, v_{i-1}, 1, \ldots v_n)} q_3 \in \delta_A.$$
-        From this construction, it follows that in $A'$, the following transitions occur:
-        $$q_1 \xrightarrow{(a, v_1, \ldots, v_{i-1}, \ldots v_n)} q_2 \in \delta_{A'},$$ 
-        $$q_1 \xrightarrow{(a, v_1, \ldots, v_{i-1}, \ldots v_n)} q_3 \in \delta_{A'},$$
-        which implies that $A'$ is nondeterministic. If no such states exist in $A$ then $A'$ remains deterministic. 
-        
-        Now, we have to prove that $nRuns_{A'}(w_{\setminus\{v_i\}}) = |w_L|$ for $w_{\setminus\{v_i\}} \in L'$. This follows directly from the construction of $A'$: for every accepting path of $w_{\setminus\{v_i\}}$ in automaton $A'$, there corresponds a valuation of $v_i$ such that automaton $A$ would accept the word $(w, \sigma(v_1), \ldots, \sigma(v_{i-1}), \sigma(v_i), \sigma(v_{i+1}), \ldots, \sigma(v_n))$.
-    \end{enumerate}
+    Let $q_1 \in Q_{A_V}$ be a state of the automaton $A_V$, and let $t_1, t_2 \in \delta_{A_V}$ be two outgoing transitions from $q_1$ on input symbols $l_1, l_2 \in \Sigma_V$, which differ only in the position corresponding to variable $v_n$. This situation occurs when the automaton $A_V$ accepts multiple words that differ only in the valuation of the variable $v_n$.
+
+    Since $q_1$ is also a state of $A_{V \setminus \{v_n\}}$, we must handle these outgoing transitions to ensure that $A_{V \setminus \{v_n\}}$ will have correct number of accepting runs. There are two cases to consider:
+
+    \textbf{Case 1:}
+    Suppose the transitions in $A_V$ are:
+    $$t_1 = q_1 \xrightarrow{(a, x_1, \ldots, x_{n-1}, 0)} q_2,$$
+    $$t_2 = q_1 \xrightarrow{(a, x_1, \ldots, x_{n-1}, 1)} q_3,$$
+    where $q_2 \neq q_3$. In this case, evaluation of $v_n$ is directly ``split'' into two different paths - one with zero on corresponding position, the other with one. In this case, the only thing that needs to be done in $A_{V \setminus \{v_n\}}$, is to project $t_1$ and $t_2$ onto the reduced alphabet:
+    $$q_2, q_3 \in Q_{A_{V \setminus \{v_n\}}},$$
+    $$t_1' = q_1 \xrightarrow{(a, x_1, \ldots, x_{n-1})} q_2 \in \delta_{A_{V \setminus \{v_n\}}},$$
+    $$t_2' = q_1 \xrightarrow{(a, x_1, \ldots, x_{n-1})} q_3 \in \delta_{A_{V \setminus \{v_n\}}}.$$
+    This projection preserves the distinct paths corresponding to different valuations of $v_n$.
+
+    \textbf{Case 2:}
+    Suppose the transitions in $A_V$ are:
+    $$t_1 = q_1 \xrightarrow{(a, x_1, \ldots, x_{n-1}, 0)} q_2,$$
+    $$t_2 = q_1 \xrightarrow{(a, x_1, \ldots, x_{n-1}, 1)} q_2,$$
+    Here, both transitions lead to the same state $q_2$, regardless of the valuation on given position of variable $v_n$. If we simply project these transitions as in Case 1, they would merge, possibly leading to fewer runs than required.
+
+    To address this, we introduce an artificial state $q_3$ in $Q_{A_{V \setminus \{v_n\}}}$ to simulate $q_2$. This new state is constructed to mimic $q_2$ as follows:
+    \begin{itemize}
+        \item $q_3$ is a final state if and only if $q_2$ is a final state,
+        \item $q_3$ inherits all outgoing transitions from $q_2$.
+    \end{itemize}
+    We then create the following transitions in $A_{V \setminus \{v_n\}}$:
+    $$q_2, q_3 \in Q_{A_{V \setminus \{v_n\}}},$$
+    $$t_1' = q_1 \xrightarrow{(a, x_1, \ldots, x_{n-1})} q_2 \in \delta_{A_{V \setminus \{v_n\}}},$$
+    $$t_2' = q_1 \xrightarrow{(a, x_1, \ldots, x_{n-1})} q_3 \in \delta_{A_{V \setminus \{v_n\}}}.$$
+    By introducing $q_3$  and creating this artificial split, we ensure that each valuation of $v_n$ results in a unique accepting run, thereby preserving the correct count of runs in $A_{V \setminus \{v_n\}}$.
 \end{proof}
+
+% \begin{lemma}
+% \label{LemElimVar}
+%     Let $\varphi$ be an MSO expression with a non-empty set of free variables $V = \{v_1, \ldots, v_n\}$. Let $A$ be the corresponding deterministic finite automaton, i.e., the automaton that recognizes the same language as $\varphi$. Both $\varphi$ and $A$ recognize the language $L \subseteq \Sigma_V^*$. A word $(w, \sigma) \in L$ can equivalently be represented as $(w, \sigma(v_1), \ldots \sigma(v_n))$. Let $v_i \in V$. Define the following language over a reduced alphabet (by ``ignoring'' the variable $v_i$): 
+%     $$L' = \{(w, \sigma(v_1), \ldots, \sigma(v_{i-1}), \sigma(v_{i+1}), \ldots, \sigma(v_n)) \ : \ (w, \sigma(v_1), \ldots \sigma(v_n)) \in L\}$$
+%     Now, the following holds:
+%     \begin{enumerate}
+%         \item $L'$ can be recognized by an automaton $A'$ that is identical to $A$ but defined over the reduced alphabet $\Sigma_{V \setminus \{v_i\}} = \Sigma \times \{0, 1\}^{|V-1|}$. The transitions of $A'$ differ from those of $A$ by simply ignoring variable $v_i$,
+%         \item The automaton $A'$ can become nondeterministic, and for an arbitrary word
+%         $$w_{\setminus\{v_i\}} = (w, \sigma(v_1), \ldots, \sigma(v_{i-1}), \sigma(v_{i+1}), \ldots, \sigma(v_n)) \in L',$$ and 
+%         $$w^{-1}_{\setminus\{v_i\}} = \{(w, \sigma(v_1), \ldots, \sigma(v_{i-1}), x, \sigma(v_{i+1}), \ldots, \sigma(v_n)) \in L \ : \ x \in \{0, 1\}^* \},$$
+%         it holds that $nRuns_{A'}(w_{\setminus\{v_i\}}) = |w^{-1}_{\setminus\{v_i\}}|$. This means that the number of accepting runs of the automaton $A'$ for a given valuation of the variables (ignoring the removed variable $v_i$) corresponds to the number of accepting valuations of this variable, given the valuations of the remaining variables in the original language $L$.
+%     \end{enumerate}
+% \end{lemma}
+
+% \begin{proof} \
+
+%     \begin{enumerate}
+%         \item $A'$ is simply an automaton that recognizes the projection of $\Sigma_V^*$ onto $\Sigma_{V \setminus \{v_i\}}$, effectively ignoring the dimension corresponding to variable $v_i$.
+%         \item We can demonstrate that $A'$ can become nondeterministic as follows. Let $\delta_A$ be the set of transitions of automaton $A$. Consider three states $q_1, q_2, q_3 \in Q_A$ such that:
+%         $$q_1 \xrightarrow{(a, v_1, \ldots, v_{i-1}, 0, \ldots v_n)} q_2 \in \delta_A,$$ 
+%         $$q_1 \xrightarrow{(a, v_1, \ldots, v_{i-1}, 1, \ldots v_n)} q_3 \in \delta_A.$$
+%         From this construction, it follows that in $A'$, the following transitions occur:
+%         $$q_1 \xrightarrow{(a, v_1, \ldots, v_{i-1}, \ldots v_n)} q_2 \in \delta_{A'},$$ 
+%         $$q_1 \xrightarrow{(a, v_1, \ldots, v_{i-1}, \ldots v_n)} q_3 \in \delta_{A'},$$
+%         which implies that $A'$ is nondeterministic. If no such states exist in $A$ then $A'$ remains deterministic. 
+        
+%         Now, we have to prove that $nRuns_{A'}(w_{\setminus\{v_i\}}) = |w_L|$ for $w_{\setminus\{v_i\}} \in L'$. This follows directly from the construction of $A'$: for every accepting path of $w_{\setminus\{v_i\}}$ in automaton $A'$, there corresponds a valuation of $v_i$ such that automaton $A$ would accept the word $(w, \sigma(v_1), \ldots, \sigma(v_{i-1}), \sigma(v_i), \sigma(v_{i+1}), \ldots, \sigma(v_n))$.
+%     \end{enumerate}
+% \end{proof}
 
 \begin{example}[Fibonacci, continued]
 \label{ExFibCont}
     Let us continue working on~\cref{ExFib}. There, we considered the following expression with a free variable $X$:
-    $$\varphi(X) = \neg(\exists_{x_1}\exists_{x_2} \ x_1 \in X \land x_2 \in X \land x_2 > x_1 \land \neg(\exists_{x_3} \ x_3 > x_1 \land x_3 < x_2 ))$$
+    $$\varphi(X) = \neg(\exists_{x_1}\exists_{x_2} \ x_1 \in X \land x_2 \in X \land succ(x_1, x_2))$$
     We also constructed a deterministic automaton that recognizes a language over the extended alphabet $\Sigma_V = \{a\} \times \{0,1\}$. From~\cref{LemElimVar}, we know that it is possible to build an automaton, potentially nondeterministic, that ignores one of the free variables, with its number of runs corresponding to the number of valuations of the ignored variable. In this case, this results in the automaton presented in~\cref{fig:my_label2}.
 
     \begin{figure}[ht]
@@ -465,7 +525,8 @@ Fortunately, manipulations of the automata corresponding to expressions with fre
     From the explanation in~\cref{ExFib} regarding the correspondence between $\varphi(X)$ and Fibonacci numbers, and the results in~\cref{LemElimVar}, it follows that the number of accepting runs of the automaton shown in~\cref{fig:my_label2} for a word of length $n$ (i.e., $a^n$) should equal $F(n+2)$. This is indeed the case and can be proven by induction.
 \end{example}
 
-The following lemmas are crucial for the elimination of semiring quantifiers in 1Q expressions:
+\subsection{Semiring quantifiers elimination}
+The primary complexity in simplifying 1Q expressions, as stated at the beginning of this section, lies in handling semiring quantifiers. In this subsection, we will demonstrate how to eliminate these quantifiers while maintaining the simplicity of the expressions. The following lemmas are crucial for the elimination of semiring quantifiers in 1Q expressions:
 
 \begin{lemma}
     \label{QuantElimAdd}
@@ -508,6 +569,7 @@ The following lemmas are crucial for the elimination of semiring quantifiers in 
     $$\Pi_X \ \varphi = \prod_{i = 1}^n \ \sum_{j = 0}^{N_i + p_i} \ \varphi_{L_i}^j \cdot k_i^j.$$
 \end{proof}
 
+\subsection{Final steps}
 Finally, we can characterize 1Q sequences over a modulo semiring as simple recognizable step functions:
 
 \begin{lemma}
@@ -523,15 +585,6 @@ Finally, we can characterize 1Q sequences over a modulo semiring as simple recog
     Consider an expression $\varphi = Q_Y \ \theta$, where $\theta$ is a simple recognizable step function, $Q$ is a semiring quantifier and $Y$ is either a first-order or second-order variable. By lemmas~\ref{QuantElimAdd} and~\ref{QuantElimMult}, it follows that $\varphi$ is a simple recognizable step function. This completes the proof.
 \end{proof}
 
-\begin{fact}
-    \label{InvAreReg}
-    Let $S$ be a power series defined by a simple recognizable step function $S = \sum_{i = 1}^{n} \ \varphi_{L_i} \cdot k_i$. The language of words for which $S$ achieves the value $k_i$ is precisely the language recognized by $\varphi_{L_i}$ (which is a regular language).
-\end{fact}
-
-\begin{proof}
-    This follows directly from the definition of a simple recognizable step function and the fact that $\varphi_{L_i}$ is an MSO expression.
-\end{proof}
-
 From these results, an important characterization of 1Q sequences over modulo semirings follows: 1Q sequences over modulo semirings are eventually periodic.
 
 \begin{lemma}
@@ -540,7 +593,7 @@ From these results, an important characterization of 1Q sequences over modulo se
 \end{lemma}
 
 \begin{proof}
-    Thanks to~\cref{OverModAreSimpleRec}, we know that $\varphi$ reduces to a simple recognizable step function. Additionaly, by~\cref{InvAreReg}, we know that the language of words for which the sequence defined by $\varphi$ achieves a given value $k_i$ is a regular language. Since there is a finite number of values this sequence can achieve (at most $m$). Regular languages on one-letter alphabets are eventually periodic with regard to word length (\cite[Theorem 1]{PighizziniS02}).
+    Thanks to~\cref{OverModAreSimpleRec}, we know that $\varphi$ reduces to a simple recognizable step function. It can be easily seen that the language of words for which the sequence defined by $\varphi$ achieves a given value $k_i$ is a regular language - it follows directly from the definition of a simple recognizable step function. Since there is a finite number of values this sequence can achieve (at most $m$). Regular languages on one-letter alphabets are eventually periodic with regard to word length (\cite[Theorem 1]{PighizziniS02}).
 
     There are $m$ regular, disjoint languages $L_1, \ldots, L_m$ corresponding to different constants $k_i$. We assume these languages do not accept the empty word. Each language $L_i$ is eventually periodic with respect to word length, so there exist $N_i, p_i \in \mathbb{N}$ such that $\forall_{n \geq N_i} \ a^n \in L_i \iff a^{n + p} \in L_i$. To find a ``global'' period that works for all langauges, take $N = \prod_{i=1}^m \ N_i$ and $p = \prod_{i=1}^m \ p_i$. This period serves as a common period for every $L_i$ since $N$ is a multiple of each $N_i$ and $p$ is a multiple of each $p_i$.
 \end{proof}
@@ -559,7 +612,7 @@ From this, the main result of this section,~\cref{1QSequencesPeriodic}, follows 
     The reasoning is the same as in~\cite[Theorem 7, Corollary 8]{CadilhacMPPS20}, which uses results about Catalan sequences from~\cite{KubotaCatalan}. Catalan numbers are not ultimately periodic modulo sufficiently large prime numbers, while 1Q-definable sequences are. Therefore, Catalan numbers are not 1Q-definable.
 \end{proof}
 
-\section{Other Topic of Interest}
+\section{Other Topics of Interest}
 \label{SecOther}
 During the research on 1Q sequences, several other interesting topics emerged, though they were not fully explored.
 
