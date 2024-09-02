@@ -75,7 +75,7 @@ There are other classes of sequences researched that extend linear recursive seq
 In this section we present the syntax and semantics for Quantitative Monadic Second Order Logic (QMSO). It was introduced in~\cite{KreutzerR13} by Stephen Kreutzer and Cristian Riveros. Our presentation is based directly on this work. Then we will focus on 1Q sequences and provide some examples.
 
 \subsection{Linear Recursive Sequences}
-A sequence over a set $\mathbb{D}$ is a function $a : \mathbb{N} - \{0\} \rightarrow \mathbb{D}$.
+A sequence over a set $\mathbb{D}$ is a function $a : \mathbb{N} \rightarrow \mathbb{D}$.
 
 Linear recursive sequences (\emph{LRS}) are sequences satifsfying following recurrence relation:
 $$a(n) = c_1 a(n-1) + c_2 a(n-2) + \ldots + c_k a(n-k),$$
@@ -106,7 +106,7 @@ Semirings we will be interested in in this paper include:
     \item finite semirings of numbers modulo arbitrary $k$: $ \mathbb{Z}_k = (\{0,1,\ldots,k-1\}, +_{mod}, \cdot_{mod}, 0, 1)$ where operations are executed modulo $k$
 \end{itemize}
 
-We restrict ourselves to sequences over natural numbers, although 1Q sequences can be defined over arbitrary semirings.
+We restrict mostly to sequences over natural numbers, although 1Q sequences can be defined over arbitrary semirings.
 
 \subsection{Quantitative Monadic Second-Order Logic}
 
@@ -155,7 +155,7 @@ In~\cite[Section IV]{KreutzerR13}, Stephan Kreutzer and Cristian Riveros introdu
     A function $f: \Gamma^* \rightarrow S$ is definable by a weighted automaton over $S$ and $\Gamma$ iff $f$ is definable by a formula in QIL, and this translation is effective.
 \end{theorem}
 
-We won't go into details defining weighted automata. What is important is that it is folklore that formal power series defined by weighted automata over a one-letter alphabet are exactly linear recursive sequences (see e.g.~\cite{BarloyFLM22}). From this follows that all LRS are 1Q-definable.
+We will not go into details of defining weighted automata. What is important is that it is folklore that formal power series defined by weighted automata over a one-letter alphabet are exactly linear recursive sequences (see e.g.~\cite{BarloyFLM22}). From this follows that all LRS are 1Q-definable.
 
 Below we present some examples of 1Q sequences.
 
