@@ -185,7 +185,28 @@ Below we present some examples of 1Q sequences.
 \label{Sec1QRateOfGrowth}
 Let $a(n)$ be a 1Q sequence over the natural numbers. We aim to find an upper bound for the asymptotic behavior of $a(n)$, depending only on $n$ and constants appearing in the 1Q expression that defines it. We define the \emph{rate of growth} of these sequences as the class of sequences that bound 1Q sequences. Specifically, a 1Q sequence $a(n)$ will have a rate of growth in a class of sequences $B$ if $\exists_{b \in B} \exists_{N \in \mathbb{N}} \exists_{k \in \mathbb{N}} \forall_{n \geq N} \ a(n) \leq k \cdot b(n)$.
 
-We start by discussing linear recursive sequences (LRS). It is well-known that linear recursive sequences have an exponentially bounded rate of growth. More formally, if $a(n)$ is an LRS then $|a(n)| \le 2^{O(n)}$\filip{moze jakis szkic argumentu}. In \cref{ExSeqFactorial}, we observed that 1Q expressions can define the sequence $n!$ for which, by Stirling's approximation, we know that $n! = \Omega((\frac{n}{e})^n)$, exceeding the $2^{O(n)}$ bound for LRS. This shows that the class of 1Q sequences contains sequences not definable within LRS. As mentioned in the previous section (\ref{QILWL}), linear recursive sequences are a subset of 1Q-definable sequences. Therefore, it follows that the class of 1Q-definable sequences is strictly richer than LRS.
+We start by discussing linear recursive sequences (LRS). Linear recursive sequences have an exponentially bounded rate of growth. More formally, if $a(n)$ is an LRS then $|a(n)| \le 2^{O(n)}$\filip{moze jakis szkic argumentu} \olek{dodalem pelen dowod, nie wiem jaki moze byc szkic}.
+
+\begin{lemma}
+    Let $a(n)$ be a linear recursive sequence. The sequence $|a(n)|$ can be bounded above by a function in the class $2^{O(n)}$.
+\end{lemma}
+
+\begin{proof}
+    Assume that the order of $a(n)$ is $d$. Every linear recursive sequence can be rewritten in matrix form, i.e. $a(n) = uA^nv$, where $u$ is a $1 \times d$ vector, $A$ is a $d \times d$ matrix, $v$ is a $d \times 1$ vector. 
+
+    Consider the absolute values of constants appearing in $A$. Let $c$ be the largest of these values. Let $B$ be a $d \times d$ matrix consisting only of the constant $c$. It is clear that:
+    $$a(n) \leq uB^nv.$$
+
+    We will prove that the values appearing in matrix $B^n$ grow exponentially with $n$. From this, it follows that $uB^nv$ is bounded above by a function in the class $2^{O(n)}$, which completes the proof.
+
+    We claim the following: every element of $B^n$ is equal to $d^{n-1} \cdot c^n$. We will prove this by induction.
+
+    \emph{Base case}: Every element of $B^1$ is equal to $d^0 \cdot c^1 = c$, which follows from definition.
+
+    \emph{Induction step}: Assume that every element in $B^{n-1}$ is equal to $d^{n-2} \cdot c^{n-1}$. We know that $B^n = B^{n-1} \cdot B$. The result follows from matrix multiplication: each element in $B^n$ is given by $d^{n-2} \cdot c^{n-1} \cdot c + \ldots + d^{n-2} \cdot c^{n-1} \cdot c$ = $d^{n-2} \cdot c^n + \ldots + d^{n-2} \cdot c^n$. The matrix has dimensions $d \times d$, so this simplifies to $d^{n-2} \cdot c^n \cdot d$ = $d^{n-1} \cdot c^n$, which completes the proof.
+\end{proof}
+
+In \cref{ExSeqFactorial}, we observed that 1Q expressions can define the sequence $n!$ for which, by Stirling's approximation, we know that $n! = \Omega((\frac{n}{e})^n)$, exceeding the $2^{O(n)}$ bound for LRS. This shows that the class of 1Q sequences contains sequences not definable within LRS. As mentioned in the previous section (\ref{QILWL}), linear recursive sequences are a subset of 1Q-definable sequences. Therefore, it follows that the class of 1Q-definable sequences is strictly richer than LRS.
 
 By \cref{ExSeqNToN} and \cref{ExSeqDoubleExponential}, it is clear that it is possible to define 1Q sequences with a rate of growth even larger than $n!$. Our goal is to establish an upper bound for the rate of growth of all 1Q sequences. Specifically, we will prove that the rate of growth of 1Q sequences is bounded by $2^{2^{O(n)}}$. We will use the notion of a \emph{recognizable step function}, which is a power series defined for an arbitrary semiring (although we are primarily interested in natural numbers):
 
@@ -621,6 +642,229 @@ During the research on 1Q sequences, several other interesting topics emerged, t
 1Q expressions a broad class of sequences, notably including the entire class of linear recursive sequences. An interesting research question is: what precisely is the class of sequences defined by 1Q expressions? Is there a simpler or alternative representation of these sequences?
 
 In the Introduction, it was noted that 1Q expressions can define sequences that are not polynomial recursive. This raises an interesting question: is every polynomial recursive sequence also 1Q-definable? This question is challenging to answer, as expressing recursion using 1Q expressions is not straightforward.
+
+We formulate the following hypothesis: the composition of two Fibonacci sequences is not a 1Q sequence. While the Fibonacci sequence itself is a linear recursive sequence, and hence definable as a 1Q sequence, it seems unlikely that the composition of Fibonacci sequences can be expressed as a 1Q sequence. We denote the composition of two Fibonacci sequences by $F_F (n)$, defined by $F_F (n) = (F \circ F) (n)$, where $F$ is the standard Fibonacci sequence.
+
+We will show that sequence $F_F (n)$ is a polynomial recursive sequence. Consequently, proving that it is not a 1Q sequence would imply that 1Q sequences do not encompass all polynomial recursive sequences.
+
+For an introduction to polynomial recursive sequences and the necessary definitions, refer to the work in:~\cite{CadilhacMPPS20}. 
+
+\begin{lemma}
+    The sequence $F_F(n)$ (composition of Fibonacci sequences) is a polynomial recursive sequence.
+\end{lemma}
+
+\begin{proof}
+    We will use the following formulation of the Fibonacci sequence, utilizing matrix exponentiation:
+    $$F(n) = 
+    \begin{pmatrix}
+        0 & 1 
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        0 & 1\\ 
+        1 & 1
+    \end{pmatrix}^n
+    \cdot
+    \begin{pmatrix}
+        1 \\
+        0 
+    \end{pmatrix}
+    $$
+    From which directly follows that:
+    $$F_F(n) = 
+    \begin{pmatrix}
+        0 & 1 
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        0 & 1\\ 
+        1 & 1
+    \end{pmatrix}^{F(n)}
+    \cdot
+    \begin{pmatrix}
+        1 \\
+        0 
+    \end{pmatrix},
+    $$
+    which can be decomposed into following, recursive definition, based on unfolding of $F(n)$:
+    $$F_F(n) = 
+    \begin{pmatrix}
+        0 & 1 
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        0 & 1\\ 
+        1 & 1
+    \end{pmatrix}^{F(n-1)}
+    \cdot
+    \begin{pmatrix}
+        0 & 1\\ 
+        1 & 1
+    \end{pmatrix}^{F(n-2)}
+    \cdot
+    \begin{pmatrix}
+        1 \\
+        0 
+    \end{pmatrix}.
+    $$
+    Our goal is to generate sequences for the entries in these matrices. To compute new values for these sequences, we require recursive formulas to execute matrix multiplication. Fortunately, this can be achieved using polynomial recursive sequences.
+
+    We define the sequences in following way:
+    $$
+    \begin{pmatrix}
+        a(n) & b(n)\\ 
+        c(n) & d(n)
+    \end{pmatrix} =
+    \begin{pmatrix}
+        a(n-1) & b(n-1)\\ 
+        c(n-1) & d(n-1)
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        x(n-1) & y(n-1)\\ 
+        z(n-1) & k(n-1)
+    \end{pmatrix},
+    $$
+    $$
+    \begin{pmatrix}
+        x(n) & y(n)\\ 
+        z(n) & k(n)
+    \end{pmatrix} =
+    \begin{pmatrix}
+        a(n-1) & b(n-1)\\ 
+        c(n-1) & d(n-1)
+    \end{pmatrix}.
+    $$
+
+    It can be seen that $c(n)$ is exactly the element we chose as $F_F(n)$.
+    Initial value of these sequences will follow initial values of ``base'' matrices:
+    $$
+    \begin{pmatrix}
+        a(1) & b(1)\\ 
+        c(1) & d(1)
+    \end{pmatrix} =
+    \begin{pmatrix}
+        a(2) & b(2)\\ 
+        c(2) & d(2)
+    \end{pmatrix} =
+    \begin{pmatrix}
+        x(1) & y(1)\\ 
+        z(1) & k(1)
+    \end{pmatrix} =
+    \begin{pmatrix}
+        x(2) & y(2)\\ 
+        z(2) & k(2)
+    \end{pmatrix} =
+    \begin{pmatrix}
+        0 & 1\\ 
+        1 & 1
+    \end{pmatrix}^1.
+    $$
+
+    We wish for following property of sequences $a,b,c,d$, for $n \geq 2$:
+    $$
+    \begin{pmatrix}
+        a(n) & b(n)\\ 
+        c(n) & d(n)
+    \end{pmatrix} =
+    \begin{pmatrix}
+        0 & 1\\ 
+        1 & 1
+    \end{pmatrix}^{F(n)},
+    $$
+    and following property of sequences $x,y,z,k$, for $n \geq 2$:
+    $$
+    \begin{pmatrix}
+        x(n) & y(n)\\ 
+        z(n) & k(n)
+    \end{pmatrix} =
+    \begin{pmatrix}
+        0 & 1\\ 
+        1 & 1
+    \end{pmatrix}^{F(n-1)}.
+    $$
+
+    Let us prove by induction that it is indeed the case. For base case $n=2$, we have by definition:
+    $$
+    \begin{pmatrix}
+        a(2) & b(2)\\ 
+        c(2) & d(2)
+    \end{pmatrix} =
+    \begin{pmatrix}
+        0 & 1\\ 
+        1 & 1
+    \end{pmatrix}^{F(2)},
+    $$
+    $$
+    \begin{pmatrix}
+        x(2) & y(2)\\ 
+        z(2) & k(2)
+    \end{pmatrix} =
+    \begin{pmatrix}
+        0 & 1\\ 
+        1 & 1
+    \end{pmatrix}^{F(1)}.
+    $$
+
+    Now, assume that this property holds for $k-1$, where $k-1 \geq 2$. Let us prove it for $k$. By definition:
+    $$
+    \begin{pmatrix}
+        a(k) & b(k)\\ 
+        c(k) & d(k)
+    \end{pmatrix} =
+    \begin{pmatrix}
+        a(k-1) & b(k-1)\\ 
+        c(k-1) & d(k-1)
+    \end{pmatrix} 
+    \cdot
+    \begin{pmatrix}
+        x(k-1) & y(k-1)\\ 
+        z(k-1) & k(k-1)
+    \end{pmatrix},
+    $$
+    by induction assumption:
+    $$
+    \begin{pmatrix}
+        a(k) & b(k)\\ 
+        c(k) & d(k)
+    \end{pmatrix} =
+    \begin{pmatrix}
+        0 & 1\\ 
+        1 & 1
+    \end{pmatrix}^{F(k-1)}
+    \cdot
+    \begin{pmatrix}
+        0 & 1\\ 
+        1 & 1
+    \end{pmatrix}^{F(k-2)},
+    $$
+    which finishes the proof for $a,b,c,d$. Now, for $x,y,z,k$, by definition:
+    $$
+    \begin{pmatrix}
+        x(k) & y(k)\\ 
+        z(k) & k(k)
+    \end{pmatrix} =
+    \begin{pmatrix}
+        a(k-1) & b(k-1)\\ 
+        c(k-1) & d(k-1)
+    \end{pmatrix},
+    $$
+    by induction assumption:
+    $$
+    \begin{pmatrix}
+        x(k) & y(k)\\ 
+        z(k) & k(k)
+    \end{pmatrix} =
+    \begin{pmatrix}
+        0 & 1\\ 
+        1 & 1
+    \end{pmatrix}^{F(k-1)},
+    $$
+    which finishes the proof for $x,y,z,k$.
+
+    At last, $F_F(n)$ can be defined as:
+    $$F_F(n) = c(n).$$
+\end{proof}
 
 \subsection*{Complexity of Zero Checking}
 When working over a modulo semiring, what is the time complexity $O(|\varphi|)$ of checking whether a sequence defined by such a sentence is constantly equal to zero?
