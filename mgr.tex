@@ -894,7 +894,7 @@ It turns out the problem of zero checking has super-exponential complexity, even
 
 \begin{itemize}
     \item Let $\varphi$ be a sentence over a non-unary alphabet. Without loss of generality, let this alphabet be binary, $\Sigma = \{a,b\}$.
-    \item Let $Part(X,Y) = \forall_x \ (x \in X \lor x \in Y) \land (x \in X \implies x \notin Y) \land (x \in Y \implies x \notin X)$ state that the sets $X$ and $Y$ form a partition of the whole model.
+    \item Let $Part(X,Y) = \forall_x \ (x \in X \lor x \in Y) \land \neg(x \in X \land x \in Y)$ state that the sets $X$ and $Y$ form a partition of the whole model.
     \item An equisatisfiable sentence for $\varphi$ over a unary alphabet can be constructed as follows. For every letter in the alphabet $\Sigma$, we create a corresponding set variable. In this case, we introduce two set variables $A$ and $B$, corresponding to the letters $a$ and $b$, respectively. The final sentence is $\exists_A\exists_B \ Part(A,B) \land \varphi'$, where every appearance of the letter predicate $P_a(x)$ in $\varphi$ is replaced by expression $x \in A$ in $\varphi'$, and similarly for the letter $b$. This sentence asserts that we can partition the set of positions into those containing the letter $a$ and those containing the letter $b$, such that $\varphi$ holds.
     \item This construction can be easily generalized to alphabets of arbitrary size.
 \end{itemize}
