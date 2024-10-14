@@ -1,0 +1,18 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}Introduction}{5}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Preliminaries}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Linear Recursive Sequences}{7}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Monadic Second Order Logic}{7}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Semirings}{8}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Quantitative Monadic Second-Order Logic}{8}{section.2.4}%
+\contentsline {section}{\numberline {2.5}QMSO over one letter alphabet}{9}{section.2.5}%
+\contentsline {chapter}{\numberline {3}1Q sequences rate of growth}{11}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Eventual periodicity of 1Q sequences modulo}{15}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Counting runs of automaton}{16}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Counting valuations of free variables in MSO expressions}{18}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Semiring quantifiers elimination}{21}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Final steps}{23}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Other Topics of Interest}{25}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Characterization of 1Q sequences}{25}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Complexity of Zero Checking}{27}{section.5.2}%
+\contentsline {section}{\numberline {5.3}1Q on first-order logic}{27}{section.5.3}%

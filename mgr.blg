@@ -1,6 +1,6 @@
 This is BibTeX, Version 0.99d (TeX Live 2024)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
-The top-level auxiliary file: intro.aux
+The top-level auxiliary file: mgr.aux
 The style file: plainurl.bst
 Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
 Reallocated global_strs (elt_size=200001) to 20 items from 10.
@@ -8,44 +8,44 @@ Reallocated glb_str_end (elt_size=4) to 20 items from 10.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: bib.bib
-You've used 10 entries,
+You've used 13 entries,
             2943 wiz_defined-function locations,
-            742 strings with 8228 characters,
-and the built_in function-call counts, 6420 in all, are:
-= -- 719
-> -- 232
-< -- 7
-+ -- 84
-- -- 71
-* -- 453
-:= -- 893
-add.period$ -- 44
-call.type$ -- 10
-change.case$ -- 61
+            768 strings with 8748 characters,
+and the built_in function-call counts, 7773 in all, are:
+= -- 879
+> -- 261
+< -- 8
++ -- 95
+- -- 78
+* -- 517
+:= -- 1079
+add.period$ -- 56
+call.type$ -- 13
+change.case$ -- 72
 chr.to.int$ -- 0
-cite$ -- 10
-duplicate$ -- 181
-empty$ -- 558
-format.name$ -- 71
-if$ -- 1625
+cite$ -- 13
+duplicate$ -- 227
+empty$ -- 693
+format.name$ -- 78
+if$ -- 1993
 int.to.chr$ -- 0
-int.to.str$ -- 10
-missing$ -- 10
-newline$ -- 63
-num.names$ -- 26
-pop$ -- 106
+int.to.str$ -- 13
+missing$ -- 12
+newline$ -- 80
+num.names$ -- 34
+pop$ -- 133
 preamble$ -- 1
-purify$ -- 51
+purify$ -- 60
 quote$ -- 0
-skip$ -- 407
+skip$ -- 516
 stack$ -- 0
-substring$ -- 369
-swap$ -- 86
-text.length$ -- 29
+substring$ -- 419
+swap$ -- 102
+text.length$ -- 32
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 40
+type$ -- 52
 warning$ -- 0
-while$ -- 45
-width$ -- 12
-write$ -- 146
+while$ -- 55
+width$ -- 15
+write$ -- 187

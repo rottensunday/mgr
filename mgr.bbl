@@ -48,6 +48,11 @@ Stephan Kreutzer and Cristian Riveros.
 \newblock In {\em 28th Annual {ACM/IEEE} Symposium on Logic in Computer Science, {LICS} 2013, New Orleans, LA, USA, June 25-28, 2013}, pages 113--122. {IEEE} Computer Society, 2013.
 \newblock \href {https://doi.org/10.1109/LICS.2013.16} {\path{doi:10.1109/LICS.2013.16}}.
 
+\bibitem{Meyer}
+Albert~R. Meyer.
+\newblock Weak monadic second order theory of succesor is not elementary-recursive.
+\newblock In Rohit Parikh, editor, {\em Logic Colloquium}, pages 132--154, Berlin, Heidelberg, 1975. Springer Berlin Heidelberg.
+
 \bibitem{PighizziniS02}
 Giovanni Pighizzini and Jeffrey~O. Shallit.
 \newblock Unary language operations, state complexity and jacobsthal's function.
@@ -59,5 +64,17 @@ Marcel~Paul Sch{\"{u}}tzenberger.
 \newblock On the definition of a family of automata.
 \newblock {\em Inf. Control.}, 4(2-3):245--270, 1961.
 \newblock \href {https://doi.org/10.1016/S0019-9958(61)80020-X} {\path{doi:10.1016/S0019-9958(61)80020-X}}.
+
+\bibitem{Zerg}
+G{\'{e}}raud S{\'{e}}nizergues.
+\newblock Word-mappings of level 3.
+\newblock {\em CoRR}, abs/2301.09966, 2023.
+\newblock URL: \url{https://doi.org/10.48550/arXiv.2301.09966}, \href {https://arxiv.org/abs/2301.09966} {\path{arXiv:2301.09966}}, \href {https://doi.org/10.48550/ARXIV.2301.09966} {\path{doi:10.48550/ARXIV.2301.09966}}.
+
+\bibitem{Stockmeyer}
+Larry~J. Stockmeyer.
+\newblock {\em The complexity of decision problems in automata theory and logic}.
+\newblock PhD thesis, Massachusetts Institute of Technology, {USA}, 1974.
+\newblock URL: \url{http://hdl.handle.net/1721.1/15540}.
 
 \end{thebibliography}
