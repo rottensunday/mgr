@@ -68,7 +68,7 @@
 \maketitle
 
 \begin{abstract}
-    This work investigates sequences defined by unrestricted QMSO logic over a one-letter alphabet, introducing the concept of \textbf{1Q} sequences. We analyze their properties, focusing on their asymptotic growth and behavior modulo a number. Our key contributions include proving that 1Q sequences exhibit at most doubly exponential growth and that they are eventually periodic when considered modulo $m$. We also provide novel proof techniques to establish these results, differentiating our approach from existing methods based on weighted automata theory. Additionally, we highlight open questions and future directions for exploring the nature of 1Q sequences.
+    This work investigates sequences defined by unrestricted QMSO logic over a one-letter alphabet, introducing the concept of \textbf{1Q} sequences. We analyze their properties, focusing on their asymptotic growth and behavior modulo a number. Our key contributions include proving that 1Q sequences exhibit at most doubly exponential growth and that they are eventually periodic when considered modulo $m$, for every natural $m$. We also provide novel proof techniques to establish these results, differentiating our approach from existing methods based on weighted automata theory. Additionally, we highlight open questions and future directions for exploring the nature of 1Q sequences.
   \end{abstract}
   
 \tableofcontents
@@ -78,7 +78,7 @@ It is an important result in computer science that the class of languages define
 
 Manfred Droste and Paul Gastin introduced a logic that coincides with weighted automata~\cite{DrosteG07}, in the same spirit as MSO logic coincides with finite automata. Their logic is called \emph{weighted logic}, and its semantics allows defining formal power series like weighted automata do. Unfortunately, the full ``natural'' form of weighted logic is richer than weighted automata, so the authors had to restrict the class of weighted logic expressions in order to capture the same expressiveness as weighted automata. The restrictions are both at the syntactic and semantic levels.
 
-A follow up work on weighted logics is the work of Stephan Kreutzer and Cristian Riveros~\cite{KreutzerR13}. In their work, they introduced QMSO logic - Quantitative Monadic Second Order logic, which fulfills similar goals to the weighted logics of Manfred Droste and Paul Gastin but with easier definitions and a clearer distinction between the logical level (MSO) and the semiring level (addition/multiplication). They also had to restrict their logic to achieve the same power of expression as weighted automata, but their restriction is only at the syntactic level.
+A follow up work on weighted logics is the work of Stephan Kreutzer and Cristian Riveros~\cite{KreutzerR13}. In their work, they introduced QMSO logic - Quantitative Monadic Second Order logic, which fulfills similar goals to the weighted logics of Manfred Droste and Paul Gastin but with easier definitions and a clearer distinction between the logical level (MSO) and the semiring level (addition/multiplication). They also had to restrict their logic to achieve the same expressive power as weighted automata, but their restriction is only at the syntactic level.
 
 In this work, we explore the world of unrestricted QMSO expressions. More precisely, we will look into the properties of formal power series defined by unrestricted QMSO over a one-letter alphabet. Assume our alphabet is $\Sigma = \{a\}$. In this case words can be identified with their length. Thus the formal power series $S: \Sigma^* \rightarrow K$ can be seen as a sequence $S: \mathbb{N} \rightarrow K$, by mapping words $a^n$ to their length $n$. Restricted QMSO expressions coincide with weighted automata, and it is folklore that formal power series defined by weighted automata over a one-letter alphabet are exactly linear recursive sequences (see e.g.~\cite{BarloyFLM22}). It can be easily shown that sequences achieved using unrestricted QMSO form a richer class than linear recursive sequences, which was already demonstrated in~\cite{CadilhacMPPS20}, but this class has not been investigated beyond that.
 
@@ -90,14 +90,14 @@ In~\cref{Sec1QRateOfGrowth}, we investigate the asymptotic behavior of 1Q sequen
 
 In~\cref{Sec1QFiniteSemirings}, we explore the behavior of 1Q sequences taken modulo $m$, where $m \in \mathbb{N}$. It is common for complex classes of sequences to exhibit regular, easily characterizable behavior when considered modulo a number. This phenomenon is often observed with recursive sequences, but 1Q sequences are more ``iterative'' in nature than recursive.
 
-The goal of~\cref{Sec1QFiniteSemirings} is to prove that 1Q sequences modulo are eventually periodic. Eventually periodic sequences exhibit periodic behavior from a certain point onward, continuing indefinitely. Many sequences modulo, such as linear recursive and polynomial recursive sequences, have this property. We prove that 1Q sequences modulo can be reduced to \emph{simple recognizable step functions}, which are essentially mappings from regular languages to semiring values. A crucial aspect of this reduction is the elimination of semiring quantifiers. To achieve this, we employ techniques from finite automata theory, MSO, and the properties of modulo semirings. Specifically, we construct an automaton that can count the number of runs of another nondeterministic automaton modulo a given value.
+The goal of~\cref{Sec1QFiniteSemirings} is to prove that 1Q modular sequences are eventually periodic. Eventually periodic sequences exhibit periodic behavior from a certain point onward, continuing indefinitely. Many modular sequences, such as linear recursive and polynomial recursive sequences, have this property. We prove that 1Q modular sequences can be reduced to \emph{simple recognizable step functions}, which are essentially mappings from regular languages to semiring values. A crucial aspect of this reduction is the elimination of semiring quantifiers. To achieve this, we employ techniques from finite automata theory, MSO, and the properties of modulo semirings. Specifically, we construct an automaton that can count the number of runs of another nondeterministic automaton modulo a given value.
 
 Manfred Droste and Paul Gastin in~\cite{DrosteG07} have already investigated QMSO-definable series over locally finite semirings, which include modulo semirings. Their results demonstrate that series definable in QMSO over locally finite semirings coincide with those definable by weighted automata over the same semirings. From this, it is possible to deduce that 1Q sequences are eventually periodic modulo $m \in \mathbb{N}$. However, we present different proof methods in this work, notably without introducing the notion of weighted automata.
 
 In~\cref{SecOther}, we present additional research topics that were not fully explored but are worth investigating further to better understand the characteristics of 1Q sequences.
 
 \paragraph*{Related work}
-In~\cite{CadilhacMPPS20}, a class of polynomial recursive sequences is defined. It is an extension of linear recursive sequences, and this class enables defining sequences with doubly exponential growth. In~\cite{CadilhacMPPS20}, it is shown that 1Q sequences can define a sequence that is undefinable as a polynomial recursive sequence: $n^n$. However, whether the converse inclusion holds is not clear, namely if every polynomial recursive sequence can be defined as a 1Q sequence?
+In~\cite{CadilhacMPPS20}, a class of polynomial recursive sequences is defined. It is an extension of linear recursive sequences, and this class enables defining sequences with doubly exponential growth. \cite{CadilhacMPPS20} shows that a sequence $n^n$, which is undefinable as a polynomial recursive sequence, can be defined using QMSO - which means it is a 1Q sequence. However, whether the converse inclusion holds is not clear, namely if every polynomial recursive sequence can be defined as a 1Q sequence?
 
 In~\cite{Zerg}, the class of polynomial recursive sequences is characterised by pushdown automata of level 3.
 
@@ -107,14 +107,14 @@ There are other classes of sequences researched that extend linear recursive seq
 In this section we present the syntax and semantics for Quantitative Monadic Second Order Logic (QMSO). It was introduced in~\cite{KreutzerR13} by Stephen Kreutzer and Cristian Riveros. Our presentation is based directly on this work. Then we will focus on 1Q sequences and provide some examples.
 
 \section{Linear Recursive Sequences}
-A sequence over a set $\mathbb{D}$ is a function $a : \mathbb{N} \rightarrow \mathbb{D}$.
+A sequence over a semiring $\mathbb{D}$ is a function $a : \mathbb{N} \rightarrow \mathbb{D}$.
 
 Linear recursive sequences (\emph{LRS}) are sequences satifsfying following recurrence relation:
 $$a(n) = c_1 a(n-1) + c_2 a(n-2) + \ldots + c_k a(n-k),$$
-where $c_1,\ldots,c_k$ are constants. In this work we focus mostly on natural numbers, so we assume that $c_1,\ldots ,c_k \in \mathbb{N}$.
+where $c_1,\ldots,c_k$ are constants from $\mathbb{D}$. In this work we focus mostly on natural numbers, so we assume that $c_1,\ldots ,c_k \in \mathbb{N}$.
 
 \begin{example}[Fibonacci sequence]
-    One of the most poular linear recursive sequences is Fibonacci sequence, satisfying following reccurence:
+    One of the most poular linear recursive sequences is the Fibonacci sequence, satisfying following reccurence:
     $$a(n) = a(n-1) + a(n-2),$$
     starting from $a(1) = 0$, $a(2) = 1$.
 \end{example}
@@ -125,24 +125,24 @@ Let $\Gamma$ be a finite alphabet. The syntax of MSO over a finite alphabet $\Ga
 $$ \varphi := P_a(x) \ | \ x \leq y \ | \ x \in X \ | \ (\varphi \lor \varphi) \ | \ \neg \varphi \ | \ \exists x. \varphi \ | \ \exists X . \varphi, $$
 where: $a \in \Gamma$; $x, y$ are first-order variables; and $X$ is a second-order variable. Universal quantification can be obtained from existential quantification and negation. We can also use syntactic sugar $\land$ and $\implies$ as usual.
 
-Let $w = w_1\ldots w_n \in \Gamma^*$ be a word of length $|w| = n$. We represent $w$ as a structure $(\{1,\ldots,n\}, \leq, (P_a)_{a \in \Gamma})$ where $P_a = \{i \ | \ w_i = a\}$. We denote by $Dom(w) = \{1,\ldots,n\}$ the domain of $w$ as a structure. Given a finite set $V$ of first-order and second-order variables, a $(V,w)$-assignment $\sigma$ is a function that maps every first-order variable in $V$ to $Dom(w)$ and every second-order variable in $V$ to $2^{Dom(w)}$. Furthermore, we denote by $\sigma[x \rightarrow i]$ the extension of the $(V,w)$-assignment $\sigma$ such that $\sigma[x \rightarrow i](x) = i$ and $\sigma[x \rightarrow i](y) = \sigma(y)$ for all variables $y \ne x$. The assignment $\sigma[X \rightarrow I]$, where $X$ is a second-order variable and $I \subseteq Dom(w)$, is defined analogously. Consider an MSO-formula $\varphi$ and a $(V,w)$-assignment $\sigma$ where $V$ is the set of free variables of $\varphi$. We write $(w, \sigma) \models \varphi$ if $(w, \sigma)$ satisfies $\varphi$ using the standard MSO-semantics.
+Let $w = w_1\ldots w_n \in \Gamma^*$, where $w_1,\ldots,w_n \in \Gamma$, be a word of length $|w| = n$. We represent $w$ as a structure $(\{1,\ldots,n\}, \leq, (P_a)_{a \in \Gamma})$ where $P_a = \{i \ | \ w_i = a\}$. We denote by $Dom(w) = \{1,\ldots,n\}$ the domain of $w$ as a structure. Given a finite set $V$ of first-order and second-order variables, a $(V,w)$-assignment $\sigma$ is a function that maps every first-order variable in $V$ to $Dom(w)$ and every second-order variable in $V$ to $2^{Dom(w)}$. Furthermore, we denote by $\sigma[x \rightarrow i]$ the extension of the $(V,w)$-assignment $\sigma$ such that $\sigma[x \rightarrow i](x) = i$ and $\sigma[x \rightarrow i](y) = \sigma(y)$ for all variables $y \ne x$. The assignment $\sigma[X \rightarrow I]$, where $X$ is a second-order variable and $I \subseteq Dom(w)$, is defined analogously. Consider an MSO-formula $\varphi$ and a $(V,w)$-assignment $\sigma$ where $V$ is the set of free variables of $\varphi$. We write $(w, \sigma) \models \varphi$ if $(w, \sigma)$ satisfies $\varphi$ using the standard MSO-semantics.
 
 \section{Semirings}
 
-A semiring signature $\xi := (\oplus, \odot, 0, 1)$ is a tuple containing two binary function symbols $\oplus, \odot$, where $\oplus$ is called the addition and $\odot$ the multiplication, and two constant symbols $0$ and $1$. A semiring over the signature $\xi$ is a $\xi$-structure $\mathbb{S} = (S, \oplus, \odot, 0, 1)$, where $(S, \odot, 0)$ is a commutative monoid, $(S, \odot, 1)$ is a monoid, multiplication distributes over addition, and $0 \odot s = s \odot 0 = 0$ for each $s \in S$. If the multiplication is commutative, then we say that $\mathbb{S}$ is commutative.
+A semiring signature $\xi := (\oplus, \odot, 0, 1)$ is a tuple containing two binary function symbols $\oplus, \odot$, where $\oplus$ is called the addition and $\odot$ the multiplication, and two constant symbols $0$ and $1$. A semiring over the signature $\xi$ is a $\xi$-structure $\mathbb{S} = (S, \oplus, \odot, 0, 1)$, where $(S, \oplus, 0)$ is a commutative monoid, $(S, \odot, 1)$ is a monoid, multiplication distributes over addition, and $0 \odot s = s \odot 0 = 0$ for each $s \in S$. If the multiplication is commutative, then we say that $\mathbb{S}$ is commutative.
 
 Semirings we will be interested in in this paper include:
 
 \begin{itemize}
-    \item semiring of natural numbers: $\mathbb{N} = (\mathbb{N}, +, \cdot, 0, 1)$
-    \item finite semirings of numbers modulo arbitrary $k$: $ \mathbb{Z}_k = (\{0,1,\ldots,k-1\}, +_{mod}, \cdot_{mod}, 0, 1)$ where operations are executed modulo $k$
+    \item the semiring of natural numbers: $\mathbb{N} = (\mathbb{N}, +, \cdot, 0, 1)$
+    \item finite semirings of natural numbers modulo an arbitrary $k$: \\ $ \mathbb{N}_k = (\{0,1,\ldots,k-1\}, +_{mod}, \cdot_{mod}, 0, 1)$ where operations are executed modulo $k$
 \end{itemize}
 
 We restrict mostly to sequences over natural numbers, although 1Q sequences can be defined over arbitrary semirings.
 
 \section{Quantitative Monadic Second-Order Logic}
 
-\textbf{(Syntax)} The formulas of Quantitative Monadic Second-Order Logic (QMSO) over a semiring $\mathbb{S}$ and a finite alphabet $\Gamma$ (QMSO[$\mathbb{S}, \Gamma$]) are defined by the following grammar:
+\textbf{(Syntax)} The formulas of Quantitative Monadic Second-Order Logic (QMSO) over a commutative semiring $\mathbb{S}$ and a finite alphabet $\Gamma$ (QMSO[$\mathbb{S}, \Gamma$]) are defined by the following grammar:
 $$ \theta := \varphi \ | \ s \ | \ (\theta \oplus \theta) \ | \ (\theta \odot \theta) \ | \ \Sigma_x \ \theta \ | \ \Pi_x \ \theta \ | \ \Sigma_X \ \theta \ | \ \Pi_X \ \theta,$$
 where: $\varphi \in MSO[\leq, (P_a)_{a \in \Gamma}]$; $s \in \mathbb{S}$; $x$ is first-order variable; and $X$ is a second-order variable.
 
@@ -171,7 +171,7 @@ We will call sum ($\Sigma$) and product ($\Pi$) quantifiers \emph{semiring quant
 \begin{example}
     A simplest example of semiring quantifier usage is an expression that counts the number of occurrences of letter $a$ in a word:
     $$\Sigma_x \ P_a(x)$$
-    We iterate over all positions ($x$) in word, check if there is letter $a$ on given position ($P_a(x)$). Inner expression returns $1$ if there is, $0$ otherwise. 
+    We iterate over all positions ($x$) in word, check if there is letter $a$ on given position ($P_a(x)$). The inner expression returns $1$ if there is, $0$ otherwise. 
 \end{example}
 
 \section{QMSO over one letter alphabet}
@@ -180,7 +180,7 @@ In this work, we focus on expressions of QMSO logic over a one-letter alphabet. 
 
 1Q expressions with no free variables (1Q sentences) generate sequences of numbers. Suppose we have a 1Q sentence $\varphi$, then we can generate corresponding sequence $a(n) = \llbracket \varphi \rrbracket (a^n, \sigma)$, where $\sigma$ is an empty valuation function (there are no free variables). The class of sequences definable 1Q expressions is called \emph{1Q sequences}.
 
-In~\cite[Section IV]{KreutzerR13}, Stephan Kreutzer and Cristian Riveros introduced a fragment of QMSO logic called Quantitative Iteration Logic (QIL). This syntatic fragment imposes restrictions on quantifier alternations: there can be an arbitrary number of $\Sigma$ quantifiers used, and then $\Pi$ quantifier over first-order variable. After $\Pi$ there can only be quantifier-free expression. They prove following theorem, which will be an important result for us:
+In~\cite[Section IV]{KreutzerR13}, Stephan Kreutzer and Cristian Riveros introduced a fragment of QMSO logic called Quantitative Iteration Logic (QIL). This syntatic fragment imposes restrictions on quantifier alternations: there can be an arbitrary number of $\Sigma$ quantifiers used, and then a $\Pi$ quantifier over a first-order variable. After $\Pi$ there can only be a quantifier-free expression. They prove following theorem, which will be an important result for us:
 
 \begin{theorem}
 \label{QILWL}
@@ -197,6 +197,8 @@ Below we present some examples of 1Q sequences.
     $$\Pi_{x_1}\Sigma_{x_2} \ (x_2 \leq x_1) \cdot 1.$$
 
     For given $n$ it works as following: $x_1$ iterates over $1,\ldots,n$. For fixed $x_1 = k$ the expression $\Sigma_{x_2} \ (x_2 \leq x_1) \cdot 1$ evaluates to $k$. So the whole expression evaluates to $1 \cdot 2 \cdot \ldots \cdot n = n!$.
+
+    $n!$ is not a linear recursive sequence, which already shows that 1Q sequences do not coincide with LRS.
 \end{example}
 
 \begin{example}[Super exponential]
@@ -210,10 +212,10 @@ Below we present some examples of 1Q sequences.
     The sequence $a(n) = 2^{2^n}$ can be defined with 1Q expression:
     $$\Pi_{X_1} \ 2.$$
 
-    For a fixed $n$, there are $2^n$ possible choices of $X_1$. So $2$ is multiplied $2^n$ times, which gives results in $2^{2^n}$.
+    For a fixed $n$, there are $2^n$ possible choices of $X_1$. So $2$ is multiplied $2^n$ times, which gives $2^{2^n}$.
 \end{example}
 
-\chapter{1Q sequences rate of growth}
+\chapter{Growth rates of 1Q sequences}
 \label{Sec1QRateOfGrowth}
 Let $a(n)$ be a 1Q sequence over the natural numbers. We aim to find an upper bound for the asymptotic behavior of $a(n)$, depending only on $n$ and constants appearing in the 1Q expression that defines it. We define the \emph{rate of growth} of these sequences as the class of sequences that bound 1Q sequences. Specifically, a 1Q sequence $a(n)$ will have a rate of growth in a class of sequences $B$ if $\exists_{b \in B} \exists_{N \in \mathbb{N}} \exists_{k \in \mathbb{N}} \forall_{n \geq N} \ a(n) \leq k \cdot b(n)$.
 
@@ -266,7 +268,7 @@ First, we will prove a lemma, which will be useful to simplify QMSO expressions 
     We proceed with the induction step. We consider two cases: addition and multiplication.
     \begin{enumerate}
         \item Let $\theta_1, \theta_2$ be recognizable step functions. Then $\theta_1 + \theta_2$ is a recognizable step function. It is immediate from definition.
-        \item Let $\theta_1 = \sum_{i = 1}^{n_1} \ \varphi_{L_{1,i}} \cdot k_{1,i}, \theta_2 = \sum_{i = 1}^{n_2} \ \varphi_{L_{2,i}} \cdot k_{2,i}$ be recognizable step functions. Then $\theta = \theta_1 \cdot \theta_2$ is a recognizable step function. Namely, $\theta$ is a sum of following expressions: $\varphi_{1,i} \cdot k_{1, i} \cdot \varphi_{2,j} \cdot k_{2,j}$. It can be rewritten in following way: $(\varphi_{1,i} \land \varphi_{2,i}) \cdot (k_{1,i} \cdot k_{2,j})$, from which it is immediate that $\theta$ is a recognizable step function.
+        \item Let $\theta_1 = \sum_{i = 1}^{n_1} \ \varphi_{L_{1,i}} \cdot k_{1,i}, \theta_2 = \sum_{i = 1}^{n_2} \ \varphi_{L_{2,i}} \cdot k_{2,i}$ be recognizable step functions. Then $\theta = \theta_1 \cdot \theta_2$ is a recognizable step function. Namely, $\theta$ is a sum of expressions of the form: $\varphi_{L_{1,i}} \cdot k_{1, i} \cdot \varphi_{L_{2,j}} \cdot k_{2,j}$. It can be rewritten in following way: $(\varphi_{L_{1,i}} \land \varphi_{L_{2,j}}) \cdot (k_{1,i} \cdot k_{2,j})$, from which it is immediate that $\theta$ is a recognizable step function.
     \end{enumerate}
 This concludes the proof.
 \end{proof}
@@ -280,7 +282,7 @@ This concludes the proof.
 
     For the base case, consider a quantifier-free expression $\varphi$. By~\cref{QFreeRecognizable}, we know that such an expression can be simplified to a recognizable step function $\varphi = \sum_{i = 1}^{n} \ \varphi_{L_i} \cdot k_i$, where each of $\varphi_{L_i}$ evaluates to either $0$ or $1$. Set $c = \sum_{i=1}^n \ k_i$. Clearly, $\sum_{i = 1}^{n} \ \varphi_{L_i} \cdot k_i \leq  \sum_{i=1}^n \ k_i = c$. Additionally, let us assume that $c$ is not smaller than $2$, i.e., $c = max(2, \sum_{i=1}^n \ k_i)$. This assumption will be helpful in the subsequent steps.
 
-    Let $\varphi_1 = \Pi_{X_1'}\ldots \Pi_{X_k'} \ c_1$ and $\varphi_2 = \Pi_{X_1''}\ldots \Pi_{X_k''} \ c_2$ be two 1Q expressions. In general, an expression of the form $\Pi_{X_1}\ldots \Pi_{X_k} \ c$ defines a sequence $a(n) = c^{2^{nk}}$. Denote by $a_1(n)$ and $a_2(n)$ the sequences defined by the expressions $\varphi_1$ and $\varphi_2$, respectively. Then $a_1(n) = (c_1)^{2^{k'n}}$, $a_2(n) = (c_2)^{2^{k''n}}$. The sequences defined by both $\varphi_1 + \varphi_2$ and $\varphi_1 \cdot \varphi_2$ can be bounded by a sequence $a_3(n)$ defined by a 1Q expression $\varphi_3 = \Pi_{X1'} \ldots \Pi_{Xk'} \Pi_{X1''} \ldots \Pi_{Xk''} \ c_1 \cdot c_2$:
+    Let $\varphi_1 = \Pi_{X_{1,1}}\ldots \Pi_{X_{1,k'}} \ c_1$ and $\varphi_2 = \Pi_{X_{2,1}}\ldots \Pi_{X_{2,k''}} \ c_2$ be two 1Q expressions and $k', k'' \geq 0$. In general, an expression of the form $\Pi_{X_1}\ldots \Pi_{X_k} \ c$ defines the sequence $a(n) = c^{2^{nk}}$. Denote by $a_1(n)$ and $a_2(n)$ the sequences defined by the expressions $\varphi_1$ and $\varphi_2$, respectively. Then $a_1(n) = (c_1)^{2^{k'n}}$, $a_2(n) = (c_2)^{2^{k''n}}$. The sequences defined by both $\varphi_1 + \varphi_2$ and $\varphi_1 \cdot \varphi_2$ can be bounded by a sequence $a_3(n)$ defined by a 1Q expression $\varphi_3 = \Pi_{X_{1,1}} \ldots \Pi_{X_{1,k'}} \Pi_{X_{2,1}} \ldots \Pi_{X_{2,k''}} \ c_1 \cdot c_2$:
     $$a_1(n) + a_2(n) = (c_1)^{2^{k'n}} + (c_2)^{2^{k''n}} \leq (c_1 \cdot c_2)^{2^{(k' + k'')n}} = a_3(n),$$
     and
     $$a_1(n) \cdot a_3(n) = (c_1)^{2^{k'n}} \cdot (c_2)^{2^{k''n}} \leq (c_1 \cdot c_2)^{2^{(k' + k'')n}} = a_3(n),$$
@@ -300,21 +302,21 @@ This concludes the proof.
 
 \chapter{Eventual periodicity of 1Q sequences modulo}
 \label{Sec1QFiniteSemirings}
-The behavior of 1Q sequences modulo can help characterizing these sequences and comparing them with other classes of sequences. In this section we will demonstrate that 1Q sequences, when taken modulo $m \in \mathbb{N} \setminus \{0\}$, are eventually periodic. As stated in~\cref{ourcontrib}, this result directly follows from the work of Manfred Droste and Paul Gastin~\cite{DrosteG07}, who demonstrated that QMSO expressions over finite semirings are equivalent to weighted automata. We use a different proof method, avoiding the need to introduce weighted automata.
+The behavior of 1Q modular sequences can help characterizing these sequences and comparing them with other classes of sequences. In this section we will demonstrate that 1Q sequences, when taken modulo $m \in \mathbb{N} \setminus \{0\}$, are eventually periodic. As stated in~\cref{ourcontrib}, this result directly follows from the work of Manfred Droste and Paul Gastin~\cite{DrosteG07}, who demonstrated that QMSO expressions over finite semirings are equivalent to weighted automata. We use a different proof method, avoiding the need to introduce weighted automata.
 
 \begin{definition}
     A sequence $a(n)$ is \textit{eventually periodic} if there exists $N, p \in \mathbb{N}$, $p > 0$, such that $\forall_{n > N} \ a(n) = a(n+p)$.
 \end{definition}
 
-This property reveals a limitation of 1Q sequences modulo: they start behaving regularly after a certain point. This characteristic provides an effective method for determining whether a sequence is 1Q-definable. For instance, the sequence of Catalan numbers is not eventually periodic when considered modulo sufficiently large prime numbers, which will demonstrate that it is not 1Q-definable.
+This property reveals that 1Q modular sequences start behaving regularly after a certain point. This characteristic provides an effective method for determining whether a sequence is 1Q-definable. For instance, the sequence of Catalan numbers is not eventually periodic when considered modulo sufficiently large prime numbers, which will demonstrate that it is not 1Q-definable.
 
-We will characterize 1Q sequences modulo as 1Q sequences over the modulo semiring:
+We will characterize 1Q modular sequences as 1Q sequences over the modulo semiring:
 
 \begin{lemma}
     \label{1QModulo}
     Fix a sequence $a(n)$ defined by 1Q expression $\varphi$ over the natural semiring $(\mathbb{N}, +, \cdot, 0, 1)$. The sequence $a(n) \mod m$, where $m \in \mathbb{N} \setminus \{0\}$, can be defined by a 1Q expression $\varphi'$, such that:
     \begin{enumerate}
-        \item $\varphi'$ is a 1Q expression over the semiring $\mathbb{Z}_m = (\{0,\ldots,m-1\}, +_{mod}, \cdot_{mod}, 0, 1),$
+        \item $\varphi'$ is a 1Q expression over the semiring $\mathbb{N}_m = (\{0,\ldots,m-1\}, +_{mod}, \cdot_{mod}, 0, 1),$
         \item every constant $k$ appearing in $\varphi$ is replaced by $k \mod m$ in $\varphi'.$
     \end{enumerate}
 \end{lemma}
@@ -339,7 +341,7 @@ To prove this theorem, we aim to simplify the 1Q expressions defining these sequ
     A \textit{simple recognizable step function} is a recognizable step function $S = \sum_{i = 1}^{n} \ \varphi_{L_i} \cdot k_i$ in which languages $\{L_i : i \in \{1,\ldots,n\}\}$ form a partition of the whole language $\Sigma^* = \dot{\bigcup}_i \ L_i$.
 \end{definition}
 
-Simple recognizable step functions are essentially a more explicit form of recognizable step functions; however, in essence, they represent the same functions:
+Simple recognizable step functions are essentially a more explicit form of recognizable step functions; however, they represent the same functions, which follows from closure properties of regular languages:
 
 \begin{lemma}
     \label{RecEqSimpleRec}
@@ -348,15 +350,15 @@ Simple recognizable step functions are essentially a more explicit form of recog
 
 \begin{proof}
     Suppose we have a recognizable step function $S = \sum_{i = 1}^{n} \ \varphi_{L_i} \cdot k_i$. We will construct a simple recognizable step function that defines the same function. Let $P$ be the powerset of $N = \{1,\ldots,n\}$. Then a simple recognizable step function can be defined as follows:
-    $$S = \sum_{I \in P} \ (\bigwedge_{i \in I} \varphi_{L_i} \bigwedge_{j \in (N-I)} \neg \varphi_{L_j}) \cdot (\sum_{i \in I} \ k_i).$$
-    Each expression $(\bigwedge_{i \in I} \varphi_{L_i} \bigwedge_{j \in (N-I)} \neg \varphi_{L_j})$ is true for exactly one $I \in P$ for given input $w$ - it follows from the law of excluded middle. To calculate the value corresponding to this intersection, we sum the constants associated with the true expressions. This results in a simple recognizable step function that computes the same values as the original recognizable step function.
+    $$S = \sum_{I \in P} \ (\bigwedge_{i \in I} \varphi_{L_i} \bigwedge_{j \in (N \setminus I)} \neg \varphi_{L_j}) \cdot (\sum_{i \in I} \ k_i).$$
+    Each expression $(\bigwedge_{i \in I} \varphi_{L_i} \bigwedge_{j \in (N \setminus I)} \neg \varphi_{L_j})$ is true for exactly one $I \in P$ for given input $w$ - it follows from the law of excluded middle. To calculate the value corresponding to this intersection, we sum the constants associated with the true expressions. This results in a simple recognizable step function that computes the same values as the original recognizable step function.
 
     By definition, a simple recognizable step function is also a recognizable step function, so no further proof is required.
 \end{proof}
 
-\section{Counting runs of automaton}
+\section{Counting runs of an automaton}
 
-We already know that semiring quantifier-free 1Q expressions are equivalent to recognizable step functions~(\cref{QFreeRecognizable}). The complexity arises when we introduce semiring quantifiers into 1Q expressions, creating expressions like $\Pi_{X_1} \Sigma_{X_2} \ \varphi(X_1, X_2) \cdot 3 + \Sigma_{x_3} \ 2$, where $\varphi(X_1, X_2)$ is an MSO expression with two free variables. The primary focus of this section will be to demonstrate that when working modulo, these quantifiers can indeed be eliminated, resulting in a simple recognizable step function. To achieve this, we will employ finite automata constructions and leverage the equivalence between MSO expressions and finite automata to count the number of valuations for which an MSO expression $\varphi$ with free variables holds true.
+We already know that semiring quantifier-free 1Q expressions are equivalent to recognizable step functions~(\cref{QFreeRecognizable}). The complexity arises when we introduce semiring quantifiers into 1Q expressions, creating expressions like $\Pi_{X_1} \Sigma_{X_2} \ \varphi(X_1, X_2) \cdot 3 + \Sigma_{x_3} \ 2$, where $\varphi(X_1, X_2)$ is an MSO expression with two free variables. The primary focus of this section will be to demonstrate that when working modulo $m \in \mathbb{N}$, these quantifiers can indeed be eliminated, resulting in a simple recognizable step function. To achieve this, we will employ finite automata constructions and leverage the equivalence between MSO expressions and finite automata to count the number of valuations for which an MSO expression $\varphi$ with free variables holds true.
 
 We will now prove a lemma concerning the construction of finite automata, which will be used later to count the number of valuations of free variables in MSO expressions. Let $A$ be a nondeterministic finite automaton. Define the function $nRuns_A : \Sigma^* \rightarrow \mathbb{N}$ as the function that calculates the number of accepting runs of automaton $A$ over words $w \in \Sigma^*$. Additionally, we will use the function $nRuns_A : \Sigma^* \times Q \rightarrow \mathbb{N}$, where $Q$ is the set of states of automaton $A$. The function $nRuns_A(w, q)$ calculates the number of runs of automaton $A$ over word $w$ that finish in state $q$.
 
@@ -467,11 +469,11 @@ In the following steps, it will be convenient to work with finite automata rathe
     \end{figure}
 \end{example} \
 
-The method we intend to use to prove that 1Q sequences modulo are eventually periodic involves simplifying the 1Q expressions that define such sequences. The primary source of complexity in 1Q expressions is the use of semiring quantifiers. For instance, to calculate the values of a sequence defined by an expression like $\Sigma_X \ \varphi(X)$, it is necessary to determine how many valuations of $X$ satisfy the expression $\varphi(X)$ for words of varying lengths $1,2,\ldots$.
+The method we intend to use to prove that 1Q modular sequences are eventually periodic involves simplifying the 1Q expressions that define such sequences. The primary source of complexity in 1Q expressions is the use of semiring quantifiers. For instance, to calculate the values of a sequence defined by an expression like $\Sigma_X \ \varphi(X)$, it is necessary to determine how many valuations of $X$ satisfy the expression $\varphi(X)$ for words of varying lengths $1,2,\ldots$.
 
 Fortunately, by manipulating the automata corresponding to expressions with free variables, such as $\varphi(X)$, we can construct nondeterministic automata that effectively ``count'' the number of valuations for which $\varphi(X)$ holds true.
 
-Let $\varphi_V$ be an MSO expression with a non-empty set of free variables $V = \{v_1, \ldots, v_n\}$. Let $A_V$ be the corresponding deterministic finite automaton, i.e., the automaton that recognizes the same language as $\varphi$. Both $\varphi_V$ and $A_V$ recognize the language $L_V \subseteq \Sigma_V^*$. A word $(w, \sigma) \in L_V$ can equivalently be represented as $(w, \sigma(v_1), \ldots \sigma(v_n))$.
+Let $\varphi_V$ be an MSO expression with a non-empty set of free variables $V = \{v_1, \ldots, v_n\}$, recognizing the language $L_V$. Let $A_V$ be the corresponding deterministic finite automaton, i.e., the automaton that recognizes the same language as $\varphi_V$. A word $(w, \sigma) \in L_V$ can equivalently be represented as $(w, \sigma(v_1), \ldots \sigma(v_n))$.
 
 Our objective is to eliminate a variable $v \in V$ to obtain a language $L_{V \setminus \{v\}}$ - a projection that ignores the dimension corresponding to the variable $v$ - and to count the number of valuations of $v$. Without loss of generality, assume that we want to remove the variable $v_n$.
 
@@ -499,7 +501,7 @@ Rather than counting this number explicitly, we will construct a nondeterministi
     we create two corresponding transitions in $\delta_{A_{V \setminus \{v_n\}}}$:
     $$t_0 = q_{a_0} \xrightarrow{(a, x_1, \ldots, x_{n-1})} q_{b_0},$$
     $$t_1 = q_{a_1} \xrightarrow{(a, x_1, \ldots, x_{n-1})} q_{b_0}.$$
-    This means we can start in an arbitrary copy of $q_a$, but we can only end in copy of $q_b$ corresponding to the zero valuation ($q_{b_0}$). 
+    This means we can start in an arbitrary copy of $q_a$, but we can only end in the copy of $q_b$ corresponding to the zero valuation ($q_{b_0}$). 
 
     Similarly, for transition $t' \in \delta_{A_V}$ such that:
     $$t' = q_a \xrightarrow{(a, x_1, \ldots, x_{n-1}, 1)} q_b,$$
@@ -546,16 +548,39 @@ Rather than counting this number explicitly, we will construct a nondeterministi
     $$\varphi(X) = \neg(\exists_{x_1}\exists_{x_2} \ x_1 \in X \land x_2 \in X \land succ(x_1, x_2))$$
     We also constructed a deterministic automaton that recognizes a language over the extended alphabet $\Sigma_V = \{a\} \times \{0,1\}$. From~\cref{LemElimVar}, we know that it is possible to build an automaton, potentially nondeterministic, that ignores one of the free variables, with its number of runs corresponding to the number of valuations of the ignored variable. In this case, this results in the automaton presented in~\cref{fig:my_label2}.
 
+    % \begin{figure}[ht]
+    %     \centering
+    %     \begin{tikzpicture}
+    %         \node[state, initial, accepting] (q1) {$q_1$};
+    %         \node[state, accepting, right of=q1] (q2) {$q_2$};
+    %         \node[state, right of=q2] (q3) {$q_3$};
+    %         \draw (q1) edge[loop above] node{$a$} (q1)
+    %         (q1) edge[bend left, above] node{$a$} (q2)
+    %         (q2) edge[bend left, below] node{$a$} (q1)
+    %         (q2) edge[above] node{$a$} (q3);
+    %         \end{tikzpicture}
+    %     \caption{Nondeterministic ``counting'' automaton that skips variable $X$ from $\varphi(X)$}
+    %     \label{fig:my_label2}
+    % \end{figure}
+
     \begin{figure}[ht]
         \centering
         \begin{tikzpicture}
-            \node[state, initial, accepting] (q1) {$q_1$};
-            \node[state, accepting, right of=q1] (q2) {$q_2$};
-            \node[state, right of=q2] (q3) {$q_3$};
-            \draw (q1) edge[loop above] node{$a$} (q1)
-            (q1) edge[bend left, above] node{$a$} (q2)
-            (q2) edge[bend left, below] node{$a$} (q1)
-            (q2) edge[above] node{$a$} (q3);
+            \node[state, initial, accepting] (q10) {$q_{1_0}$};
+            \node[state, accepting, above of=q10] (q11) {$q_{1_1}$};
+            \node[state, accepting, right of=q10] (q20) {$q_{2_0}$};
+            \node[state, accepting, right of=q11] (q21) {$q_{2_1}$};
+            \node[state, right of=q20] (q30) {$q_{3_0}$};
+            \node[state, right of=q21] (q31) {$q_{3_1}$};
+            \draw 
+            (q10) edge[loop above] node{$a$} (q10)
+            (q10) edge[above] node{$a$} (q21)
+            (q11) edge[bend right, below] node{$a$} (q10)
+            (q11) edge[above] node{$a$} (q21)
+            (q20) edge[above] node{$a$} (q10)
+            (q21) edge[above] node{$a$} (q10)
+            (q20) edge[above] node{$a$} (q31)
+            (q21) edge[above] node{$a$} (q31);
             \end{tikzpicture}
         \caption{Nondeterministic ``counting'' automaton that skips variable $X$ from $\varphi(X)$}
         \label{fig:my_label2}
@@ -564,16 +589,16 @@ Rather than counting this number explicitly, we will construct a nondeterministi
     From the explanation in~\cref{ExFib} regarding the correspondence between $\varphi(X)$ and Fibonacci numbers, and the results in~\cref{LemElimVar}, it follows that the number of accepting runs of the automaton shown in~\cref{fig:my_label2} for a word of length $n$ (i.e., $a^n$) should be equal $F(n+2)$. This is indeed the case and can be proven by induction.
 \end{example}
 
-\section{Semiring quantifiers elimination}
+\section{Elimination of semiring quantifiers}
 The primary complexity in simplifying 1Q expressions, as stated at the beginning of this section, lies in handling semiring quantifiers. In this subsection, we will demonstrate how to eliminate these quantifiers while maintaining the simplicity of the expressions. The following lemmas are crucial for the elimination of semiring quantifiers in 1Q expressions:
 
 \begin{lemma}
     \label{QuantElimAdd}
-    Let $\mathbb{Z}_m$ be a modulo semiring, and let $\varphi$ be a simple recognizable step function on this semiring. Then $\Sigma_x \ \varphi$ and $\Sigma_X \ \varphi$ are also simple recognizable step functions.
+    Let $\mathbb{N}_m$ be a modulo semiring, and let $\varphi$ be a formula defining a simple recognizable step function on this semiring. Then $\Sigma_x \ \varphi$ and $\Sigma_X \ \varphi$ are also simple recognizable step functions.
 \end{lemma}
 
 \begin{proof}
-    Since $\varphi$ is a simple recognizable step function, it can be expressed as $\varphi = \sum_{i = 1}^{n} \ \varphi_{L_i} \cdot k_i$, where $\varphi_{L_i}$ are MSO expressions and $k_i \in \mathbb{Z}_m$. Now, consider the expression $\Sigma_{X} \ \varphi$, where $X$ is either a first-order or a second-order variable. The reasoning is the same regardless of whether we work with first-order or second-order variables, so we will handle both simultaneously. Some of the MSO expressions inside $\varphi$ might contain $X$ as a free variable, while others might not. Nevertheless, in the semantics of QMSO, $\Sigma$ will iterate over all valuations of $X$ to evaluate this expression. We can assume that every MSO expression inside $\varphi$ contains $X$ as a free variable, by simply concatenating every expression with the always true expression $X = X$.
+    Since $\varphi$ is a simple recognizable step function, it can be expressed as $\varphi = \sum_{i = 1}^{n} \ \varphi_{L_i} \cdot k_i$, where $\varphi_{L_i}$ are MSO expressions and $k_i \in \mathbb{N}_m$. Now, consider the expression $\Sigma_{X} \ \varphi$, where $X$ is either a first-order or a second-order variable. The reasoning is the same regardless of whether we work with first-order or second-order variables, so we will handle both simultaneously. Some of the MSO expressions inside $\varphi$ might contain $X$ as a free variable, while others might not. Nevertheless, in the semantics of QMSO, $\Sigma$ will iterate over all valuations of $X$ to evaluate this expression. We can assume that every MSO expression inside $\varphi$ contains $X$ as a free variable, by simply concatenating every expression with the always true expression $X = X$.
 
     Now, for each MSO expression $\varphi_{L_i}$ that appears within $\varphi$, assign a deterministic finite automaton that recognizes the language $L_i$. These MSO expressions include the free variable $X$, so the corresponding automata are defined over an extended alphabet $\Sigma_V$. By having deterministic automata over this extended alphabet, we can apply~\cref{LemElimVar} to construct possibly nondeterministic ``counting'' automata $A_{L_i}$ over alphabet $\Sigma_{V \setminus \{X\}}$. The number of runs of these new automata corresponds to the number of accepting valuations of free variable $X$.
 
@@ -584,17 +609,17 @@ The primary complexity in simplifying 1Q expressions, as stated at the beginning
 
 \begin{lemma}
     \label{QuantElimMult}
-    Let $\mathbb{Z}_m$ be a modulo semiring, and let $\varphi$ be a simple recognizable step function over this semiring. Then $\Pi_x \ \varphi$ and $\Pi_X \ \varphi$ are also simple recognizable step functions.
+    Let $\mathbb{N}_m$ be a modulo semiring, and let $\varphi$ be a formula defining a simple recognizable step function over this semiring. Then $\Pi_x \ \varphi$ and $\Pi_X \ \varphi$ are also simple recognizable step functions.
 \end{lemma}
 
 \begin{proof}
-    Since $\varphi$ is a simple recognizable step function, it can be expressed as $\varphi = \sum_{i = 1}^{n} \ \varphi_{L_i} \cdot k_i$, where $\varphi_{L_i}$ are MSO expressions and $k_i \in \mathbb{Z}_m$. The proof for this lemma will use reasoning similar to that in~\cref{QuantElimAdd}, but with additional complexity. Again, we need to determine how many times each constant $k_i$ appears across all valuations of the variable bound by the quantifier. However, unlike the addition case, it is insufficient to know how many times this constant appears modulo $m$, because in the case of exponentiation, different numbers have different periods when taken modulo $m$. 
+    Since $\varphi$ is a simple recognizable step function, it can be expressed as $\varphi = \sum_{i = 1}^{n} \ \varphi_{L_i} \cdot k_i$, where $\varphi_{L_i}$ are MSO expressions and $k_i \in \mathbb{N}_m$. The proof for this lemma will use reasoning similar to that in~\cref{QuantElimAdd}, but with additional complexity. Again, we need to determine how many times each constant $k_i$ appears across all valuations of the variable bound by the quantifier. However, unlike the addition case, it is insufficient to know how many times this constant appears modulo $m$, because in the case of taking powers, different numbers have different periods when taken modulo $m$. 
     
     For example, consider the constant $2$ when working modulo $3$. We have $2^1 \mod 3 = 2$, $2^2 \mod 3 = 1$, $2^3 \mod 3 = 2$, and so on. For odd exponents, the value will always be $2$, and for even exponents, it will be $1$. Therefore, in this case, we need to know the number of valuations modulo $2$ rather than modulo $3$. 
 
     The situation is also different for constants that are roots of any order of $m$. Suppose we are working modulo $m = 16$ and have a constant $k_i = 2$. In this case, $2^1 \mod 16 = 2$, $2^2 \mod 16 = 4$, $2^3 \mod 16 = 8$, $2^4 \mod 16 = 0$, $2^5 \mod 16 = 0$, and so on. Thus, after reaching $2^4$, for all subsequent exponents, the value will be $0$. In this case, we observe a prefix sequence $2,4,8$, followed by a constant sequence of $0$.
 
-    The general case is as follows. Consider a constant $k_i$, which we exponentiate modulo $m$. The sequence $Exp_{k_i} = (k_i)^1 \mod m, (k_i)^2 \mod m, (k_i)^3 \mod m \ldots$ is eventually periodic. This follows from the fact that this sequence can take on at most $m$ different values, and once $(k_i)^{n_i} \mod m = (k_j)^{n_j} \mod m$, it implies that $(k_i)^{n_i + 1} \mod m = (k_j)^{n_j + 1} \mod m$ (i.e., once a cycle is reached, it cannot be escaped). Since this sequence is eventually periodic, there exist $N_i, p_i \in \mathbb{N}$, with $p_i > 0$ such that $\forall_{n > N_i} \ Exp_{k_i}(n) = Exp_{k_i}(n + p_i)$. Thus, there is a prefix of length $N_i$ (which may be empty if $N_i = 0$) followed by a repeating cycle of length $p_i$. 
+    The general case is as follows. Consider a constant $k_i$. We take its powers modulo $m$. The sequence $Exp_{k_i} = (k_i)^1 \mod m, (k_i)^2 \mod m, (k_i)^3 \mod m \ldots$ is eventually periodic. This follows from the fact that this sequence can take on at most $m$ different values, and once $(k_i)^{n_i} \mod m = (k_j)^{n_j} \mod m$, it implies that $(k_i)^{n_i + 1} \mod m = (k_j)^{n_j + 1} \mod m$ (i.e., once a cycle is reached, it cannot be escaped). Since this sequence is eventually periodic, there exist $N_i, p_i \in \mathbb{N}$, with $p_i > 0$ such that $\forall_{n > N_i} \ Exp_{k_i}(n) = Exp_{k_i}(n + p_i)$. Thus, there is a prefix of length $N_i$ (which may be empty if $N_i = 0$) followed by a repeating cycle of length $p_i$. 
 
     To determine the influence of the constant $k_i$ on the entire expression, we need to introduce $N_i + p_i$ new constants and MSO expressions. First, for $0 < j \leq N_i$, introduce a constant $k_i^j = (k_i)^j \mod m$ and an MSO expression $\varphi_{L_i}^j$ that asserts the existence of exactly $j$ different valuations of $X$ for which $\varphi_{L_i}$ is true, i.e., $\varphi_{L_i}^j = \exists^{=j} \ \varphi_{L_i}$. This handles the prefix of length $N_i$.
     
@@ -611,10 +636,10 @@ The primary complexity in simplifying 1Q expressions, as stated at the beginning
 \section{Final steps}
 Finally, we can characterize 1Q sequences over a modulo semiring as simple recognizable step functions:
 
-\begin{lemma}
+\begin{theorem}
     \label{OverModAreSimpleRec}
-    Let $\mathbb{Z}_m$ be a modulo semiring, and let $\varphi$ be a 1Q sentence over $\mathbb{Z}_m$. Then the sequence defined by $\varphi$ can be expressed as a simple recognizable step function (i.e., $\varphi$ can be reduced to the form of a simple recognizable step function). 
-\end{lemma}
+    Let $\mathbb{N}_m$ be a modulo semiring, and let $\varphi$ be a 1Q sentence over $\mathbb{N}_m$. Then the sequence defined by $\varphi$ can be expressed as a simple recognizable step function (i.e., $\varphi$ can be reduced to the form of a simple recognizable step function). 
+\end{theorem}
 
 \begin{proof}
     We proceed by induction on the structure of the expression $\varphi$. For the base case - expressions without quantification at the semiring level - this follows from~\cref{QFreeRecognizable} and~\cref{RecEqSimpleRec}. 
@@ -626,10 +651,10 @@ Finally, we can characterize 1Q sequences over a modulo semiring as simple recog
 
 From these results, an important characterization of 1Q sequences over modulo semirings follows: 1Q sequences over modulo semirings are eventually periodic.
 
-\begin{lemma}
+\begin{theorem}
     \label{OverModAreSimpleRec2}
-    Let $\mathbb{Z}_m$ be a modulo semiring and let $\varphi$ be a 1Q sentence over $\mathbb{Z}_m$. Then the sequence defined by $\varphi$ is eventually periodic.
-\end{lemma}
+    Let $\mathbb{N}_m$ be a modulo semiring and let $\varphi$ be a 1Q sentence over $\mathbb{N}_m$. Then the sequence defined by $\varphi$ is eventually periodic.
+\end{theorem}
 
 \begin{proof}
     Thanks to~\cref{OverModAreSimpleRec}, we know that $\varphi$ reduces to a simple recognizable step function. It can be easily seen that the language of words for which the sequence defined by $\varphi$ achieves a given value $k_i$ is a regular language - it follows directly from the definition of a simple recognizable step function. Since there is a finite number of values this sequence can achieve (at most $m$). Regular languages on one-letter alphabets are eventually periodic with regard to word length (\cite[Theorem 1]{PighizziniS02}).
@@ -640,7 +665,7 @@ From these results, an important characterization of 1Q sequences over modulo se
 From this, the main result of this section,~\cref{1QSequencesPeriodic}, follows directly
 
 \begin{proof}[Proof of~\cref{1QSequencesPeriodic}]
-    1Q sequences modulo are equivalent to 1Q sequences over a modulo semiring (\cref{1QModulo}). Thus, the result follows directly from~\cref{OverModAreSimpleRec2}.
+    1Q modular sequences are equivalent to 1Q sequences over a modulo semiring (\cref{1QModulo}). Thus, the result follows directly from~\cref{OverModAreSimpleRec2}.
 \end{proof}
 
 \begin{corollary}
@@ -657,7 +682,7 @@ During the research on 1Q sequences, several other interesting topics emerged, t
 
 \section{Characterization of 1Q sequences}
 \label{CharacterizationOf1QSequences}
-1Q expressions a broad class of sequences, notably including the entire class of linear recursive sequences. An interesting research question is: what precisely is the class of sequences defined by 1Q expressions? Is there a simpler or alternative representation of these sequences?
+1Q expressions define a broad class of sequences, notably including the entire class of linear recursive sequences. An interesting research question is: what precisely is the class of sequences defined by 1Q expressions? Is there a simpler or alternative representation of these sequences?
 
 In the Introduction, it was noted that 1Q expressions can define sequences that are not polynomial recursive. This raises an interesting question: is every polynomial recursive sequence also 1Q-definable? This question is challenging to answer, as expressing recursion using 1Q expressions is not straightforward.
 
@@ -705,7 +730,7 @@ For an introduction to polynomial recursive sequences and the necessary definiti
         0 
     \end{pmatrix},
     $$
-    which can be decomposed into following, recursive definition, based on unfolding of $F(n)$:
+    which can be decomposed into the following recursive definition, based on unfolding of $F(n)$:
     $$F_F(n) = 
     \begin{pmatrix}
         0 & 1 
@@ -890,7 +915,7 @@ When working over a modulo semiring, what is the time complexity $O(|\varphi|)$ 
 
 Consider a naive zero-checking procedure that simply iterates over the first $n$ elements of the sequence defined by $\varphi$ and checks whether they are all zero. How many elements must be checked to ensure that the sequence is constantly equal to zero? This problem can also be phrased as: how far into the sequence can the first non-zero element appear, relative to the length of the 1Q expression?
 
-It turns out the problem of zero checking has super-exponential complexity, even without the use of semiring quantifiers. This complexity arises from the expressive power of MSO. As stated in~\cite{Stockmeyer},~\cite{Meyer}, the decision problem for the weak monadic second order logic of successor is not elementary-recursive. This is true when considering arbitrary alphabets, although the proofs primarily focus on binary alphabets. While we work with a unary alphabet, the following transformation allows us to construct equisatisfiable sentences over a unary alphabet from sentences over other alphabets:
+It turns out the problem of zero checking has super-exponential complexity, even without the use of semiring quantifiers. This complexity arises from the expressive power of MSO. As stated in~\cite{Stockmeyer},~\cite{Meyer}, the decision problem for the weak monadic second order logic of successor is not elementary-recursive. Beside the complexity of zero checking, this also entails non elementary-recursive complexity of checking equivalence of two sequences. This is true when considering arbitrary alphabets, although the proofs primarily focus on binary alphabets. While we work with a unary alphabet, the following transformation allows us to construct equisatisfiable sentences over a unary alphabet from sentences over other alphabets:
 
 \begin{itemize}
     \item Let $\varphi$ be a sentence over a non-unary alphabet. Without loss of generality, let this alphabet be binary, $\Sigma = \{a,b\}$.
@@ -904,9 +929,9 @@ The task of characterizing 1Q sequences is non-trivial, but it may be interestin
 
 Unfortunately, this class of sequences also appears challenging to characterize, and it is not obvious how to determine whether a given sequence is definable as a 1Q sentence in first-order logic.
 
-Instead, it might be worthwhile to revisit sequences modulo, as we did in~\cref{Sec1QFiniteSemirings}.
+Instead, it might be worthwhile to revisit modular sequences, as we did in~\cref{Sec1QFiniteSemirings}.
 
-As stated in~\cite{DrosteG07}, first-order definable series coincide with series definable by weighted automata when working with aperiodic semirings. Unfortunately, the semirings we are working with - modulo semirings - are not aperiodic. This can be illustrated by the sequence defined by the following expression:
+As stated in~\cite{DrosteG07}, first-order definable series coincide with series definable by weighted automata when working with aperiodic semirings. The resulting series are also aperiodic. Unfortunately, the semirings we are working with - modulo semirings - are not aperiodic. As a result, the series produced can be periodic and do not coincide with those definable by weighted automata. The following series illustrates this point:
 
 $$ \Sigma_x \ . \ 1 $$
 
